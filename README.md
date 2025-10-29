@@ -14,53 +14,64 @@ _[SCREENSHOT PLACEHOLDER: Add screenshot highlighting the UPSU link that should 
 
 This starter repository provides a minimal skeletal structure with:
 
-- **Homepage** (`lib/main.dart`): A basic homepage with:
-  - Header with navigation icons
-  - Hero section with placeholder content
-  - Product grid displaying 4 placeholder products
-  - Footer section
-- **Product Page** (`lib/product_page.dart`): A single product detail page with:
-
-  - Basic product information (hardcoded dummy data)
-  - Placeholder for size, color, quantity selectors
-  - Placeholder for add to cart and buy now buttons
-
-- **Widget Tests**: Basic tests for both pages:
-  - `test/home_test.dart` - Tests for homepage components
-  - `test/product_test.dart` - Tests for product page components
+- **Homepage** (`lib/main.dart`): A basic homepage
+- **Product Page** (`lib/product_page.dart`): A single product page
+- **Widget Tests**: Basic tests for both of the above pages (`test/home_test.dart` and `test/product_test.dart`)
 
 ## Getting Started
 
 ### Prerequisites
 
-Before you begin, ensure you have the following installed on your system:
+You have three options for your development environment:
 
-#### Windows
+1. **Firebase Studio** (browser-based, no installation required)
+2. **University Windows computers** (via AppsAnywhere)
+3. **Personal computer** (Windows or macOS)
 
-- **Git**: Download from [https://git-scm.com/download/win](https://git-scm.com/download/win)
-- **Flutter SDK**: Download from [https://docs.flutter.dev/get-started/install/windows](https://docs.flutter.dev/get-started/install/windows)
-- **Visual Studio Code** (recommended): Download from [https://code.visualstudio.com/](https://code.visualstudio.com/)
-  - Install the Flutter extension from the VS Code marketplace
-- **Google Chrome**: Required for web development
+#### Quick Setup Guide
 
-#### macOS
+**Firebase Studio (Recommended for Quick Start):**
 
-- **Git**: Usually pre-installed. If not, install via Homebrew: `brew install git`
-- **Flutter SDK**: Download from [https://docs.flutter.dev/get-started/install/macos](https://docs.flutter.dev/get-started/install/macos)
-- **Xcode** (optional, for iOS development): Download from the Mac App Store
-- **Visual Studio Code** (recommended): Download from [https://code.visualstudio.com/](https://code.visualstudio.com/)
-  - Install the Flutter extension from the VS Code marketplace
-- **Google Chrome**: Required for web development
+- Access [idx.google.com](https://idx.google.com) with a personal Google account
+- Create a new workspace (template selection not needed for this coursework)
+- Clone your forked repository using the command palette
 
-#### Verify Flutter Installation
+**University Computers:**
 
-After installing Flutter, verify your setup by running:
+- Use [AppsAnywhere](https://appsanywhere.port.ac.uk/sso) to install:
+  - Git
+  - Flutter And Dart SDK
+  - Visual Studio Code
+
+**Personal Windows Computer:**
+
+- Install [Chocolatey package manager](https://chocolatey.org/install)
+- Run in PowerShell (as Administrator):
+
+  ```powershell
+  choco install git vscode flutter -y
+  ```
+
+**Personal macOS Computer:**
+
+- Install [Homebrew package manager](https://brew.sh/)
+- Run in Terminal:
+
+  ```bash
+  brew install --cask visual-studio-code flutter
+  ```
+
+#### Verify Installation (Skip if using Firebase Studio)
+
+After installation, verify your setup by running:
 
 ```bash
 flutter doctor
 ```
 
-This command checks your environment and displays a report of the status of your Flutter installation. Ensure all necessary dependencies are installed.
+This command checks your environment and displays a report of the status of your Flutter installation.
+
+**For detailed step-by-step instructions**, refer to [Worksheet 1 — Introduction to Flutter](https://manighahrmani.github.io/sandwich_shop/worksheet-1.html), which covers the complete setup process for all three options.
 
 ### Step 1: Fork the Repository
 
@@ -70,6 +81,7 @@ This command checks your environment and displays a report of the status of your
 2. Click the "Fork" button in the top-right corner of the page
 3. Ensure the repository is set to **Public**
 4. Click "Create fork"
+5. Make a note of your forked repository URL (e.g., `https://github.com/YOUR-USERNAME/union_shop` where `YOUR-USERNAME` is your GitHub username)
 
 _[SCREENSHOT PLACEHOLDER: Add screenshot showing the Fork button]_
 
@@ -86,12 +98,16 @@ git clone https://github.com/YOUR-USERNAME/union_shop.git
 cd union_shop
 ```
 
+Replace `YOUR-USERNAME` with your actual GitHub username.
+
 #### On macOS (Terminal)
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/union_shop.git
 cd union_shop
 ```
+
+Replace `YOUR-USERNAME` with your actual GitHub username.
 
 **Note:** Replace `YOUR-USERNAME` with your actual GitHub username.
 
