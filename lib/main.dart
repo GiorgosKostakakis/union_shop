@@ -67,56 +67,56 @@ class HomeScreen extends StatelessWidget {
                           const Spacer(),
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.search,
                                     size: 18,
                                     color: Colors.grey,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
+                                  padding: EdgeInsets.all(8),
+                                  constraints: BoxConstraints(
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
                                   onPressed: null,
                                 ),
                                 IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.person_outline,
                                     size: 18,
                                     color: Colors.grey,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
+                                  padding: EdgeInsets.all(8),
+                                  constraints: BoxConstraints(
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
                                   onPressed: null,
                                 ),
                                 IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.shopping_bag_outlined,
                                     size: 18,
                                     color: Colors.grey,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
+                                  padding: EdgeInsets.all(8),
+                                  constraints: BoxConstraints(
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
                                   onPressed: null,
                                 ),
                                 IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.menu,
                                     size: 18,
                                     color: Colors.grey,
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
+                                  padding: EdgeInsets.all(8),
+                                  constraints: BoxConstraints(
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
