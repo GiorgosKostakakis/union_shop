@@ -58,14 +58,11 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
-                          // Static logo text
-                          const Text(
-                            'UNION SHOP',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
+                          // Logo image
+                          Image.asset(
+                            'assets/logo.png',
+                            height: 40,
+                            fit: BoxFit.contain,
                           ),
                           const Spacer(),
                           ConstrainedBox(
@@ -142,10 +139,15 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               child: Stack(
                 children: [
-                  // Static background color
+                  // Hero background image
                   Positioned.fill(
                     child: Container(
-                      color: const Color(0xFF4d2963),
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/hero.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.3),
@@ -229,26 +231,22 @@ class HomeScreen extends StatelessWidget {
                         ProductCard(
                           title: 'Placeholder Product 1',
                           price: '£10.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          imageUrl: 'assets/product1.png',
                         ),
                         ProductCard(
                           title: 'Placeholder Product 2',
                           price: '£15.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          imageUrl: 'assets/product2.png',
                         ),
                         ProductCard(
                           title: 'Placeholder Product 3',
                           price: '£20.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          imageUrl: 'assets/product3.png',
                         ),
                         ProductCard(
                           title: 'Placeholder Product 4',
                           price: '£25.00',
-                          imageUrl:
-                              'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          imageUrl: 'assets/product4.png',
                         ),
                       ],
                     ),
@@ -296,11 +294,17 @@ class ProductCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
           Expanded(
-            child: Container(
-              color: Colors.grey[300],
-              child: const Center(
-                child: Icon(Icons.image, size: 48, color: Colors.grey),
-              ),
+            child: Image.asset(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Center(
+                    child: Icon(Icons.image_not_supported, color: Colors.grey),
+                  ),
+                );
+              },
             ),
           ),
           Column(
