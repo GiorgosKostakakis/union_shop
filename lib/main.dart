@@ -296,17 +296,11 @@ class ProductCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
           Expanded(
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
-                  ),
-                );
-              },
+            child: Container(
+              color: Colors.grey[300],
+              child: const Center(
+                child: Icon(Icons.image, size: 48, color: Colors.grey),
+              ),
             ),
           ),
           Column(
