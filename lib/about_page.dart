@@ -53,6 +53,7 @@ class AboutPage extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const Spacer(),
                         ],
                       ),
                     ),
