@@ -39,6 +39,20 @@ class AboutPage extends StatelessWidget {
                             fit: BoxFit.contain,
                           ),
                           const SizedBox(width: 16),
+                          // Home button
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              'Home',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
