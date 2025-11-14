@@ -282,6 +282,7 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(width: 96),
                   // Opening Hours - Left
                   Expanded(
                     child: Column(
