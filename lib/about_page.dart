@@ -47,7 +47,7 @@ class AboutPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(24),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: const [
                   Text(
                     'About Us',
@@ -56,6 +56,7 @@ class AboutPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 16),
                   Text(
@@ -70,6 +71,7 @@ class AboutPage extends StatelessWidget {
                       height: 1.5,
                       color: Colors.black87,
                     ),
+                    textAlign: TextAlign.left,
                   ),
                 ],
               ),
