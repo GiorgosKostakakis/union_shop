@@ -9,6 +9,15 @@ class AboutPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Header
+            Container(
+              height: 100,
+              color: Colors.white,
+              child: Column(
+                children: [
+                ],
+              ),
+            ),
             // Hero Section
             Container(
               width: double.infinity,
