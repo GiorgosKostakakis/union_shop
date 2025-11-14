@@ -6,6 +6,11 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('About Us'),
+        backgroundColor: const Color(0xFF4d2963),
+        foregroundColor: Colors.white,
+      ),
       body: Container(),
     );
   }
