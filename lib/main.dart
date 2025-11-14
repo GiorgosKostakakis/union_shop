@@ -279,74 +279,98 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               color: Colors.grey[50],
               padding: const EdgeInsets.all(24),
-              child: Column(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Opening Hours',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                children: [
+                  // Opening Hours - Left
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Opening Hours',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          '(Term Time)',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Monday - Friday 9am - 4pm',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          '(Outside of Term Time / Consolidation Weeks)',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Monday - Friday 9am - 3pm',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Purchase online 24/7',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 12),
-                  Text(
-                    '(Term Time)',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
+                  SizedBox(width: 24),
+                  // Help & Info - Middle
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Help & Info',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    'Monday - Friday 9am - 4pm',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    '(Outside of Term Time / Consolidation Weeks)',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    'Monday - Friday 9am - 3pm',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 14,
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    'Purchase online 24/7',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  Text(
-                    'Help & Info',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  Text(
-                    'Latest Offers',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  SizedBox(width: 24),
+                  // Latest Offers - Right
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Latest Offers',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
