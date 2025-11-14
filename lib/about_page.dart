@@ -54,6 +54,14 @@ class AboutPage extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
+                          ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 600),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
