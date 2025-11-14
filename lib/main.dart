@@ -68,6 +68,21 @@ class HomeScreen extends StatelessWidget {
                             height: 40,
                             fit: BoxFit.contain,
                           ),
+                          const SizedBox(width: 16),
+                          // About Us button
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/about');
+                            },
+                            child: const Text(
+                              'About Us',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                           const Spacer(),
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
