@@ -11,7 +11,11 @@ class AboutPage extends StatelessWidget {
         backgroundColor: const Color(0xFF4d2963),
         foregroundColor: Colors.white,
       ),
-      body: Container(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [],
+        ),
+      ),
     );
   }
 }
