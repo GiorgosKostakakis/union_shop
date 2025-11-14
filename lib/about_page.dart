@@ -32,6 +32,13 @@ class AboutPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
+                          // Logo image
+                          Image.asset(
+                            'assets/logo.png',
+                            height: 40,
+                            fit: BoxFit.contain,
+                          ),
+                          const SizedBox(width: 16),
                         ],
                       ),
                     ),
