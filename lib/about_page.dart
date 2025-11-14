@@ -42,6 +42,33 @@ class AboutPage extends StatelessWidget {
                 ],
               ),
             ),
+
+            // Our about us section 
+            Container(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'About Us',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Union Shop has been serving the University of Portsmouth student community for years. We are committed to providing quality products and services that enhance your university experience.',
+                    style: TextStyle(
+                      fontSize: 16,
+                      height: 1.5,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
