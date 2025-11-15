@@ -345,8 +345,8 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           'Help & Info',
                           style: TextStyle(
                             color: Colors.black,
