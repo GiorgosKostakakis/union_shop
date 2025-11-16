@@ -141,23 +141,26 @@ class CollectionsPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Card(
                 elevation: 2,
+                clipBehavior: Clip.antiAlias,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Collection Image
-                    Container(
+                    SizedBox(
                       height: 200,
                       width: double.infinity,
-                      color: Colors.grey[300],
                       child: Image.asset(
                         'assets/collection_clothing.png',
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return Center(
-                            child: Icon(
-                              Icons.image,
-                              size: 64,
-                              color: Colors.grey[400],
+                          return Container(
+                            color: Colors.grey[300],
+                            child: Center(
+                              child: Icon(
+                                Icons.image,
+                                size: 64,
+                                color: Colors.grey[400],
+                              ),
                             ),
                           );
                         },
