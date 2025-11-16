@@ -151,7 +151,7 @@ class CollectionsPage extends StatelessWidget {
                       width: double.infinity,
                       child: Image.asset(
                         'assets/collection_clothing.png',
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: Colors.grey[300],
