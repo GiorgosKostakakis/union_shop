@@ -136,310 +136,279 @@ class CollectionsPage extends StatelessWidget {
               ),
             ),
 
-            // First Collection Card
+            // Collections Grid - 3 columns
             Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 250,
-                  child: Card(
-                    elevation: 2,
-                    clipBehavior: Clip.antiAlias,
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Column 1
+                  Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Collection Image
-                        SizedBox(
-                          height: 150,
-                          width: double.infinity,
-                          child: Image.asset(
-                            'assets/collection_clothing.png',
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: Center(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 64,
-                                    color: Colors.grey[400],
+                        // Clothing
+                        Card(
+                          elevation: 2,
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/collection_clothing.png',
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          size: 64,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text(
+                                  'Clothing',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                            ],
                           ),
                         ),
-                        // Collection Title
-                        const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            'Clothing',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        const SizedBox(height: 20),
+                        // Signature Range
+                        Card(
+                          elevation: 2,
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/collection_signature.png',
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          size: 64,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text(
+                                  'Signature Range',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Second Collection Card - Merchandise
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 250,
-                  child: Card(
-                    elevation: 2,
-                    clipBehavior: Clip.antiAlias,
+                  const SizedBox(width: 20),
+                  // Column 2
+                  Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 150,
-                          width: double.infinity,
-                          child: Image.asset(
-                            'assets/collection_merchandise.png',
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: Center(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 64,
-                                    color: Colors.grey[400],
+                        // Merchandise
+                        Card(
+                          elevation: 2,
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/collection_merchandise.png',
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          size: 64,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text(
+                                  'Merchandise',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                            ],
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            'Merchandise',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        const SizedBox(height: 20),
+                        // Graduation
+                        Card(
+                          elevation: 2,
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/collection_graduation.png',
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          size: 64,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text(
+                                  'Graduation',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Third Collection Card - Student Essentials
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 250,
-                  child: Card(
-                    elevation: 2,
-                    clipBehavior: Clip.antiAlias,
+                  const SizedBox(width: 20),
+                  // Column 3
+                  Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 150,
-                          width: double.infinity,
-                          child: Image.asset(
-                            'assets/collection_essentials.png',
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: Center(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 64,
-                                    color: Colors.grey[400],
+                        // Student Essentials
+                        Card(
+                          elevation: 2,
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/collection_essentials.png',
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          size: 64,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text(
+                                  'Student Essentials',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                            ],
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            'Student Essentials',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        const SizedBox(height: 20),
+                        // SALE
+                        Card(
+                          elevation: 2,
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Image.asset(
+                                  'assets/collection_sale.png',
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.image,
+                                          size: 64,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Text(
+                                  'SALE',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Fourth Collection Card - Signature Range
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 250,
-                  child: Card(
-                    elevation: 2,
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 150,
-                          width: double.infinity,
-                          child: Image.asset(
-                            'assets/collection_signature.png',
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: Center(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 64,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            'Signature Range',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Fifth Collection Card - Graduation
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 250,
-                  child: Card(
-                    elevation: 2,
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 150,
-                          width: double.infinity,
-                          child: Image.asset(
-                            'assets/collection_graduation.png',
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: Center(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 64,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            'Graduation',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Sixth Collection Card - SALE
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  width: 250,
-                  child: Card(
-                    elevation: 2,
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 150,
-                          width: double.infinity,
-                          child: Image.asset(
-                            'assets/collection_sale.png',
-                            fit: BoxFit.contain,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                color: Colors.grey[300],
-                                child: Center(
-                                  child: Icon(
-                                    Icons.image,
-                                    size: 64,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(16),
-                          child: Text(
-                            'SALE',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                ],
               ),
             ),
             const SizedBox(height: 40),
