@@ -138,46 +138,52 @@ class CollectionsPage extends StatelessWidget {
 
             // First Collection Card
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Card(
-                elevation: 2,
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Collection Image
-                    SizedBox(
-                      height: 200,
-                      width: double.infinity,
-                      child: Image.asset(
-                        'assets/collection_clothing.png',
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.grey[300],
-                            child: Center(
-                              child: Icon(
-                                Icons.image,
-                                size: 64,
-                                color: Colors.grey[400],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    // Collection Title
-                    const Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        'Clothing',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+              padding: const EdgeInsets.only(left: 40, right: 40),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  width: 250,
+                  child: Card(
+                    elevation: 2,
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Collection Image
+                        SizedBox(
+                          height: 150,
+                          width: double.infinity,
+                          child: Image.asset(
+                            'assets/collection_clothing.png',
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[300],
+                                child: Center(
+                                  child: Icon(
+                                    Icons.image,
+                                    size: 64,
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
+                        // Collection Title
+                        const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text(
+                            'Clothing',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
