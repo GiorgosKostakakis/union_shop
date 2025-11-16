@@ -140,7 +140,7 @@ class CollectionsPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 40, right: 40),
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: SizedBox(
                   width: 250,
                   child: Card(
