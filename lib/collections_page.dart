@@ -136,6 +136,50 @@ class CollectionsPage extends StatelessWidget {
               ),
             ),
 
+            // First Collection Card
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Card(
+                elevation: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Collection Image
+                    Container(
+                      height: 200,
+                      width: double.infinity,
+                      color: Colors.grey[300],
+                      child: Image.asset(
+                        'assets/collection_clothing.png',
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Center(
+                            child: Icon(
+                              Icons.image,
+                              size: 64,
+                              color: Colors.grey[400],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    // Collection Title
+                    const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        'Clothing',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 40),
+
             // Footer
             const Footer(),
           ],
