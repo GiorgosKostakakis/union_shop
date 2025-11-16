@@ -123,11 +123,16 @@ class CollectionsPage extends StatelessWidget {
               ),
             ),
 
-            // Content will go here
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: Text('Collections Content'),
+            // Collections Title Section
+            Container(
+              padding: const EdgeInsets.all(40),
+              child: const Text(
+                'Collections',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
             ),
 
