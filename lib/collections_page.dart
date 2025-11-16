@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/footer.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
@@ -129,6 +130,9 @@ class CollectionsPage extends StatelessWidget {
                 child: Text('Collections Content'),
               ),
             ),
+
+            // Footer
+            const Footer(),
           ],
         ),
       ),
