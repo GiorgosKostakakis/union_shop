@@ -86,6 +86,20 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          // Collections button
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/collections');
+                            },
+                            child: const Text(
+                              'Collections',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                           const Spacer(),
                           ConstrainedBox(
                             constraints: const BoxConstraints(maxWidth: 600),
