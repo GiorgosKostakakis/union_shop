@@ -16,7 +16,7 @@ void main() {
 
       // Check that basic UI elements are present
       expect(
-        find.text('PLACEHOLDER HEADER TEXT - STUDENTS TO UPDATE!'),
+        find.text('PLACEHOLDER HEADER TEXT'),
         findsOneWidget,
       );
       expect(find.text('Placeholder Product Name'), findsOneWidget);
@@ -28,10 +28,10 @@ void main() {
       await tester.pumpWidget(createTestWidget());
       await tester.pump();
 
-      // Check that student instruction is present
+      // Check that product description is present
       expect(
         find.text(
-          'Students should add size options, colour options, quantity selector, add to cart button, and buy now button here.',
+          'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
         ),
         findsOneWidget,
       );
@@ -53,10 +53,6 @@ void main() {
 
       // Check that footer is present
       expect(find.text('Placeholder Footer'), findsOneWidget);
-      expect(
-        find.text('Students should customise this footer section'),
-        findsOneWidget,
-      );
     });
   });
 }
