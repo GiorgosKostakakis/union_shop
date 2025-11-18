@@ -67,7 +67,7 @@ This file contains a structured feature checklist and step-by-step implementatio
          - Commit: `Add search and filter UI to CollectionPage`
        - [x] Display a static product grid in the `CollectionPage` as placeholder
          - Commit: `Add static product grid to CollectionPage`
-       - [ ] Wire `CollectionPage` to use collection model/fixtures
+       - [x] Wire `CollectionPage` to use collection model/fixtures
          - Commit: `Load products for Collection from fixtures`
 
 ### Product Page (4%) [x]
@@ -136,9 +136,9 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Subtasks:
        - [ ] Create `lib/models/collection.dart` (id/title/productIds) and update `Product` model if needed
          - Commit: `Add Collection model`
-       - [ ] Create `lib/models/fixtures.dart` with sample `product` and `collection` lists
+  - [x] Create `lib/models/fixtures.dart` with sample `product` and `collection` lists
          - Commit: `Add fixtures for products and collections`
-       - [ ] Update `CollectionsPage` to read from fixtures, not hardcoded values
+  - [x] Update `CollectionsPage` to read from fixtures, not hardcoded values
          - Commit: `Load CollectionsPage from fixtures`
   2. Wire collections to `CollectionsPage` (dynamic)
      - Prompt: "Change `CollectionsPage` to load items from `fixtures.collections` and render them." 
@@ -151,7 +151,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Prompt: "Update `CollectionPage` to use Product model and show product cards with data from selected collection." 
      - Acceptance: Products for the chosen collection appear
      - Subtasks:
-       - [ ] Update `CollectionPage` to accept a `Collection` and display products from the matching `productIds`
+  - [x] Update `CollectionPage` to accept a `Collection` and display products from the matching `productIds`
          - Commit: `Populate CollectionPage from model`
        - [ ] Implement a simple filter/sort that filters the displayed list by price/keyword
          - Commit: `Add basic filtering/sorting to CollectionPage`
