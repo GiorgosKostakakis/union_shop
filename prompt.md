@@ -1,4 +1,4 @@
-"I have a Flutter e-commerce app with a home page that displays product cards in a grid. Currently, the product cards show product images, titles, and prices, but clicking on them doesn't do anything.
+"I have a Flutter app with a home page that displays product cards in a grid. Currently, the product cards show product images, titles, and prices, but clicking on them doesn't do anything.
 
 I need to implement navigation so that when a user clicks/taps on a product card (specifically the product image), it navigates to the ProductPage and displays that specific product's details.
 
