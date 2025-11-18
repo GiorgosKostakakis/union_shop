@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/models/collection.dart';
+import 'package:union_shop/models/product.dart';
 
 class CollectionPage extends StatelessWidget {
-  final String title;
+  final Collection? collection;
 
   const CollectionPage({
     super.key,
-    this.title = 'Collection',
+    this.collection,
   });
 
   @override
@@ -42,7 +44,7 @@ class CollectionPage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    title,
+                    collection?.title ?? 'Collection',
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -83,7 +85,7 @@ class CollectionPage extends StatelessWidget {
               ),
             ),
 
-            // Product Grid (static sample)
+                // Product Grid (static sample) - use collection.products when available
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: GridView.count(
@@ -93,32 +95,65 @@ class CollectionPage extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 childAspectRatio: 0.8,
-                children: List.generate(6, (index) {
-                  return Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            color: Colors.grey[300],
-                            child: const Center(child: Icon(Icons.image, size: 48)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                children: collection != null
+                    ? collection!.products.map((Product p) {
+                        return Card(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Product name', style: TextStyle(fontSize: 14)),
-                              SizedBox(height: 4),
-                              Text('£10.00', style: TextStyle(color: Colors.grey)),
+                            children: [
+                              Expanded(
+                                child: Image.asset(
+                                  p.imageUrl,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: const Center(child: Icon(Icons.image_not_supported)),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(p.title, style: const TextStyle(fontSize: 14)),
+                                    const SizedBox(height: 4),
+                                    Text(p.price, style: const TextStyle(color: Colors.grey)),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+                        );
+                      }).toList()
+                    : List.generate(6, (index) {
+                        return Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  color: Colors.grey[300],
+                                  child: const Center(child: Icon(Icons.image, size: 48)),
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Product name', style: TextStyle(fontSize: 14)),
+                                    SizedBox(height: 4),
+                                    Text('£10.00', style: TextStyle(color: Colors.grey)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
               ),
             ),
 
