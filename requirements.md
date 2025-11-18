@@ -17,7 +17,7 @@ This file contains a structured feature checklist and step-by-step implementatio
 
 ## Basic (40%)
 
-### Static Homepage (5%)
+### Static Homepage (5%) [x]
 - Description: Mobile-first homepage layout, hardcoded product examples allowed.
 - Steps & prompts:
   1. Create hero section and top navigation
@@ -29,7 +29,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: grid displays 4 product cards with titles and prices
      - Commit: `Add products grid to homepage`
 
-### About Us Page (5%)
+### About Us Page (5%) [x]
 - Description: Simple about us screen with content and contact info.
 - Steps & prompts:
   1. Create `AboutPage` route
@@ -37,7 +37,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: `About` route reachable; About content shown
      - Commit: `Add AboutPage with static content`
 
-### Footer (4%)
+### Footer (4%) [x]
 - Description: Footer with 'Opening Hours', 'Help & Info' and 'Latest Offers'. 
 - Steps & prompts:
   1. Create `Footer` widget
@@ -45,7 +45,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: Footer visible and reusable across pages
      - Commit: `Add reusable Footer widget`
 
-### Collections page (5%)
+### Collections page (5%) [x]
 - Description: Page showing product categories. Static cards allowed.
 - Steps & prompts:
   1. Create `CollectionsPage` route and add to nav
@@ -61,7 +61,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: Collection page shows product cards and filter UI
      - Commit: `Add Collection detail page template`
 
-### Product Page (4%)
+### Product Page (4%) [x]
 - Description: Product detail page showing images and details; widgets may be non-functional.
 - Steps & prompts:
   1. Create `ProductPage` with placeholders
@@ -85,7 +85,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: Forms present, validation errors are visible when invalid input provided
      - Commit: `Add Login and Register template pages`
 
-### Static Navbar (5%)
+### Static Navbar (5%) [x]
 - Description: Top navigation for desktop; collapsible on mobile.
 - Steps & prompts:
   1. Implement responsive navbar
@@ -156,7 +156,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: All routes reachable through navigation and buttons
      - Commit: `Add app routes and wire navigation`
 
-### Responsiveness (5%)
+### Responsiveness (5%) [x]
 - Steps & prompts:
   1. Add breakpoints for grid and card layouts
      - Prompt: "Adjust GridView/Wrap to show 1 column on mobile and 3 columns on wide screens; test layout with browser width toggles." 
@@ -206,7 +206,7 @@ This file contains a structured feature checklist and step-by-step implementatio
   - Prompt: "Create README with 'How to run', 'Features implemented', 'Testing', 'Notes on data'"
   - Acceptance: README contains step-by-step start & test instructions
 
-### Testing (6%)
+### Testing (6%) [x]
 - Steps:
   1. Add widget tests for navigation and product-page rendering
   2. Ensure all tests pass
