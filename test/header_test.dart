@@ -40,16 +40,10 @@ void main() {
       ));
       await tester.pumpAndSettle();
 
-      // Find the logo asset and tap it
-      final logoFinder = find.byWidgetPredicate((widget) {
-        return widget is Image && widget.image is AssetImage &&
-            (widget.image as AssetImage).assetName == 'assets/logo.png';
-      });
-
-  expect(logoFinder, findsOneWidget);
-  await tester.ensureVisible(logoFinder);
-  await tester.pumpAndSettle();
-  await tester.tap(logoFinder, warnIfMissed: false);
+  // Find the Home button in the header and tap it
+  final homeFinder = find.text('Home');
+  expect(homeFinder, findsOneWidget);
+  await tester.tap(homeFinder);
       await tester.pumpAndSettle();
 
       // HomeScreen should be visible after logo tap
