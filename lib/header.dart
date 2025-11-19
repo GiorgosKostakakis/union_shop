@@ -27,12 +27,21 @@ class Header extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
-                  GestureDetector(
-                    onTap: onLogoTap,
-                    child: Image.asset(
-                      'assets/logo.png',
-                      height: 40,
-                      fit: BoxFit.contain,
+                  Image.asset(
+                    'assets/logo.png',
+                    height: 40,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(width: 8),
+                  TextButton(
+                    onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
+                    child: const Text(
+                      'Home',
+                      style: TextStyle(
+                        color: Color(0xFF4d2963),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 16),
