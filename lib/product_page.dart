@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header.dart';
+import 'package:union_shop/models/product.dart';
 
 class ProductPage extends StatelessWidget {
-  const ProductPage({super.key});
+  final Product? product;
 
+  const ProductPage({super.key, this.product});
   void navigateToHome(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
@@ -37,40 +39,37 @@ class ProductPage extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.grey[300],
-                            child: const Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.image_not_supported,
-                                    size: 64,
-                                    color: Colors.grey,
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'Image unavailable',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
+                       child: product != null && product!.imageUrl.startsWith('assets/')
+                          // If the image path references a local asset, load it via Image.asset
+                          ? Image.asset(
+                              product!.imageUrl,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey[300],
+                                  child: const Center(child: Icon(Icons.image_not_supported)),
+                                );
+                              },
+                            )
+                          : Image.network(
+                              product?.imageUrl ??
+                                  'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  color: Colors.grey[300],
+                                  child: const Center(child: Icon(Icons.image_not_supported)),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
                     ),
                   ),
 
                   const SizedBox(height: 24),
 
                   // Product name
-                  const Text(
-                    'Placeholder Product Name',
+                  Text(
+                    product?.title ?? 'Placeholder Product Name',
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -81,8 +80,8 @@ class ProductPage extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   // Product price
-                  const Text(
-                    '£15.00',
+                  Text(
+                    product?.price ?? '£15.00',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -109,6 +108,48 @@ class ProductPage extends StatelessWidget {
                       color: Colors.grey,
                       height: 1.5,
                     ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Simple product options - not functional but displayed
+                  Row(
+                    children: [
+                      const Text('Size: '),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: 'M',
+                        items: const [
+                          DropdownMenuItem(value: 'S', child: Text('S')),
+                          DropdownMenuItem(value: 'M', child: Text('M')),
+                          DropdownMenuItem(value: 'L', child: Text('L')),
+                        ],
+                        onChanged: (v) {},
+                      ),
+                      const SizedBox(width: 24),
+                      const Text('Qty: '),
+                      const SizedBox(width: 8),
+                      const Text('1'),
+                    ],
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // CTA Buttons
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF4d2963),
+                        ),
+                        child: const Text('Add to cart'),
+                      ),
+                      const SizedBox(width: 12),
+                      OutlinedButton(
+                        onPressed: () {},
+                        child: const Text('Buy now'),
+                      ),
+                    ],
                   ),
                 ],
               ),
