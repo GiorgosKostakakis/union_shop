@@ -18,7 +18,7 @@ class ProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-                Header(onLogoTap: () => navigateToHome(context)),
+                const Header(),
 
             // Product details
             Container(

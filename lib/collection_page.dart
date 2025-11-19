@@ -40,7 +40,7 @@ class CollectionPage extends StatelessWidget {
             ),
 
             // Header
-            Header(onLogoTap: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false)),
+            const Header(),
 
             // Page Title (minimal skeleton)
             Container(

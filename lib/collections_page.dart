@@ -14,7 +14,7 @@ class CollectionsPage extends StatelessWidget {
         child: Column(
           children: [
                 // Header
-                Header(onLogoTap: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false)),
+                const Header(),
 
             // Collections Title Section
             Container(
