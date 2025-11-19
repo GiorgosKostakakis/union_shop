@@ -80,7 +80,12 @@ class CollectionPage extends StatelessWidget {
                 childAspectRatio: 0.8,
                 children: collection != null
                     ? collection!.products.map((Product p) {
-                        return Card(
+                        return GestureDetector(
+                          onTap: () {
+                            // Navigate to product page with the product as argument
+                            Navigator.pushNamed(context, '/product', arguments: p);
+                          },
+                          child: Card(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -109,7 +114,8 @@ class CollectionPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                        );
+                        ),
+                      );
                       }).toList()
                     : List.generate(6, (index) {
                         return Card(
