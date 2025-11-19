@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/header.dart';
 import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/product.dart';
 
@@ -37,6 +38,9 @@ class CollectionPage extends StatelessWidget {
                 ],
               ),
             ),
+
+            // Header
+            Header(onLogoTap: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false)),
 
             // Page Title (minimal skeleton)
             Container(
