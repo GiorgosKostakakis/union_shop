@@ -70,7 +70,7 @@ class ProductPage extends StatelessWidget {
                   // Product name
                   Text(
                     product?.title ?? 'Placeholder Product Name',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -82,7 +82,7 @@ class ProductPage extends StatelessWidget {
                   // Product price
                   Text(
                     product?.price ?? '£15.00',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF4d2963),

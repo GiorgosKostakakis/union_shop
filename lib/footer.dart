@@ -14,10 +14,10 @@ class Footer extends StatelessWidget {
         children: [
           const SizedBox(width: 96),
           // Opening Hours - Left
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'Opening Hours',
                   style: TextStyle(
@@ -120,10 +120,10 @@ class Footer extends StatelessWidget {
           ),
           const SizedBox(width: 24),
           // Latest Offers - Right
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'Latest Offers',
                   style: TextStyle(
