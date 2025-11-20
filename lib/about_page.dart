@@ -17,8 +17,8 @@ class AboutPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(40),
               color: const Color(0xFF4d2963),
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   Text(
                     'About Union Shop',
                     style: TextStyle(
@@ -44,9 +44,9 @@ class AboutPage extends StatelessWidget {
             // Our about us section 
             Container(
               padding: const EdgeInsets.all(24),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     'About Us',
                     style: TextStyle(
