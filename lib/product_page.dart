@@ -2,22 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/models/product.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   final Product? product;
 
   const ProductPage({super.key, this.product});
-  void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  // Local UI state for product options
+  String selectedSize = 'M';
+  String selectedColor = 'Black';
+  int quantity = 1;
+
+  void _incrementQty() {
+    setState(() {
+      quantity += 1;
+    });
   }
 
-  void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
+  void _decrementQty() {
+    setState(() {
+      if (quantity > 1) quantity -= 1;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     // Ensure we always have a product to display; fallback to a static local-asset product
-    final Product displayProduct = product ??
+    final Product displayProduct = widget.product ??
         const Product(
           title: 'Placeholder Product Name',
           price: '£15.00',
@@ -28,7 +43,7 @@ class ProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-                const Header(),
+            const Header(),
 
             // Product details
             Container(
@@ -118,24 +133,79 @@ class ProductPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
 
-                  // Simple product options - not functional but displayed
-                  Row(
+                  // Product options wired to local state
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Size: '),
-                      const SizedBox(width: 8),
-                      DropdownButton<String>(
-                        value: 'M',
-                        items: const [
-                          DropdownMenuItem(value: 'S', child: Text('S')),
-                          DropdownMenuItem(value: 'M', child: Text('M')),
-                          DropdownMenuItem(value: 'L', child: Text('L')),
+                      Row(
+                        children: [
+                          const Text('Size: '),
+                          const SizedBox(width: 8),
+                          DropdownButton<String>(
+                            key: const Key('sizeDropdown'),
+                            value: selectedSize,
+                            items: const [
+                              DropdownMenuItem(value: 'S', child: Text('S')),
+                              DropdownMenuItem(value: 'M', child: Text('M')),
+                              DropdownMenuItem(value: 'L', child: Text('L')),
+                            ],
+                            onChanged: (v) {
+                              if (v == null) return;
+                              setState(() {
+                                selectedSize = v;
+                              });
+                            },
+                          ),
+                          const SizedBox(width: 24),
+                          const Text('Color: '),
+                          const SizedBox(width: 8),
+                          DropdownButton<String>(
+                            key: const Key('colorDropdown'),
+                            value: selectedColor,
+                            items: const [
+                              DropdownMenuItem(value: 'Black', child: Text('Black')),
+                              DropdownMenuItem(value: 'White', child: Text('White')),
+                              DropdownMenuItem(value: 'Blue', child: Text('Blue')),
+                            ],
+                            onChanged: (v) {
+                              if (v == null) return;
+                              setState(() {
+                                selectedColor = v;
+                              });
+                            },
+                          ),
                         ],
-                        onChanged: (v) {},
                       ),
-                      const SizedBox(width: 24),
-                      const Text('Qty: '),
-                      const SizedBox(width: 8),
-                      const Text('1'),
+
+                      const SizedBox(height: 12),
+
+                      // Quantity selector
+                      Row(
+                        children: [
+                          const Text('Qty: '),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            key: const Key('qtyDecrement'),
+                            onPressed: _decrementQty,
+                            icon: const Icon(Icons.remove_circle_outline),
+                          ),
+                          Text(
+                            '$quantity',
+                            key: const Key('qtyText'),
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          IconButton(
+                            key: const Key('qtyIncrement'),
+                            onPressed: _incrementQty,
+                            icon: const Icon(Icons.add_circle_outline),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      // Visible summary of selection
+                      Text('Size: $selectedSize  •  Color: $selectedColor  •  Qty: $quantity'),
                     ],
                   ),
 
