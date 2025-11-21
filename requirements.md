@@ -84,7 +84,7 @@ This file contains a structured feature checklist and step-by-step implementatio
          - Commit: `ProductPage: accept Product model and render fields`
        - [x] Add a widget test that instantiates `ProductPage` with a `Product` and asserts title/price
          - Commit: `Add ProductPage widget test for Product rendering`
-       - [ ] Add product options UI (color/size/quantity) and wire to local state
+  - [x] Add product options UI (color/size/quantity) and wire to local state
          - Commit: `Add product options UI to ProductPage`
 
 ### Sale Collection (4%)
@@ -168,7 +168,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Subtasks:
        - [x] Accept a `Product` parameter in `ProductPage` and show its title/price/image
          - Commit: `ProductPage: accept Product model and render fields`
-       - [ ] Add UI for color and size options and a quantity selector (local state only)
+  - [x] Add UI for color and size options and a quantity selector (local state only)
          - Commit: `ProductPage: add options and quantity selector`
        - [ ] Add an 'Add to Cart' button that calls the cart provider (add later)
          - Commit: `Add 'Add to Cart' button to ProductPage`
