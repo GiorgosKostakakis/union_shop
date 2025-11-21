@@ -121,26 +121,6 @@ class _ProductPageState extends State<ProductPage> {
 
                           const SizedBox(height: 24),
 
-                          // Product description
-                          const Text(
-                            'Description',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text(
-                            'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey,
-                              height: 1.5,
-                            ),
-                          ),
-                          const SizedBox(height: 24),
-
                           // Product options wired to local state
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,6 +195,27 @@ class _ProductPageState extends State<ProductPage> {
                               // Visible summary of selection
                               Text('Size: $selectedSize  •  Color: $selectedColor  •  Qty: $quantity'),
                             ],
+                          ),
+
+                          const SizedBox(height: 24),
+
+                          // Product description (moved under the filters)
+                          const Text(
+                            'Description',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                              height: 1.5,
+                            ),
                           ),
 
                           const SizedBox(height: 12),
