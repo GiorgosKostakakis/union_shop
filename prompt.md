@@ -1,56 +1,56 @@
-You are an expert Flutter/Dart developer. I have a Flutter app (repo root) with a `ProductPage` that currently loads a product image from a network URL. I want the Product page to be "static" (hardcoded product details are acceptable) and to load images from local assets (Image.asset) rather than Image.network.
+Task: Add product options UI (color / size / quantity) to ProductPage and wire them to local state.
 
-Context:
-- File to edit: lib/product_page.dart
-- Current `ProductPage` accepts an optional Product and uses Image.network for the product image.
-- There are fixtures in lib/models/fixtures.dart with product entries whose `imageUrl` values point to local assets (e.g. "assets/product1.png").
-- Routes are defined in lib/main.dart with '/product' already wired to ProductPage.
-- Tests exist under test/ (product_test.dart, header_test.dart, etc.) — keep test behavior intact.
+Files to edit:
+- lib/product_page.dart
 
-Goals (make minimal, safe changes):
-1. Make `ProductPage` static-friendly:
-   - If a Product argument is passed, use it; otherwise fall back to a static/hardcoded product defined inside the page.
-   - It’s acceptable to hardcode title, price, and a local asset path if no argument is supplied.
+Change summary (small numbered steps):
+1. Convert `ProductPage` to a StatefulWidget (keep the existing optional `Product? product` param and the `displayProduct` fallback).
+2. Add local state fields:
+   - String selectedSize (default 'M')
+   - String selectedColor (default first option, e.g., 'Black')
+   - int quantity (default 1, min 1)
+3. Add UI controls (non-network, display-only) near the existing options area:
+   - Size: DropdownButton<String> with items ['S','M','L']
+   - Color: DropdownButton<String> with items ['Black','White','Blue'] (shows the selection; you may render a small color swatch next to the label)
+   - Quantity: horizontal row with a decrement IconButton (-), a Text showing quantity, and an increment IconButton (+). Clamp quantity ≥ 1.
+4. Ensure selecting size/color or tapping +/- updates the local state and the UI immediately.
+5. Expose the selected options visibly near the Add to cart / Buy now buttons (e.g., small Text lines: "Size: M  •  Color: Black  •  Qty: 1").
+6. Add Keys for testability:
+   - Key('sizeDropdown'), Key('colorDropdown'), Key('qtyText'), Key('qtyIncrement'), Key('qtyDecrement').
+7. Keep the rest of the page as-is: header/footer, image loading from assets, placeholder product fallback, errorBuilders, and CTA buttons. Do not wire to a cart provider — keep local state only.
+8. Keep edits minimal, preserve existing formatting and code structure as much as possible.
 
-2. Replace network images with asset images:
-   - Replace any Image.network usage for the product image with Image.asset when the image path refers to a local asset.
-   - If the image path points to a network URL, it is okay to use a fallback asset image instead of loading from network.
+Constraints
+- Do not add new packages.
+- Do not change public APIs beyond converting `ProductPage` to a StatefulWidget and keeping the same constructor signature.
+- Keep all existing tests working; if you must update tests because of stateful widget class name changes, do so minimally.
+- Use `Image.asset` for images (no network fetch).
+- Make the UI mobile-friendly (simple vertical stacking on narrow screens).
 
-3. Keep the page UI: title, price, description, size dropdown (UI-only), qty display, Add to cart and Buy now buttons should remain. These widgets do not need to be functional.
+Acceptance criteria (how I should verify the change)
+- The app compiles (no analyzer/compile errors).
+- On `ProductPage`:
+  - There are two dropdowns (size and color) and a quantity selector.
+  - Changing size updates the size shown in the UI.
+  - Changing color updates the color shown in the UI.
+  - Tapping + increments the quantity; tapping - decrements it but never drops below 1.
+  - The Keys above exist and can be used in widget tests to find the controls.
+- Run widget tests (existing suite). All tests pass. Optionally add one focused widget test that:
+  - Instantiates `ProductPage` with a Product fixture.
+  - Finds and taps the size dropdown and selects another size.
+  - Taps the qty increment and verifies the qty text updates.
+  - Asserts the visible summary text reflects the chosen size/color/qty.
 
-4. Keep all existing header/footer usage intact.
+Suggested test additions (optional, I can add them for you):
+- test/product_options_test.dart
+  - Test: 'product options update local state'
+  - Steps: pump ProductPage(product: fixtures.products.first), tap size dropdown and choose 'L', press qty increment, assert Key('qtyText') shows '2', and assert summary text contains 'Size: L'.
 
-5. Make changes minimal and compile-ready. Do not introduce new package dependencies.
+Suggested commit message
+- feat(product): add size/color/quantity UI and local state to ProductPage
 
-Concrete implementation notes (copy/paste friendly):
-- In `lib/product_page.dart`:
-  - Ensure the class has an optional `Product? product` field. On build, compute:
-      final Product displayProduct = product ?? Product(title: 'Placeholder Product', price: '£12.00', imageUrl: 'assets/product1.png');
-  - For the product image use:
-      Widget productImage;
-      if (displayProduct.imageUrl.startsWith('assets/')) {
-        productImage = Image.asset(displayProduct.imageUrl, fit: BoxFit.cover, errorBuilder: ...);
-      } else {
-        // fallback: use a local asset instead of network
-        productImage = Image.asset('assets/product1.png', fit: BoxFit.cover, errorBuilder: ...);
-      }
-  - Replace the Image.network(...) with productImage.
+Deliverables
+- A minimal patch that edits only `lib/product_page.dart` (and a test file if you ask me to add the optional test).
+- Verification: run `flutter test` and show results.
 
-- Keep the layout unchanged: header, product detail column, dropdown, CTA buttons, footer. Keep errorBuilder for images.
-
-Tests & verification:
-- After edits, run:
-    flutter test
-  Expect existing widget tests (product_test.dart, header_test.dart, collection_to_product_test.dart) to still pass.
-- Manual check: run the app and navigate from a collection to a product. The image should load from the local asset (no network call).
-
-Edge cases and constraints:
-- If any product image path is a remote URL, do not attempt to fetch it; use the local fallback asset instead.
-- Avoid adding network permissions or new packages.
-- Keep changes small and reversible; prefer a single small commit.
-
-Suggested commit message:
-- feat(product): make ProductPage static-friendly and use local asset images
-
-Deliverable:
-- A single-file patch for `lib/product_page.dart` implementing the above.
+If that looks good, reply "Go implement" and I will apply the patch, run tests, and report back with what I changed and test output.
