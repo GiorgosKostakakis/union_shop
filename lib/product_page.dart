@@ -16,6 +16,14 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Ensure we always have a product to display; fallback to a static local-asset product
+    final Product displayProduct = product ??
+        const Product(
+          title: 'Placeholder Product Name',
+          price: '£15.00',
+          imageUrl: 'assets/product1.png',
+        );
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -39,10 +47,10 @@ class ProductPage extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                       child: product != null && product!.imageUrl.startsWith('assets/')
-                          // If the image path references a local asset, load it via Image.asset
+                      child: displayProduct.imageUrl.startsWith('assets/')
+                          // Load local asset if path indicates asset, otherwise fall back to a local placeholder asset
                           ? Image.asset(
-                              product!.imageUrl,
+                              displayProduct.imageUrl,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
@@ -51,9 +59,8 @@ class ProductPage extends StatelessWidget {
                                 );
                               },
                             )
-                          : Image.network(
-                              product?.imageUrl ??
-                                  'https://shop.upsu.net/cdn/shop/files/PortsmouthCityMagnet1_1024x1024@2x.jpg?v=1752230282',
+                          : Image.asset(
+                              'assets/product1.png',
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Container(
@@ -69,7 +76,7 @@ class ProductPage extends StatelessWidget {
 
                   // Product name
                   Text(
-                    product?.title ?? 'Placeholder Product Name',
+                    displayProduct.title,
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -81,7 +88,7 @@ class ProductPage extends StatelessWidget {
 
                   // Product price
                   Text(
-                    product?.price ?? '£15.00',
+                    displayProduct.price,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
