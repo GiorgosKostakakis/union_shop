@@ -75,6 +75,18 @@ class Header extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(width: 16),
+                          TextButton(
+                            onPressed: () => Navigator.pushNamed(context, '/sale'),
+                            child: const Text(
+                              'Sales',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
