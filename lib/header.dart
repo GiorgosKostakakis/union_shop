@@ -27,47 +27,60 @@ class Header extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
+                  // Left: logo
                   Image.asset(
                     'assets/logo.png',
                     height: 40,
                     fit: BoxFit.contain,
                   ),
-                  const SizedBox(width: 8),
-                  TextButton(
-                    onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
-                    child: const Text(
-                      'Home',
-                      style: TextStyle(
-                        color: Color(0xFF4d2963),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+
+                  // Center: navigation buttons (kept centered between logo and icons)
+                  Expanded(
+                    child: Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
+                            child: const Text(
+                              'Home',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          TextButton(
+                            onPressed: () => Navigator.pushNamed(context, '/about'),
+                            child: const Text(
+                              'About Us',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          TextButton(
+                            onPressed: () => Navigator.pushNamed(context, '/collections'),
+                            child: const Text(
+                              'Collections',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  TextButton(
-                    onPressed: () => Navigator.pushNamed(context, '/about'),
-                    child: const Text(
-                      'About Us',
-                      style: TextStyle(
-                        color: Color(0xFF4d2963),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.pushNamed(context, '/collections'),
-                    child: const Text(
-                      'Collections',
-                      style: TextStyle(
-                        color: Color(0xFF4d2963),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
+
+                  // Right: icons
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 600),
                     child: const Row(
