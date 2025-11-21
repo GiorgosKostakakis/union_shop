@@ -93,13 +93,13 @@ This file contains a structured feature checklist and step-by-step implementatio
   1. Create `SalePage`
      - Prompt: "Create `SalePage` with promotional banner and a list of sale products (discounted prices)." 
      - Acceptance: Sale page displays products and a banner
-     - Subtasks:
-       - [ ] Add `SalePage` route and banner scaffold
-         - Commit: `Add SalePage scaffold and banner`
-       - [ ] Add sample sale product fixtures with discount field
-         - Commit: `Add sale fixtures and sample discounted items`
-       - [ ] Render sale product list and discount badge UI
-         - Commit: `Show sale badges on SalePage`
+    - Subtasks:
+      - [x] Add `SalePage` route and banner scaffold
+        - Commit: `Add SalePage scaffold and banner`
+      - [ ] Add sample sale product fixtures with discount field
+        - Commit: `Add sale fixtures and sample discounted items`
+      - [ ] Render sale product list and discount badge UI
+        - Commit: `Show sale badges on SalePage`
 
 ### Authentication UI (3%)
 - Description: Login/Signup screens; not connected to a backend (UI only).
