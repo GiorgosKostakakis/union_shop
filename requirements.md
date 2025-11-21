@@ -96,9 +96,9 @@ This file contains a structured feature checklist and step-by-step implementatio
     - Subtasks:
       - [x] Add `SalePage` route and banner scaffold
         - Commit: `Add SalePage scaffold and banner`
-      - [ ] Add sample sale product fixtures with discount field
+      - [x] Add sample sale product fixtures with discount field
         - Commit: `Add sale fixtures and sample discounted items`
-      - [ ] Render sale product list and discount badge UI
+      - [x] Render sale product list and discount badge UI
         - Commit: `Show sale badges on SalePage`
 
 ### Authentication UI (3%)
