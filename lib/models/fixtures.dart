@@ -69,3 +69,22 @@ final List<Collection> collections = [
     products: [products[1], products[5]],
   ),
 ];
+
+// Sale fixtures: reference existing products and include numeric price and discount
+final List<Map<String, dynamic>> saleItems = [
+  {
+    'product': products[1], // Product B
+    'price': 12.50,
+    'discountPercent': 20,
+  },
+  {
+    'product': products[5], // Product F
+    'price': 30.00,
+    'discountPercent': 25,
+  },
+  {
+    'product': products[2], // Product C
+    'price': 15.00,
+    'discountPercent': 10,
+  },
+];
