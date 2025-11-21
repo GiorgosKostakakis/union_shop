@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/models/product.dart';
 
 class SalePage extends StatelessWidget {
   const SalePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final sampleItems = List.generate(3, (i) => {
-      'title': 'Sale Product ${i + 1}',
-      'price': '£${(20 + i * 5).toStringAsFixed(2)}',
-      'image': 'assets/product${i + 1}.png',
-    });
+    final sampleItems = List.generate(3, (i) => Product(
+          title: 'Sale Product ${i + 1}',
+          price: '£${(20 + i * 5).toStringAsFixed(2)}',
+          imageUrl: 'assets/product${i + 1}.png',
+        ));
 
     return SingleChildScrollView(
       child: Column(
@@ -55,9 +56,7 @@ class SalePage extends StatelessWidget {
                     final item = sampleItems[index];
                     return _SaleTile(
                       key: Key('saleProductTile_$index'),
-                      title: item['title']!,
-                      price: item['price']!,
-                      image: item['image']!,
+                      product: item,
                       index: index,
                     );
                   }),
@@ -74,17 +73,17 @@ class SalePage extends StatelessWidget {
 }
 
 class _SaleTile extends StatelessWidget {
-  final String title;
-  final String price;
-  final String image;
+  final Product product;
   final int index;
 
-  const _SaleTile({super.key, required this.title, required this.price, required this.image, required this.index});
+  const _SaleTile({super.key, required this.product, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, '/product', arguments: product);
+      },
       child: Stack(
         children: [
           Column(
@@ -94,7 +93,7 @@ class _SaleTile extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4),
                   child: Image.asset(
-                    image,
+                    product.imageUrl,
                     fit: BoxFit.cover,
                     width: double.infinity,
                     errorBuilder: (context, error, stackTrace) => Container(
@@ -108,13 +107,13 @@ class _SaleTile extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                title,
+                product.title,
                 style: const TextStyle(fontSize: 14, color: Colors.black),
                 maxLines: 2,
               ),
               const SizedBox(height: 4),
               Text(
-                price,
+                product.price,
                 style: const TextStyle(fontSize: 13, color: Colors.grey),
               ),
             ],
