@@ -45,13 +45,16 @@ class _ProductPageState extends State<ProductPage> {
           children: [
             const Header(),
 
-            // Product details
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            // Product details wrapped in a centered max-width container
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1000),
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                   // Product image
                   Container(
                     height: 300,
@@ -230,7 +233,9 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ],
               ),
-            ),
+                  ),
+                ),
+              ),
 
             // Footer
             Container(
