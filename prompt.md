@@ -1,56 +1,58 @@
-Task: Add product options UI (color / size / quantity) to ProductPage and wire them to local state.
+Task: Center product image and product options/filter area on `ProductPage` to match the layout of
+https://shop.upsu.net/collections/essential-range/products/limited-addition-essential-zip-hoodies
 
 Files to edit:
 - lib/product_page.dart
+(only this file unless you tell me to refactor shared components)
 
 Change summary (small numbered steps):
-1. Convert `ProductPage` to a StatefulWidget (keep the existing optional `Product? product` param and the `displayProduct` fallback).
-2. Add local state fields:
-   - String selectedSize (default 'M')
-   - String selectedColor (default first option, e.g., 'Black')
-   - int quantity (default 1, min 1)
-3. Add UI controls (non-network, display-only) near the existing options area:
-   - Size: DropdownButton<String> with items ['S','M','L']
-   - Color: DropdownButton<String> with items ['Black','White','Blue'] (shows the selection; you may render a small color swatch next to the label)
-   - Quantity: horizontal row with a decrement IconButton (-), a Text showing quantity, and an increment IconButton (+). Clamp quantity ≥ 1.
-4. Ensure selecting size/color or tapping +/- updates the local state and the UI immediately.
-5. Expose the selected options visibly near the Add to cart / Buy now buttons (e.g., small Text lines: "Size: M  •  Color: Black  •  Qty: 1").
-6. Add Keys for testability:
-   - Key('sizeDropdown'), Key('colorDropdown'), Key('qtyText'), Key('qtyIncrement'), Key('qtyDecrement').
-7. Keep the rest of the page as-is: header/footer, image loading from assets, placeholder product fallback, errorBuilders, and CTA buttons. Do not wire to a cart provider — keep local state only.
-8. Keep edits minimal, preserve existing formatting and code structure as much as possible.
+1. Wrap the existing product content in a centered max-width container:
+   - Add a top-level centered container (e.g., Center -> ConstrainedBox or Align + SizedBox) with a sensible maxWidth (e.g., 1000 or 900 px).
+   - This container becomes the main product layout area so the page content is visually centered regardless of screen width.
+
+2. Use a responsive two-column layout inside the centered container:
+   - On wide screens (width >= 800), display a Row with:
+     - Left: product image area (flex 1 / fixed width around 420-480px)
+     - Right: details/filters/CTAs area (flex 1)
+   - On narrow screens (width < 800), fall back to a single-column layout where image sits above details.
+   - Ensure both columns are vertically aligned at the top.
+
+3. Center image and controls inside their column:
+   - Image column: center the image horizontally inside its column, keep existing ClipRRect + Image.asset logic.
+   - Details column: keep title/price/description and place the options/filter UI (size, color, qty) directly under the product title/price and aligned to the left of the column, but ensure the overall two-column block is centered on the page by the outer max-width container.
+
+4. Maintain responsive spacing:
+   - Use consistent padding inside the centered container (re-use existing padding 24).
+   - Use SizedBox or SizedBox.expand with constraints to create the same visual spacing as the reference.
+   - Keep mobile stacking with centered image and full-width details.
+
+5. Keep behavior and keys:
+   - Preserve all existing Keys and stateful controls (sizeDropdown, colorDropdown, qtyText, qtyIncrement, qtyDecrement).
+   - Preserve image asset loading and errorBuilder.
+   - Do not wire to cart provider; local state only.
+
 
 Constraints
 - Do not add new packages.
-- Do not change public APIs beyond converting `ProductPage` to a StatefulWidget and keeping the same constructor signature.
-- Keep all existing tests working; if you must update tests because of stateful widget class name changes, do so minimally.
-- Use `Image.asset` for images (no network fetch).
-- Make the UI mobile-friendly (simple vertical stacking on narrow screens).
+- Keep changes minimal and self-contained to `lib/product_page.dart`.
+- Preserve existing widget keys, state, and testable behavior.
+- Respect current color, typography, header/footer and CTA styles as much as possible.
+- Make the layout responsive (desktop two-column; mobile stacked).
 
 Acceptance criteria (how I should verify the change)
-- The app compiles (no analyzer/compile errors).
-- On `ProductPage`:
-  - There are two dropdowns (size and color) and a quantity selector.
-  - Changing size updates the size shown in the UI.
-  - Changing color updates the color shown in the UI.
-  - Tapping + increments the quantity; tapping - decrements it but never drops below 1.
-  - The Keys above exist and can be used in widget tests to find the controls.
-- Run widget tests (existing suite). All tests pass. Optionally add one focused widget test that:
-  - Instantiates `ProductPage` with a Product fixture.
-  - Finds and taps the size dropdown and selects another size.
-  - Taps the qty increment and verifies the qty text updates.
-  - Asserts the visible summary text reflects the chosen size/color/qty.
-
-Suggested test additions (optional, I can add them for you):
-- test/product_options_test.dart
-  - Test: 'product options update local state'
-  - Steps: pump ProductPage(product: fixtures.products.first), tap size dropdown and choose 'L', press qty increment, assert Key('qtyText') shows '2', and assert summary text contains 'Size: L'.
+- The product content is visually centered on the page by a max-width container on wide screens.
+- On wide viewports (>= 800px) the page shows two columns: image on the left, details/options on the right.
+- On narrow viewports (< 800px) the content stacks vertically (image above details), and is horizontally centered.
+- The size/color dropdowns and quantity controls remain functional and keep their Keys.
+- The app compiles without analyzer errors.
+- All existing widget tests pass (run `flutter test`). If tests need small updates, change them only as required to reflect the new layout.
 
 Suggested commit message
-- feat(product): add size/color/quantity UI and local state to ProductPage
+- feat(product): center product content and use responsive two-column layout on ProductPage
 
 Deliverables
-- A minimal patch that edits only `lib/product_page.dart` (and a test file if you ask me to add the optional test).
-- Verification: run `flutter test` and show results.
+- Edited `lib/product_page.dart` implementing the centered, responsive layout.
+- (Optional) Small test update if required to keep tests green.
+- Test run output showing green tests.
 
-If that looks good, reply "Go implement" and I will apply the patch, run tests, and report back with what I changed and test output.
+If that looks good reply "Go implement" and I will apply the patch, run the tests, and report back with the changes and test output.
