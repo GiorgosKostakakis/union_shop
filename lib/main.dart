@@ -60,6 +60,17 @@ class UnionShopApp extends StatelessWidget {
           },
         ),
         GoRoute(
+          path: '/collections/:collectionId/products/:productId',
+          builder: (context, state) {
+            final pid = state.pathParameters['productId'];
+            if (pid != null) {
+              final p = productById(pid);
+              if (p != null) return ProductPage(product: p);
+            }
+            return const ProductPage();
+          },
+        ),
+        GoRoute(
           path: '/sale',
           builder: (context, state) => const SalePage(),
         ),
