@@ -53,31 +53,31 @@ final List<Collection> collections = [
   Collection(
     id: 'signature',
     title: 'Signature Range',
-    imageUrl: 'assets/collection_signature.png',
+    imageUrl: 'assets/logo.png', // Fallback to existing asset
     products: [products[2], products[3]],
   ),
   Collection(
     id: 'merch',
     title: 'Merchandise',
-    imageUrl: 'assets/collection_merchandise.png',
+    imageUrl: 'assets/product3.png', // Fallback to existing asset
     products: [products[0], products[3], products[4]],
   ),
   Collection(
     id: 'graduation',
     title: 'Graduation',
-    imageUrl: 'assets/collection_graduation.png',
+    imageUrl: 'assets/product4.png', // Fallback to existing asset
     products: [products[4], products[5]],
   ),
   Collection(
     id: 'essentials',
     title: 'Student Essentials',
-    imageUrl: 'assets/collection_essentials.png',
+    imageUrl: 'assets/product1.png', // Fallback to existing asset
     products: [products[0], products[1]],
   ),
   Collection(
     id: 'sale',
     title: 'SALE',
-    imageUrl: 'assets/collection_sale.png',
+    imageUrl: 'assets/product2.png', // Fallback to existing asset
     products: [products[1], products[5]],
   ),
 ];
