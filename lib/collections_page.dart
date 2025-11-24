@@ -3,6 +3,7 @@ import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/models/fixtures.dart';
 import 'package:union_shop/models/collection.dart';
+import 'package:go_router/go_router.dart';
 
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
@@ -42,7 +43,8 @@ class CollectionsPage extends StatelessWidget {
                   children: collections.map((Collection col) {
                     return GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/collection', arguments: col);
+                        // Navigate to collection by id using go_router
+                        context.push('/collections/${col.id}', extra: col);
                       },
                       child: Card(
                         elevation: 2,
