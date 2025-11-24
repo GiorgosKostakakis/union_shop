@@ -35,6 +35,7 @@ class _ProductPageState extends State<ProductPage> {
     // Ensure we always have a product to display; fallback to a static local-asset product
     final Product displayProduct = widget.product ??
         const Product(
+          id: 'placeholder',
           title: 'Placeholder Product Name',
           price: '£15.00',
           imageUrl: 'assets/product1.png',
