@@ -241,7 +241,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product');
+        // Use GoRouter navigation so the URL updates with routerConfig
+        context.push('/product');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
