@@ -3,6 +3,7 @@ import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:go_router/go_router.dart';
 
 class CollectionPage extends StatelessWidget {
   final Collection? collection;
@@ -82,8 +83,12 @@ class CollectionPage extends StatelessWidget {
                     ? collection!.products.map((Product p) {
                         return GestureDetector(
                           onTap: () {
-                            // Navigate to product page with the product as argument
-                            Navigator.pushNamed(context, '/product', arguments: p);
+                            // Navigate to product page via GoRouter so URL updates
+                            // include product id in the path and pass the product as extra
+                            // (requires go_router import)
+                            // e.g. /product/product-a
+                            // Use go_router's context.push to navigate and update the URL
+                            context.push('/product/${p.id}', extra: p);
                           },
                           child: Card(
                           child: Column(
