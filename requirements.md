@@ -53,7 +53,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: `Collections` route accessible via nav button
      - Commit: `Add CollectionsPage with sample collections`
 
-### Collection Example Page (5%)
+### Collection Example Page (5%) [x]
 - Description: Page for a single collection; filtering widgets may be non-functional.
 - Steps & prompts:
   1. Create `CollectionPage` template
@@ -87,7 +87,7 @@ This file contains a structured feature checklist and step-by-step implementatio
   - [x] Add product options UI (color/size/quantity) and wire to local state
          - Commit: `Add product options UI to ProductPage`
 
-### Sale Collection (4%)
+### Sale Collection (4%) [x]
 - Description: Page with sale products and promotional banner.
 - Steps & prompts:
   1. Create `SalePage`
@@ -127,14 +127,14 @@ This file contains a structured feature checklist and step-by-step implementatio
 
 ## Intermediate (35%)
 
-### Dynamic Collections (6%)
+### Dynamic Collections (6%) [x]
 - Description: Collections loaded from a model or service; sorting and filtering UI works.
 - Steps & prompts:
   1. Create `Collection` and `Product` models and fixtures
      - Prompt: "Create data models for collections and products and a `fixtures.dart` file that exports lists for initial data." 
      - Acceptance: Collections load from fixtures
      - Subtasks:
-       - [ ] Create `lib/models/collection.dart` (id/title/productIds) and update `Product` model if needed
+       - [x] Create `lib/models/collection.dart` (id/title/productIds) and update `Product` model if needed
          - Commit: `Add Collection model`
   - [x] Create `lib/models/fixtures.dart` with sample `product` and `collection` lists
          - Commit: `Add fixtures for products and collections`
@@ -145,7 +145,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: Collections display from model data
      - Commit: `Load collections dynamically from fixtures`
 
-### Collection Page dynamic listings (6%)
+### Collection Page dynamic listings (6%) [x]
 - Steps & prompts:
   1. Populate `CollectionPage` from model
      - Prompt: "Update `CollectionPage` to use Product model and show product cards with data from selected collection." 
@@ -160,7 +160,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: Filter UI works on the displayed list
      - Commit: `Add sorting/filtering in CollectionPage`
 
-### Product pages with real data (6%)
+### Product pages with real data (6%) [x]
 - Steps & prompts:
   1. Modify `ProductPage` to receive a `Product` object
      - Prompt: "Update `ProductPage` to accept a `Product` parameter and display its title, price, and image." 
@@ -173,13 +173,13 @@ This file contains a structured feature checklist and step-by-step implementatio
        - [ ] Add an 'Add to Cart' button that calls the cart provider (add later)
          - Commit: `Add 'Add to Cart' button to ProductPage`
      - Subtasks (track progress / small commits):
-       - [ ] Add `Product` parameter to `ProductPage` and use it to display title/price/image
+       - [x] Add `Product` parameter to `ProductPage` and use it to display title/price/image
          - Commit: `ProductPage: accept Product model and render fields`
-       - [ ] Add a widget test that passes a `Product` to `ProductPage` and asserts title/price are shown
+       - [x] Add a widget test that passes a `Product` to `ProductPage` and asserts title/price are shown
          - Commit: `Add ProductPage widget test for Product rendering`
-       - [ ] Pass `Product` via Navigator (pushNamed arguments) from `ProductCard` to `ProductPage`
+       - [x] Pass `Product` via Navigator (pushNamed arguments) from `ProductCard` to `ProductPage`
          - Commit: `Pass Product via Navigator arguments to ProductPage`
-       - [ ] Refactor `ProductCard` to accept a `Product` model and update callers
+       - [x] Refactor `ProductCard` to accept a `Product` model and update callers
          - Commit: `ProductCard: accept Product and pass to ProductPage`
   2. Add countdowns and color/size dropdowns (UI)
      - Prompt: "Add optional size/color dropdowns and quantity selector; maintain local state only." 
@@ -214,7 +214,7 @@ This file contains a structured feature checklist and step-by-step implementatio
        - [ ] Add a live preview area that renders the selected text/style
          - Commit: `Add Personalisation live preview`
 
-### Navigation (3%)
+### Navigation (3%) [x]
 - Steps & prompts:
   1. Make sure all pages are reachable via Navigator.pushNamed
      - Prompt: "Add routes for Collections, CollectionPage, ProductPage, CartPage, AboutPage, Auth pages and link the UI to them" 
@@ -222,7 +222,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Subtasks:
        - [x] Add routes for existing pages (About, Collections, Product, etc.)
          - Commit: `Add app routes for main pages`
-       - [ ] Add routes for Cart, Auth, Sale, Personalisation pages
+       - [x] Add routes for Cart, Auth, Sale, Personalisation pages (deep routing with go_router)
          - Commit: `Add routes for Cart/Auth/Sale/Personalisation`
 
 ### Responsiveness (5%) [x]
@@ -320,16 +320,17 @@ This file contains a structured feature checklist and step-by-step implementatio
 ---
 
 ## Prioritised implementation (step-by-step plan for this project)
-1. Product model (done)
-2. Make product images clickable on the home page (done)
-3. ProductPage accepts a Product param and shows it (next)
-4. Pass Product to ProductPage via Navigator and arguments
-5. Collections: dynamic model + fixtures
-6. Collection pages and linking
-7. Cart skeleton and add-to-cart
-8. Personalisation (Print Shack) page with live preview
-9. Responsiveness and search
-10. Authentication (Firebase or mock) and persistence
+1. Product model (done) [x]
+2. Make product images clickable on the home page (done) [x]
+3. ProductPage accepts a Product param and shows it (done) [x]
+4. Pass Product to ProductPage via Navigator and arguments (done) [x]
+5. Collections: dynamic model + fixtures (done) [x]
+6. Collection pages and linking (done) [x]
+7. Deep routing with go_router (done) [x]
+8. Cart skeleton and add-to-cart
+9. Personalisation (Print Shack) page with live preview
+10. Responsiveness and search
+11. Authentication (Firebase or mock) and persistence
 
 ---
 
