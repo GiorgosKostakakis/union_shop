@@ -83,12 +83,13 @@ class CollectionPage extends StatelessWidget {
                     ? collection!.products.map((Product p) {
                         return GestureDetector(
                           onTap: () {
-                            // Navigate to product page via GoRouter so URL updates
-                            // include product id in the path and pass the product as extra
-                            // (requires go_router import)
-                            // e.g. /product/product-a
-                            // Use go_router's context.push to navigate and update the URL
-                            context.push('/product/${p.id}', extra: p);
+                              // Navigate to the nested collection/product path so URL becomes
+                              // /#/collections/<collectionId>/products/<productId>
+                              if (collection != null) {
+                                context.push('/collections/${collection!.id}/products/${p.id}', extra: p);
+                              } else {
+                                context.push('/product/${p.id}', extra: p);
+                              }
                           },
                           child: Card(
                           child: Column(
