@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/product_page.dart';
-import 'package:union_shop/models/product.dart';
-import 'package:union_shop/about_page.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/collection_page.dart';
-import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/sale_page.dart';
+import 'package:union_shop/models/fixtures.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -18,36 +17,68 @@ class UnionShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final GoRouter router = GoRouter(
+      initialLocation: '/',
+      routes: <RouteBase>[
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const HomeScreen(),
+        ),
+        GoRoute(
+          path: '/product',
+          builder: (context, state) => const ProductPage(),
+        ),
+        GoRoute(
+          path: '/product/:productId',
+          builder: (context, state) {
+            final pid = state.pathParameters['productId'];
+            if (pid != null) {
+              final p = productById(pid);
+              if (p != null) return ProductPage(product: p);
+            }
+            return const ProductPage();
+          },
+        ),
+        GoRoute(
+          path: '/collections',
+          builder: (context, state) => const CollectionsPage(),
+        ),
+        GoRoute(
+          path: '/collections/:collectionId',
+          builder: (context, state) {
+            final cid = state.pathParameters['collectionId'];
+            if (cid != null) {
+              final c = collectionById(cid);
+              if (c != null) return CollectionPage(collection: c);
+            }
+            return const CollectionPage();
+          },
+        ),
+        GoRoute(
+          path: '/sale',
+          builder: (context, state) => const SalePage(),
+        ),
+        GoRoute(
+          path: '/sale/products/:productId',
+          builder: (context, state) {
+            final pid = state.pathParameters['productId'];
+            if (pid != null) {
+              final p = productById(pid);
+              if (p != null) return ProductPage(product: p);
+            }
+            return const ProductPage();
+          },
+        ),
+      ],
+    );
+
+    return MaterialApp.router(
       title: 'Union Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
-      home: const HomeScreen(),
-      // By default, the app starts at the '/' route, which is the HomeScreen
-      initialRoute: '/',
-      // When navigating to '/product', build and return the ProductPage
-      // In your browser, try this link: http://localhost:49856/#/product
-      routes: {
-        '/product': (context) {
-          final args = ModalRoute.of(context)?.settings.arguments;
-          if (args is Product) {
-            return ProductPage(product: args);
-          }
-          return const ProductPage();
-        },
-        '/sale': (context) => const SalePage(),
-        '/about': (context) => const AboutPage(),
-        '/collections': (context) => const CollectionsPage(),
-        '/collection': (context) {
-          final args = ModalRoute.of(context)?.settings.arguments;
-          if (args is Collection) {
-            return CollectionPage(collection: args);
-          }
-          return const CollectionPage();
-        },
-      },
+      routerConfig: router,
     );
   }
 }
