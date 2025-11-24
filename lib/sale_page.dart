@@ -88,7 +88,7 @@ class _SaleTile extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
   child: InkWell(
-  onTap: () => context.push('/product/${product.id}', extra: product),
+  onTap: () => context.go('/sale/products/${product.id}', extra: product),
         child: Stack(
           children: [
             Padding(
