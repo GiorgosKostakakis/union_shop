@@ -74,3 +74,49 @@ Subtasks (execute sequentially; stop after each and ask to commit)
 - Files changed: `lib/sale_page.dart` (update to use fixtures)
 If you want, I can now implement subtask 1 immediately (create `SalePage` scaffold with banner) — say "implement subtask 1" and I'll proceed.
 
+
+## Deep routing prompt (copy this to ask the assistant to implement deep links)
+
+Implement deep routing for the Union Shop Flutter app (web & mobile): use declarative URL routes so pages can be opened directly by URL and route params are available to pages.
+
+Files to edit:
+- `lib/main.dart` (primary router setup)
+- `lib/product_page.dart`, `lib/collection_page.dart`, `lib/sale_page.dart` (accept ids/lookup fixtures)
+- `lib/models/fixtures.dart` (ensure stable `id` fields)
+- tests under `test/` (add routing tests)
+
+Change summary:
+1. Add a routing solution (recommended: `go_router`) and wire routes for:
+  - `/` -> Home/CollectionsPage
+  - `/collections` -> CollectionsPage
+  - `/collections/:collectionId` -> CollectionPage
+  - `/collections/:collectionId/products/:productId` -> ProductPage
+  - `/product/:productId` -> ProductPage
+  - `/sale` -> SalePage
+  - `/sale/products/:productId` -> ProductPage (from sale)
+2. Make `ProductPage` and `CollectionPage` accept either a model object (via navigation extra) or an `id` param and lookup from `fixtures.dart` when necessary.
+3. Ensure `fixtures.dart` products/collections have stable `id` fields (string or int) and update models if required.
+4. Keep existing widget keys and behavior. Ensure URLs update in browser when navigating inside the app.
+
+Acceptance criteria:
+- Visiting `/product/<productId>` builds `ProductPage` showing the product title and price from fixtures.
+- Visiting `/collections/<collectionId>/products/<productId>` loads the product in context of the collection.
+- Visiting `/sale/products/<productId>` loads the product from sale fixtures.
+- `ProductPage` works when navigated via widget push with a `Product` object and when opened directly by URL (lookup by id).
+- Add widget tests for the above deep links.
+
+Implementation notes & constraints:
+- Preferred: use `go_router` for clean paths and web support. If using `go_router`, add it to `pubspec.yaml` and pin a stable version.
+- Alternative (no dependency): implement `onGenerateRoute` Uri parsing in `lib/main.dart`.
+- Do not change UI significantly. Keep edits minimal and focused on routing.
+- Do not add network calls. Use `lib/models/fixtures.dart` for lookups.
+
+Suggested commit messages:
+- feat(routing): add deep routing using go_router
+- chore(models): add id fields to product/collection fixtures
+- test(routing): add widget tests for deep links
+
+If you want me to implement this now, reply with either:
+- "implement with go_router" — I'll add the dependency, implement routes, update pages to accept ids, add tests, and run `flutter analyze` and `flutter test`.
+- "implement with onGenerateRoute" — I'll implement a dependency-free Uri-parsing router in `lib/main.dart` and do the same tests.
+
