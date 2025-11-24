@@ -127,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                         ),
                       ),
                     ),
@@ -253,12 +253,12 @@ class ProductCard extends StatelessWidget {
     required this.imageUrl,
   });
 
-  @override
+      @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         // Use GoRouter navigation so the URL updates with routerConfig
-        context.push('/product');
+        context.go('/product');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
