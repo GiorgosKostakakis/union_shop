@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/collection_page.dart';
+import 'package:union_shop/about_page.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/sale_page.dart';
@@ -42,6 +43,10 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/collections',
           builder: (context, state) => const CollectionsPage(),
+        ),
+        GoRoute(
+          path: '/about',
+          builder: (context, state) => const AboutPage(),
         ),
         GoRoute(
           path: '/collections/:collectionId',
