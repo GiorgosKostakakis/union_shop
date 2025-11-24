@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Header extends StatelessWidget {
   final VoidCallback? onLogoTap;
@@ -41,7 +42,7 @@ class Header extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           TextButton(
-                            onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false),
+                            onPressed: () => context.go('/'),
                             child: const Text(
                               'Home',
                               style: TextStyle(
@@ -53,7 +54,7 @@ class Header extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, '/about'),
+                            onPressed: () => context.push('/about'),
                             child: const Text(
                               'About Us',
                               style: TextStyle(
@@ -65,7 +66,7 @@ class Header extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, '/collections'),
+                            onPressed: () => context.push('/collections'),
                             child: const Text(
                               'Collections',
                               style: TextStyle(
@@ -77,7 +78,7 @@ class Header extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, '/sale'),
+                            onPressed: () => context.push('/sale'),
                             child: const Text(
                               'Sales',
                               style: TextStyle(
