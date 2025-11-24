@@ -3,6 +3,7 @@ import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/models/fixtures.dart';
+import 'package:go_router/go_router.dart';
 
 class SalePage extends StatelessWidget {
   const SalePage({super.key});
@@ -86,8 +87,8 @@ class _SaleTile extends StatelessWidget {
     return Card(
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-      child: InkWell(
-        onTap: () => Navigator.pushNamed(context, '/product', arguments: product),
+  child: InkWell(
+  onTap: () => context.push('/product/${product.id}', extra: product),
         child: Stack(
           children: [
             Padding(
