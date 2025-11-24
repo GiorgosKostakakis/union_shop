@@ -43,8 +43,8 @@ class CollectionsPage extends StatelessWidget {
                   children: collections.map((Collection col) {
                     return GestureDetector(
                       onTap: () {
-                        // Navigate to collection by id using go_router
-                        context.push('/collections/${col.id}', extra: col);
+                        // Navigate to collection by id using go_router with context.go to update URL
+                        context.go('/collections/${col.id}', extra: col);
                       },
                       child: Card(
                         elevation: 2,
