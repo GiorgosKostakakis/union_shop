@@ -204,26 +204,30 @@ class HomeScreen extends StatelessWidget {
                           MediaQuery.of(context).size.width > 600 ? 2 : 1,
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 48,
-                      children: const [
+                      children: [
                         ProductCard(
-                          title: 'Placeholder Product 1',
-                          price: '£10.00',
-                          imageUrl: 'assets/product1.png',
+                          productId: products[0].id,
+                          title: products[0].title,
+                          price: products[0].price,
+                          imageUrl: products[0].imageUrl,
                         ),
                         ProductCard(
-                          title: 'Placeholder Product 2',
-                          price: '£15.00',
-                          imageUrl: 'assets/product2.png',
+                          productId: products[1].id,
+                          title: products[1].title,
+                          price: products[1].price,
+                          imageUrl: products[1].imageUrl,
                         ),
                         ProductCard(
-                          title: 'Placeholder Product 3',
-                          price: '£20.00',
-                          imageUrl: 'assets/product3.png',
+                          productId: products[2].id,
+                          title: products[2].title,
+                          price: products[2].price,
+                          imageUrl: products[2].imageUrl,
                         ),
                         ProductCard(
-                          title: 'Placeholder Product 4',
-                          price: '£25.00',
-                          imageUrl: 'assets/product4.png',
+                          productId: products[3].id,
+                          title: products[3].title,
+                          price: products[3].price,
+                          imageUrl: products[3].imageUrl,
                         ),
                       ],
                     ),
@@ -242,12 +246,14 @@ class HomeScreen extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
+  final String productId;
   final String title;
   final String price;
   final String imageUrl;
 
   const ProductCard({
     super.key,
+    required this.productId,
     required this.title,
     required this.price,
     required this.imageUrl,
@@ -257,8 +263,8 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Use GoRouter navigation so the URL updates with routerConfig
-        context.go('/product');
+        // Use GoRouter navigation with product ID for deep routing
+        context.go('/product/$productId');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
