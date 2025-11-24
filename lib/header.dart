@@ -54,7 +54,7 @@ class Header extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
-                            onPressed: () => context.push('/about'),
+                            onPressed: () => context.go('/about'),
                             child: const Text(
                               'About Us',
                               style: TextStyle(
@@ -66,7 +66,7 @@ class Header extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
-                            onPressed: () => context.push('/collections'),
+                            onPressed: () => context.go('/collections'),
                             child: const Text(
                               'Collections',
                               style: TextStyle(
@@ -78,7 +78,7 @@ class Header extends StatelessWidget {
                           ),
                           const SizedBox(width: 16),
                           TextButton(
-                            onPressed: () => context.push('/sale'),
+                            onPressed: () => context.go('/sale'),
                             child: const Text(
                               'Sales',
                               style: TextStyle(
