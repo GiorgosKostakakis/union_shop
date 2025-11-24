@@ -83,12 +83,11 @@ class CollectionPage extends StatelessWidget {
                     ? collection!.products.map((Product p) {
                         return GestureDetector(
                           onTap: () {
-                              // Navigate to the nested collection/product path so URL becomes
-                              // /#/collections/<collectionId>/products/<productId>
+                              // Navigate to the nested collection/product path with context.go to update URL
                               if (collection != null) {
-                                context.push('/collections/${collection!.id}/products/${p.id}', extra: p);
+                                context.go('/collections/${collection!.id}/products/${p.id}', extra: p);
                               } else {
-                                context.push('/product/${p.id}', extra: p);
+                                context.go('/product/${p.id}', extra: p);
                               }
                           },
                           child: Card(
