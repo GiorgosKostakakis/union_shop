@@ -8,6 +8,8 @@ import 'package:union_shop/footer.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/sale_page.dart';
 import 'package:union_shop/models/fixtures.dart';
+import 'package:union_shop/auth/login_page.dart';
+import 'package:union_shop/auth/signup_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -84,6 +86,14 @@ class UnionShopApp extends StatelessWidget {
             }
             return const ProductPage();
           },
+        ),
+        GoRoute(
+          path: '/login',
+          builder: (context, state) => const LoginPage(),
+        ),
+        GoRoute(
+          path: '/signup',
+          builder: (context, state) => const SignupPage(),
         ),
       ],
     );
