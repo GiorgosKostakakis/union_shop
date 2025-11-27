@@ -38,8 +38,9 @@ class Header extends StatelessWidget {
                   // Center: navigation buttons (kept centered between logo and icons)
                   Expanded(
                     child: Center(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
+                      child: Wrap(
+                        spacing: 8,
+                        alignment: WrapAlignment.center,
                         children: [
                           TextButton(
                             onPressed: () => context.go('/'),
@@ -52,7 +53,6 @@ class Header extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 16),
                           TextButton(
                             onPressed: () => context.go('/about'),
                             child: const Text(
@@ -64,7 +64,6 @@ class Header extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 16),
                           TextButton(
                             onPressed: () => context.go('/collections'),
                             child: const Text(
@@ -76,7 +75,6 @@ class Header extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 16),
                           TextButton(
                             onPressed: () => context.go('/sale'),
                             child: const Text(
