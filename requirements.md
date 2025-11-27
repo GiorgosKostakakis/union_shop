@@ -101,18 +101,18 @@ This file contains a structured feature checklist and step-by-step implementatio
       - [x] Render sale product list and discount badge UI
         - Commit: `Show sale badges on SalePage`
 
-### Authentication UI (3%)
+### Authentication UI (3%) [x]
 - Description: Login/Signup screens; not connected to a backend (UI only).
 - Steps & prompts:
   1. Add `Auth` pages
      - Prompt: "Create `LoginPage` and `RegisterPage` with forms for email/password and basic validation (UI-only)."
      - Acceptance: Forms present, validation errors are visible when invalid input provided
      - Subtasks:
-       - [ ] Add `LoginPage` layout and client-side validation
+       - [x] Add `LoginPage` layout and client-side validation
          - Commit: `Add LoginPage with validation`
-       - [ ] Add `RegisterPage` layout and validation
+       - [x] Add `RegisterPage` layout and validation
          - Commit: `Add RegisterPage with validation`
-       - [ ] Add navigation links in header to open auth pages
+       - [x] Add navigation links in header to open auth pages
          - Commit: `Wire auth pages into navigation`
 
 ### Static Navbar (5%) [x]
