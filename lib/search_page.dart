@@ -89,6 +89,8 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                     ),
+                    onChanged: _performSearch,
+                    onSubmitted: _performSearch,
                   ),
                 ],
               ),
