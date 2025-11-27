@@ -264,15 +264,15 @@ This file contains a structured feature checklist and step-by-step implementatio
        - [ ] Add price calculations and ensure totals update on quantity change
          - Commit: `Add cart totals and quantity updates`
 
-### Search (4%)
+### Search (4%) [x]
 - Steps & prompts:
   1. Implement search across products
      - Prompt: "Add a search bar to the navbar and footer, wire to product model to show filtered results on the homepage and collection pages." 
      - Acceptance: Search returns filtered product lists
      - Subtasks:
-       - [ ] Add a search bar UI to the header and footer
+       - [x] Add a search bar UI to the header and footer
          - Commit: `Add search UI to header and footer`
-       - [ ] Wire search to local product fixtures and filter product lists live
+       - [x] Wire search to local product fixtures and filter product lists live
          - Commit: `Wire search to fixtures and filter lists`
 
 ---
