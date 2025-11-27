@@ -153,7 +153,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Subtasks:
   - [x] Update `CollectionPage` to accept a `Collection` and display products from the matching `productIds`
          - Commit: `Populate CollectionPage from model`
-       - [ ] Implement a simple filter/sort that filters the displayed list by price/keyword
+       - [x] Implement a simple filter/sort that filters the displayed list by price/keyword
          - Commit: `Add basic filtering/sorting to CollectionPage`
   2. Add filtering/sorting behavior (UI or working)
      - Prompt: "Add sorting dropdown and simple filtering; implement filter to show only items with a matching property." 
