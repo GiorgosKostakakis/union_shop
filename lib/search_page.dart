@@ -96,6 +96,28 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
 
+            // Results Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (_hasSearched) ...[
+                    Text(
+                      _searchResults.isEmpty
+                          ? 'No results found for "${_searchController.text}"'
+                          : '${_searchResults.length} result${_searchResults.length == 1 ? '' : 's'} found',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                  ],
+                ],
+              ),
+            ),
+
             const Footer(),
           ],
         ),
