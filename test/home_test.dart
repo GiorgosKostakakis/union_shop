@@ -6,7 +6,7 @@ void main() {
   group('Home Page Tests', () {
     testWidgets('should display home page with basic elements', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // Check that basic UI elements are present
       expect(
@@ -20,24 +20,24 @@ void main() {
 
     testWidgets('should display product cards', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
-      // Check that product cards are displayed
-      expect(find.text('Placeholder Product 1'), findsOneWidget);
-      expect(find.text('Placeholder Product 2'), findsOneWidget);
-      expect(find.text('Placeholder Product 3'), findsOneWidget);
-      expect(find.text('Placeholder Product 4'), findsOneWidget);
+      // Check that product cards are displayed (using actual fixture data)
+      expect(find.text('Product A'), findsOneWidget);
+      expect(find.text('Product B'), findsOneWidget);
+      expect(find.text('Product C'), findsOneWidget);
+      expect(find.text('Product D'), findsOneWidget);
 
-      // Check prices are displayed
+      // Check prices are displayed (from fixtures)
       expect(find.text('£10.00'), findsOneWidget);
+      expect(find.text('£12.50'), findsOneWidget);
       expect(find.text('£15.00'), findsOneWidget);
       expect(find.text('£20.00'), findsOneWidget);
-      expect(find.text('£25.00'), findsOneWidget);
     });
 
     testWidgets('should display header icons', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // Check that header icons are present
       expect(find.byIcon(Icons.search), findsOneWidget);
@@ -47,7 +47,7 @@ void main() {
 
     testWidgets('should display footer', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       // Check that footer is present
       expect(find.text('Opening Hours'), findsOneWidget);
