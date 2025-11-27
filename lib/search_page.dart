@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/models/fixtures.dart';
+import 'package:union_shop/models/product.dart';
 
 class SearchPage extends StatefulWidget {
   final String? initialQuery;
@@ -16,6 +18,8 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   late TextEditingController _searchController;
+  List<Product> _searchResults = [];
+  bool _hasSearched = false;
 
   @override
   void initState() {
