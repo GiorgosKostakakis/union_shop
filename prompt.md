@@ -120,3 +120,150 @@ If you want me to implement this now, reply with either:
 - "implement with go_router" — I'll add the dependency, implement routes, update pages to accept ids, add tests, and run `flutter analyze` and `flutter test`.
 - "implement with onGenerateRoute" — I'll implement a dependency-free Uri-parsing router in `lib/main.dart` and do the same tests.
 
+
+## Authentication UI prompt (copy this to ask the assistant to implement auth pages)
+
+Implement authentication UI pages for the Union Shop Flutter app: create login, signup, and password reset pages with forms and validation. Widgets are UI-only (no actual authentication logic yet).
+
+Files to create/edit:
+- Create: `lib/auth/login_page.dart` (login form)
+- Create: `lib/auth/signup_page.dart` (signup form)
+- Create: `lib/auth/forgot_password_page.dart` (password reset form)
+- Create: `lib/auth/auth_widgets.dart` (reusable form components like text fields, buttons)
+- Update: `lib/main.dart` (add routes for `/login`, `/signup`, `/forgot-password`)
+- Create test: `test/auth/login_page_test.dart` (widget test for login form)
+- Create test: `test/auth/signup_page_test.dart` (widget test for signup form)
+
+High-level description
+- Add three authentication pages with proper form validation and error states.
+- LoginPage: email + password fields, login button, links to signup and forgot password.
+- SignupPage: name, email, password, confirm password fields, signup button, link back to login.
+- ForgotPasswordPage: email field, reset button, link back to login.
+- All forms should have client-side validation (email format, password length, matching passwords).
+- Use existing project colors (Color(0xFF4d2963) for primary buttons).
+- Widgets are UI-only: buttons show a SnackBar with success message instead of actual authentication.
+
+Contract (inputs / outputs)
+- Input: User form data (email, password, name) with validation rules.
+- Output: Visually complete auth pages that:
+  - Display form fields with labels and hint text
+  - Show validation errors inline when fields are invalid
+  - Have accessible, tappable buttons (min 48x48 touch target)
+  - Show loading state on button press (CircularProgressIndicator)
+  - Display success/error SnackBar after form submission
+  - Navigate between auth pages via TextButton links
+- Keys for testability:
+  - LoginPage: `Key('loginEmailField')`, `Key('loginPasswordField')`, `Key('loginButton')`, `Key('signupLink')`, `Key('forgotPasswordLink')`
+  - SignupPage: `Key('signupNameField')`, `Key('signupEmailField')`, `Key('signupPasswordField')`, `Key('signupConfirmPasswordField')`, `Key('signupButton')`, `Key('loginLink')`
+  - ForgotPasswordPage: `Key('resetEmailField')`, `Key('resetButton')`, `Key('backToLoginLink')`
+- Error modes: Show validation errors inline (red text below field); use SnackBar for submission errors.
+
+Validation rules
+- Email: must contain '@' and '.' (basic email regex)
+- Password: minimum 6 characters
+- Confirm password: must match password field
+- Name: minimum 2 characters
+- All fields required (show error "This field is required" if empty on submit)
+
+Constraints & style
+- Do not add authentication packages (no `firebase_auth`, `supabase`, etc.) — UI only.
+- Use `TextFormField` with `Form` widget and `GlobalKey<FormState>` for validation.
+- Use existing project theme/colors where possible.
+- Keep UI accessible: readable font sizes (16sp min for body), proper contrast ratios.
+- Make forms responsive: max width 400px on wide screens, full width on mobile.
+- Use existing `Header` widget if applicable, or create simple AppBar for auth pages.
+
+Subtasks (execute sequentially; stop after each and ask to commit)
+
+1) Create reusable auth form widgets
+- Prompt: "Create reusable auth form components (text field, button, link button)."
+- Implementation notes:
+  - Create `lib/auth/auth_widgets.dart` with:
+    - `AuthTextField` widget: TextFormField with label, hint, validation, obscureText option
+    - `AuthButton` widget: ElevatedButton with loading state (shows CircularProgressIndicator when pressed)
+    - `AuthTextButton` widget: TextButton for "Sign up" / "Forgot password" links
+  - Use project colors for buttons and focus states.
+- Acceptance: Reusable widgets defined and ready to use in auth pages.
+- Files changed: `lib/auth/auth_widgets.dart`
+- Commit message: feat(auth): add reusable auth form widgets
+- After completing: stop, describe changes, and ask me to commit.
+
+2) Create LoginPage with form validation
+- Prompt: "Create LoginPage with email/password fields and validation."
+- Implementation notes:
+  - Create `lib/auth/login_page.dart` with a StatefulWidget.
+  - Use `Form` with `GlobalKey<FormState>` and two `AuthTextField` widgets (email, password).
+  - Add email validation (must contain '@'), password validation (min 6 chars).
+  - Add `AuthButton` with "Log In" text and `Key('loginButton')`.
+  - On button press: validate form, show loading for 1 second, show success SnackBar "Logged in successfully!".
+  - Add `AuthTextButton` links to signup (`Key('signupLink')`) and forgot password (`Key('forgotPasswordLink')`).
+  - Layout: centered card/container (max width 400) with padding, logo/title at top.
+- Acceptance: LoginPage displays form, validates fields, shows SnackBar on submit.
+- Files changed: `lib/auth/login_page.dart`
+- Commit message: feat(auth): add LoginPage with form validation
+- After completing: stop, describe changes, and ask me to commit.
+
+3) Create SignupPage with password confirmation
+- Prompt: "Create SignupPage with name, email, password, confirm password fields."
+- Implementation notes:
+  - Create `lib/auth/signup_page.dart` with StatefulWidget.
+  - Use `Form` with four `AuthTextField` widgets: name, email, password, confirm password.
+  - Add validation: name (min 2 chars), email (must contain '@'), password (min 6 chars), confirm password (must match password).
+  - Add `AuthButton` with "Sign Up" text and `Key('signupButton')`.
+  - On button press: validate form, show loading for 1 second, show success SnackBar "Account created successfully!".
+  - Add `AuthTextButton` link back to login (`Key('loginLink')`).
+  - Layout: same centered card style as LoginPage.
+- Acceptance: SignupPage displays form, validates password match, shows SnackBar on submit.
+- Files changed: `lib/auth/signup_page.dart`
+- Commit message: feat(auth): add SignupPage with password confirmation
+- After completing: stop, describe changes, and ask me to commit.
+
+4) Create ForgotPasswordPage
+- Prompt: "Create ForgotPasswordPage with email field for password reset."
+- Implementation notes:
+  - Create `lib/auth/forgot_password_page.dart` with StatefulWidget.
+  - Use `Form` with one `AuthTextField` (email) and email validation.
+  - Add `AuthButton` with "Reset Password" text and `Key('resetButton')`.
+  - On button press: validate form, show loading for 1 second, show success SnackBar "Password reset link sent to your email!".
+  - Add `AuthTextButton` link back to login (`Key('backToLoginLink')`).
+  - Layout: same centered card style.
+- Acceptance: ForgotPasswordPage displays form, validates email, shows SnackBar on submit.
+- Files changed: `lib/auth/forgot_password_page.dart`
+- Commit message: feat(auth): add ForgotPasswordPage
+- After completing: stop, describe changes, and ask me to commit.
+
+5) Wire auth routes in main.dart and add navigation
+- Prompt: "Add routes for /login, /signup, /forgot-password in main.dart."
+- Implementation notes:
+  - Update `lib/main.dart` router to add three routes:
+    - `/login` -> `LoginPage()`
+    - `/signup` -> `SignupPage()`
+    - `/forgot-password` -> `ForgotPasswordPage()`
+  - Update navigation links in auth pages to use `context.go('/signup')`, `context.go('/login')`, `context.go('/forgot-password')`.
+  - Optionally add "Log In" button to `Header` that navigates to `/login`.
+- Acceptance: Visiting `/login`, `/signup`, `/forgot-password` loads respective auth pages; links navigate correctly.
+- Files changed: `lib/main.dart`, `lib/auth/login_page.dart`, `lib/auth/signup_page.dart`, `lib/auth/forgot_password_page.dart`
+- Commit message: feat(auth): wire auth routes and navigation
+- After completing: stop, describe changes, and ask me to commit.
+
+6) Add widget tests for auth pages
+- Prompt: "Add widget tests for LoginPage and SignupPage."
+- Implementation notes:
+  - Create `test/auth/login_page_test.dart`:
+    - Test: "LoginPage displays email and password fields"
+    - Test: "LoginPage shows validation error for invalid email"
+    - Test: "LoginPage button shows loading state and success message"
+  - Create `test/auth/signup_page_test.dart`:
+    - Test: "SignupPage displays all four fields"
+    - Test: "SignupPage shows error when passwords don't match"
+  - Use `find.byKey()` to locate form fields and buttons.
+  - Use `tester.enterText()` and `tester.tap()` to simulate user input.
+- Acceptance: Tests pass with `flutter test test/auth/`.
+- Files changed: `test/auth/login_page_test.dart`, `test/auth/signup_page_test.dart`
+- Commit message: test(auth): add widget tests for auth pages
+- After completing: stop, describe changes, and ask me to commit.
+
+Suggested usage
+If you want me to implement this now, reply with:
+- "implement auth UI" — I'll create all auth pages, add routes, implement validation, add tests, and run `flutter analyze` and `flutter test`.
+
