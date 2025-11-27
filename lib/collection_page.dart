@@ -5,7 +5,7 @@ import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:go_router/go_router.dart';
 
-class CollectionPage extends StatelessWidget {
+class CollectionPage extends StatefulWidget {
   final Collection? collection;
 
   const CollectionPage({
@@ -14,7 +14,46 @@ class CollectionPage extends StatelessWidget {
   });
 
   @override
+  State<CollectionPage> createState() => _CollectionPageState();
+}
+
+class _CollectionPageState extends State<CollectionPage> {
+  String _searchQuery = '';
+  String _sortOption = 'Sort';
+
+  List<Product> _getFilteredAndSortedProducts() {
+    if (widget.collection == null) return [];
+    
+    List<Product> products = List.from(widget.collection!.products);
+    
+    // Filter by search query
+    if (_searchQuery.isNotEmpty) {
+      products = products.where((p) {
+        return p.title.toLowerCase().contains(_searchQuery.toLowerCase());
+      }).toList();
+    }
+    
+    // Sort by price
+    if (_sortOption == 'Low') {
+      products.sort((a, b) {
+        final priceA = double.tryParse(a.price.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
+        final priceB = double.tryParse(b.price.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
+        return priceA.compareTo(priceB);
+      });
+    } else if (_sortOption == 'High') {
+      products.sort((a, b) {
+        final priceA = double.tryParse(a.price.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
+        final priceB = double.tryParse(b.price.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
+        return priceB.compareTo(priceA);
+      });
+    }
+    
+    return products;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final filteredProducts = _getFilteredAndSortedProducts();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -28,7 +67,7 @@ class CollectionPage extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    collection?.title ?? 'Collection',
+                    widget.collection?.title ?? 'Collection',
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -52,18 +91,28 @@ class CollectionPage extends StatelessWidget {
                         labelText: 'Search products',
                         prefixIcon: Icon(Icons.search),
                       ),
-                      onChanged: (v) {},
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                        });
+                      },
                     ),
                   ),
                   const SizedBox(width: 12),
                   DropdownButton<String>(
-                    value: 'Sort',
+                    value: _sortOption,
                     items: const [
                       DropdownMenuItem(value: 'Sort', child: Text('Sort')),
                       DropdownMenuItem(value: 'Low', child: Text('Price: Low to High')),
                       DropdownMenuItem(value: 'High', child: Text('Price: High to Low')),
                     ],
-                    onChanged: (v) {},
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _sortOption = value;
+                        });
+                      }
+                    },
                   ),
                 ],
               ),
@@ -79,13 +128,13 @@ class CollectionPage extends StatelessWidget {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 childAspectRatio: 0.8,
-                children: collection != null
-                    ? collection!.products.map((Product p) {
+                children: widget.collection != null && filteredProducts.isNotEmpty
+                    ? filteredProducts.map((Product p) {
                         return GestureDetector(
                           onTap: () {
                               // Navigate to the nested collection/product path with context.go to update URL
-                              if (collection != null) {
-                                context.go('/collections/${collection!.id}/products/${p.id}', extra: p);
+                              if (widget.collection != null) {
+                                context.go('/collections/${widget.collection!.id}/products/${p.id}', extra: p);
                               } else {
                                 context.go('/product/${p.id}', extra: p);
                               }
@@ -122,32 +171,44 @@ class CollectionPage extends StatelessWidget {
                         ),
                       );
                       }).toList()
-                    : List.generate(6, (index) {
-                        return Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  color: Colors.grey[300],
-                                  child: const Center(child: Icon(Icons.image, size: 48)),
+                    : widget.collection != null && filteredProducts.isEmpty
+                        ? [
+                            const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(32.0),
+                                child: Text(
+                                  'No products found matching your search.',
+                                  style: TextStyle(fontSize: 16, color: Colors.grey),
                                 ),
                               ),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Product name', style: TextStyle(fontSize: 14)),
-                                    SizedBox(height: 4),
-                                    Text('£10.00', style: TextStyle(color: Colors.grey)),
-                                  ],
-                                ),
+                            )
+                          ]
+                        : List.generate(6, (index) {
+                            return Card(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      color: Colors.grey[300],
+                                      child: const Center(child: Icon(Icons.image, size: 48)),
+                                    ),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Product name', style: TextStyle(fontSize: 14)),
+                                        SizedBox(height: 4),
+                                        Text('£10.00', style: TextStyle(color: Colors.grey)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      }),
+                            );
+                          }),
               ),
             ),
 
