@@ -96,28 +96,28 @@ class Header extends StatelessWidget {
                   // Right: icons
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 600),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton(
+                        const IconButton(
                           icon: Icon(Icons.search, size: 18, color: Colors.grey),
                           padding: EdgeInsets.all(8),
                           constraints: BoxConstraints(minWidth: 32, minHeight: 32),
                           onPressed: null,
                         ),
                         IconButton(
-                          icon: Icon(Icons.person_outline, size: 18, color: Colors.grey),
-                          padding: EdgeInsets.all(8),
-                          constraints: BoxConstraints(minWidth: 32, minHeight: 32),
-                          onPressed: null,
+                          icon: const Icon(Icons.person_outline, size: 18, color: Color(0xFF4d2963)),
+                          padding: const EdgeInsets.all(8),
+                          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                          onPressed: () => context.go('/login'),
                         ),
-                        IconButton(
+                        const IconButton(
                           icon: Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
                           padding: EdgeInsets.all(8),
                           constraints: BoxConstraints(minWidth: 32, minHeight: 32),
                           onPressed: null,
                         ),
-                        IconButton(
+                        const IconButton(
                           icon: Icon(Icons.menu, size: 18, color: Colors.grey),
                           padding: EdgeInsets.all(8),
                           constraints: BoxConstraints(minWidth: 32, minHeight: 32),
