@@ -33,6 +33,23 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  void _performSearch(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        _searchResults = [];
+        _hasSearched = false;
+      });
+      return;
+    }
+
+    setState(() {
+      _hasSearched = true;
+      _searchResults = products.where((product) {
+        return product.title.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
