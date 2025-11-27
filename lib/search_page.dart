@@ -114,6 +114,33 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                     const SizedBox(height: 24),
                   ],
+                  
+                  // Empty state when no search performed
+                  if (!_hasSearched)
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(48.0),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.search,
+                              size: 64,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              'Start typing to search for products',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  
+                  const SizedBox(height: 48),
                 ],
               ),
             ),
