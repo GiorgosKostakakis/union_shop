@@ -1,32 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:union_shop/product_page.dart';
+import 'package:union_shop/main.dart';
 
 void main() {
   group('Product Page Tests', () {
-    Widget createTestWidget() {
-      return const MaterialApp(home: ProductPage());
-    }
-
     testWidgets('should display product page with basic elements', (
       tester,
     ) async {
-      await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      // Use UnionShopApp for proper routing
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpAndSettle();
+
+      // Scroll to and navigate to first product
+      final productFinder = find.text('Product A').first;
+      await tester.ensureVisible(productFinder);
+      await tester.pumpAndSettle();
+      await tester.tap(productFinder);
+      await tester.pumpAndSettle();
 
       // Check that basic UI elements are present
       expect(
         find.text('PLACEHOLDER HEADER TEXT'),
         findsOneWidget,
       );
-      expect(find.text('Placeholder Product Name'), findsOneWidget);
-      expect(find.text('£15.00'), findsOneWidget);
-      expect(find.text('Description'), findsOneWidget);
+      expect(find.text('Product A'), findsWidgets);
+      expect(find.text('£10.00'), findsWidgets);
     });
 
     testWidgets('should display student instruction text', (tester) async {
-      await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpAndSettle();
+
+      // Scroll to and navigate to first product
+      final productFinder = find.text('Product A').first;
+      await tester.ensureVisible(productFinder);
+      await tester.pumpAndSettle();
+      await tester.tap(productFinder);
+      await tester.pumpAndSettle();
 
       // Check that product description is present
       expect(
@@ -38,8 +48,15 @@ void main() {
     });
 
     testWidgets('should display header icons', (tester) async {
-      await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpAndSettle();
+
+      // Scroll to and navigate to first product
+      final productFinder = find.text('Product A').first;
+      await tester.ensureVisible(productFinder);
+      await tester.pumpAndSettle();
+      await tester.tap(productFinder);
+      await tester.pumpAndSettle();
 
       // Check that header icons are present
       expect(find.byIcon(Icons.search), findsOneWidget);
@@ -48,11 +65,20 @@ void main() {
     });
 
     testWidgets('should display footer', (tester) async {
-      await tester.pumpWidget(createTestWidget());
-      await tester.pump();
+      await tester.pumpWidget(const UnionShopApp());
+      await tester.pumpAndSettle();
+
+      // Scroll to and navigate to first product
+      final productFinder = find.text('Product A').first;
+      await tester.ensureVisible(productFinder);
+      await tester.pumpAndSettle();
+      await tester.tap(productFinder);
+      await tester.pumpAndSettle();
 
       // Check that footer is present
-      expect(find.text('Placeholder Footer'), findsOneWidget);
+      expect(find.text('Opening Hours'), findsOneWidget);
+      expect(find.text('Help & Info'), findsOneWidget);
+      expect(find.text('Latest Offers'), findsOneWidget);
     });
   });
 }
