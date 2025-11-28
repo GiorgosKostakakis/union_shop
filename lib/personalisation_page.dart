@@ -11,6 +11,7 @@ class PersonalisationPage extends StatefulWidget {
 
 class _PersonalisationPageState extends State<PersonalisationPage> {
   String personalisationText = '';
+  String selectedFont = 'Arial';
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +58,35 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                       setState(() {
                         personalisationText = value;
                       });
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Select Font',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    value: selectedFont,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                    items: const [
+                      DropdownMenuItem(value: 'Arial', child: Text('Arial')),
+                      DropdownMenuItem(value: 'Times New Roman', child: Text('Times New Roman')),
+                      DropdownMenuItem(value: 'Courier New', child: Text('Courier New')),
+                      DropdownMenuItem(value: 'Georgia', child: Text('Georgia')),
+                      DropdownMenuItem(value: 'Verdana', child: Text('Verdana')),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          selectedFont = value;
+                        });
+                      }
                     },
                   ),
                 ],
