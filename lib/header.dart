@@ -112,14 +112,40 @@ class _HeaderState extends State<Header> {
                               ),
                             ),
                           ),
-                          TextButton(
-                            onPressed: () => context.go('/personalisation'),
-                            child: const Text(
-                              'Print Shack',
-                              style: TextStyle(
-                                color: Color(0xFF4d2963),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                          PopupMenuButton<String>(
+                            onSelected: (value) {
+                              context.go(value);
+                            },
+                            itemBuilder: (context) => [
+                              const PopupMenuItem(
+                                value: '/personalisation',
+                                child: Text('Personalisation'),
+                              ),
+                              const PopupMenuItem(
+                                value: '/print-shack-about',
+                                child: Text('About Print Shack'),
+                              ),
+                            ],
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Print Shack',
+                                    style: TextStyle(
+                                      color: Color(0xFF4d2963),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(width: 4),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Color(0xFF4d2963),
+                                    size: 20,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
