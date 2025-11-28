@@ -223,83 +223,53 @@ class _ProductPageState extends State<ProductPage> {
 
                           const SizedBox(height: 12),
 
-                          // CTA Buttons
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  final cart = Cart();
-                                  cart.addItem(
-                                    product: displayProduct,
-                                    quantity: quantity,
-                                    selectedSize: selectedSize,
-                                    selectedColor: selectedColor,
-                                  );
-                                  
-                                  // Show confirmation snackbar
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Added ${displayProduct.title} to cart',
-                                      ),
-                                      duration: const Duration(seconds: 2),
-                                      action: SnackBarAction(
-                                        label: 'VIEW CART',
-                                        onPressed: () {
-                                          context.go('/cart');
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF4d2963),
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 32,
-                                    vertical: 16,
+                          // CTA Button
+                          ElevatedButton(
+                            onPressed: () {
+                              final cart = Cart();
+                              cart.addItem(
+                                product: displayProduct,
+                                quantity: quantity,
+                                selectedSize: selectedSize,
+                                selectedColor: selectedColor,
+                              );
+                              
+                              // Show confirmation snackbar
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Added ${displayProduct.title} to cart',
                                   ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  elevation: 2,
-                                ),
-                                child: const Text(
-                                  'ADD TO CART',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
+                                  duration: const Duration(seconds: 2),
+                                  action: SnackBarAction(
+                                    label: 'VIEW CART',
+                                    onPressed: () {
+                                      context.go('/cart');
+                                    },
                                   ),
                                 ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF4d2963),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 16,
                               ),
-                              const SizedBox(width: 12),
-                              OutlinedButton(
-                                onPressed: () {},
-                                style: OutlinedButton.styleFrom(
-                                  foregroundColor: const Color(0xFF4d2963),
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 32,
-                                    vertical: 16,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  side: const BorderSide(
-                                    color: Color(0xFF4d2963),
-                                    width: 2,
-                                  ),
-                                ),
-                                child: const Text(
-                                  'BUY NOW',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                            ],
+                              elevation: 2,
+                            ),
+                            child: const Text(
+                              'ADD TO CART',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
                           ),
                         ],
                       );
