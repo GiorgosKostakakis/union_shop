@@ -14,9 +14,22 @@ class PersonalisationPage extends StatefulWidget {
 
 class _PersonalisationPageState extends State<PersonalisationPage> {
   String personalisationText = '';
+  String line2Text = '';
+  String line3Text = '';
+  String line4Text = '';
   String selectedFont = 'Arial';
   String perLineOption = 'One Line of Text';
   int quantity = 1;
+
+  bool get isTextOption => perLineOption.contains('Line');
+  bool get isLogoOption => perLineOption.contains('Logo');
+  int get numberOfLines {
+    if (perLineOption == 'One Line of Text') return 1;
+    if (perLineOption == 'Two Lines') return 2;
+    if (perLineOption == 'Three Lines') return 3;
+    if (perLineOption == 'Four Lines') return 4;
+    return 1;
+  }
 
   String _getFontFamily(String font) {
     // Map font names to Flutter-supported fonts
@@ -58,24 +71,87 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                               color: Colors.grey[200],
                             ),
                             child: Center(
-                              child: personalisationText.isEmpty
+                              child: personalisationText.isEmpty && line2Text.isEmpty && line3Text.isEmpty && line4Text.isEmpty
                                   ? Text(
-                                      'Preview Area\nYour text will appear here',
+                                      isLogoOption 
+                                        ? 'Logo Preview\n(Upload feature coming soon)'
+                                        : 'Preview Area\nYour text will appear here',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 18,
                                         color: Colors.grey[600],
                                       ),
                                     )
-                                  : Text(
-                                      personalisationText,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 32,
-                                        fontFamily: _getFontFamily(selectedFont),
-                                        color: Colors.black,
-                                      ),
-                                    ),
+                                  : isLogoOption
+                                      ? Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.image_outlined,
+                                              size: perLineOption == 'Small Logo Chest' ? 80 : 150,
+                                              color: Colors.grey[600],
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              perLineOption,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey[600],
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            if (personalisationText.isNotEmpty)
+                                              Text(
+                                                personalisationText,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            if (numberOfLines >= 2 && line2Text.isNotEmpty) ...[
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                line2Text,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                            if (numberOfLines >= 3 && line3Text.isNotEmpty) ...[
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                line3Text,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                            if (numberOfLines >= 4 && line4Text.isNotEmpty) ...[
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                line4Text,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 32,
+                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          ],
+                                        ),
                             ),
                           ),
                         ),
