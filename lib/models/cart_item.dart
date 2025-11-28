@@ -5,12 +5,14 @@ class CartItem {
   int quantity;
   final String? selectedSize;
   final String? selectedColor;
+  final String? originalPrice; // For sale items
 
   CartItem({
     required this.product,
     this.quantity = 1,
     this.selectedSize,
     this.selectedColor,
+    this.originalPrice,
   });
 
   // Calculate total price for this cart item
@@ -27,12 +29,14 @@ class CartItem {
     int? quantity,
     String? selectedSize,
     String? selectedColor,
+    String? originalPrice,
   }) {
     return CartItem(
       product: product ?? this.product,
       quantity: quantity ?? this.quantity,
       selectedSize: selectedSize ?? this.selectedSize,
       selectedColor: selectedColor ?? this.selectedColor,
+      originalPrice: originalPrice ?? this.originalPrice,
     );
   }
 
