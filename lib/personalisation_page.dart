@@ -12,6 +12,8 @@ class PersonalisationPage extends StatefulWidget {
 class _PersonalisationPageState extends State<PersonalisationPage> {
   String personalisationText = '';
   String selectedFont = 'Arial';
+  String perLineOption = 'One Line of Text';
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,31 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Text(
+                    'Per Line',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    value: perLineOption,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                    items: const [
+                      DropdownMenuItem(value: 'One Line of Text', child: Text('One Line of Text')),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          perLineOption = value;
+                        });
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 24),
                   const Text(
                     'Enter Your Text',
                     style: TextStyle(
@@ -88,6 +115,41 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                         });
                       }
                     },
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Quantity',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove),
+                        onPressed: () {
+                          if (quantity > 1) {
+                            setState(() {
+                              quantity--;
+                            });
+                          }
+                        },
+                      ),
+                      Text(
+                        '$quantity',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () {
+                          setState(() {
+                            quantity++;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
