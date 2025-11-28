@@ -257,6 +257,7 @@ class _ProductPageState extends State<ProductPage> {
                                 quantity: quantity,
                                 selectedSize: selectedSize,
                                 selectedColor: selectedColor,
+                                originalPrice: widget.originalPrice,
                               );
                               
                               // Show confirmation snackbar
