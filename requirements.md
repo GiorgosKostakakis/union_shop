@@ -92,7 +92,7 @@ This file contains a structured feature checklist and step-by-step implementatio
 - Steps & prompts:
   1. Create `SalePage`
      - Prompt: "Create `SalePage` with promotional banner and a list of sale products (discounted prices)." 
-     - Acceptance: Sale page displays products and a banner
+     - Acceptance: Sale page displays products and a banner; sale prices work correctly
     - Subtasks:
       - [x] Add `SalePage` route and banner scaffold
         - Commit: `Add SalePage scaffold and banner`
@@ -100,6 +100,10 @@ This file contains a structured feature checklist and step-by-step implementatio
         - Commit: `Add sale fixtures and sample discounted items`
       - [x] Render sale product list and discount badge UI
         - Commit: `Show sale badges on SalePage`
+      - [x] Pass discounted prices to ProductPage when navigating from SalePage
+        - Commit: `Pass sale prices to ProductPage`
+      - [x] Display original and sale prices on product page for sale items
+        - Commit: `Show original and sale prices on ProductPage`
 
 ### Authentication UI (3%) [x]
 - Description: Login/Signup screens; not connected to a backend (UI only).
@@ -170,8 +174,10 @@ This file contains a structured feature checklist and step-by-step implementatio
          - Commit: `ProductPage: accept Product model and render fields`
   - [x] Add UI for color and size options and a quantity selector (local state only)
          - Commit: `ProductPage: add options and quantity selector`
-       - [ ] Add an 'Add to Cart' button that calls the cart provider (add later)
+       - [x] Add an 'Add to Cart' button that calls the cart
          - Commit: `Add 'Add to Cart' button to ProductPage`
+       - [x] Style 'Add to Cart' button to be prominent and clearly enabled
+         - Commit: `Improve Add to Cart button styling`
      - Subtasks (track progress / small commits):
        - [x] Add `Product` parameter to `ProductPage` and use it to display title/price/image
          - Commit: `ProductPage: accept Product model and render fields`
@@ -183,24 +189,30 @@ This file contains a structured feature checklist and step-by-step implementatio
          - Commit: `ProductCard: accept Product and pass to ProductPage`
   2. Add countdowns and color/size dropdowns (UI)
      - Prompt: "Add optional size/color dropdowns and quantity selector; maintain local state only." 
-     - Acceptance: Dropdowns update local state
+     - Acceptance: Dropdowns update local state; add to cart works with selected options
      - Commit: `Add product options UI`
 
-### Shopping Cart basic (6%)
+### Shopping Cart basic (6%) [x]
 - Steps & prompts:
   1. Create Cart data model and in-memory provider
      - Prompt: "Create a `Cart` provider with items, add/remove functions, and total calculation." 
      - Acceptance: Cart can add/remove items in-memory
      - Subtasks:
-       - [ ] Add `CartItem` model and `Cart` ChangeNotifier provider with add/remove/clear/total functions
-         - Commit: `Add Cart model and provider`
-       - [ ] Add `CartPage` (UI) to list cart items with quantity edits and remove actions
+       - [x] Add `CartItem` model and `Cart` singleton with add/remove/clear/total functions
+         - Commit: `Add Cart model and CartItem`
+       - [x] Add `CartPage` (UI) to list cart items with quantity edits and remove actions
          - Commit: `Add CartPage with list and remove`
-       - [ ] Wire ProductPage 'Add to Cart' button to provider and add a floating cart icon that shows count
+       - [x] Wire ProductPage 'Add to Cart' button to cart and add a cart icon badge that shows count
          - Commit: `Wire Add to Cart and cart count in header`
+       - [x] Add checkout flow with loading dialog and order confirmation
+         - Commit: `Add checkout with transaction loading dialog`
+       - [x] Implement real-time cart badge updates using listener pattern
+         - Commit: `Add real-time cart badge updates`
+       - [x] Display sale prices (original + discounted) in cart
+         - Commit: `Show original and sale prices in cart`
   2. Create `CartPage` and wire to add-to-cart button
      - Prompt: "Add `CartPage` showing list of cart items with quantity and remove actions. Connect product page 'Add to Cart' to this provider." 
-     - Acceptance: Items show up in cart after add-to-cart operations
+     - Acceptance: Items show up in cart after add-to-cart operations; checkout completes and clears cart
      - Commit: `Add CartPage and wire Add to Cart`
 
 ### Print Shack (Personalisation) (3%)
@@ -327,10 +339,12 @@ This file contains a structured feature checklist and step-by-step implementatio
 5. Collections: dynamic model + fixtures (done) [x]
 6. Collection pages and linking (done) [x]
 7. Deep routing with go_router (done) [x]
-8. Cart skeleton and add-to-cart
-9. Personalisation (Print Shack) page with live preview
-10. Responsiveness and search
-11. Authentication (Firebase or mock) and persistence
+8. Cart skeleton and add-to-cart (done) [x]
+9. Sale prices with original price display (done) [x]
+10. Real-time cart badge updates (done) [x]
+11. Personalisation (Print Shack) page with live preview
+12. Responsiveness improvements
+13. Authentication (Firebase or mock) and persistence
 
 ---
 
