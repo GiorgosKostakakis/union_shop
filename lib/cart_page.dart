@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/models/cart.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
   @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
   Widget build(BuildContext context) {
+    final cart = Cart();
+    final cartItems = cart.items;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -26,16 +35,99 @@ class CartPage extends StatelessWidget {
               ),
             ),
 
-            // Placeholder content
+            // Cart items or empty state
             Padding(
-              padding: const EdgeInsets.all(48),
-              child: Text(
-                'Cart page placeholder',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey[600],
-                ),
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: cartItems.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.all(48),
+                      child: Text(
+                        'Your cart is empty',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    )
+                  : Column(
+                      children: cartItems.map((item) {
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 16),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Product image
+                                Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey[300]!),
+                                  ),
+                                  child: item.product.imageUrl.isNotEmpty
+                                      ? Image.network(
+                                          item.product.imageUrl,
+                                          fit: BoxFit.cover,
+                                          errorBuilder: (context, error, stackTrace) =>
+                                              const Icon(Icons.image, size: 40),
+                                        )
+                                      : const Icon(Icons.image, size: 40),
+                                ),
+                                const SizedBox(width: 16),
+                                // Product details
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.product.title,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        item.product.price,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Color(0xFF4d2963),
+                                        ),
+                                      ),
+                                      if (item.selectedSize != null) ...[
+                                        const SizedBox(height: 4),
+                                        Text('Size: ${item.selectedSize}'),
+                                      ],
+                                      if (item.selectedColor != null) ...[
+                                        const SizedBox(height: 4),
+                                        Text('Color: ${item.selectedColor}'),
+                                      ],
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'Quantity: ${item.quantity}',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Item total price
+                                Text(
+                                  '£${item.totalPrice.toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
             ),
 
             const SizedBox(height: 40),
