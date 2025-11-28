@@ -95,6 +95,11 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             ),
                             items: const [
                               DropdownMenuItem(value: 'One Line of Text', child: Text('One Line of Text')),
+                              DropdownMenuItem(value: 'Two Lines', child: Text('Two Lines')),
+                              DropdownMenuItem(value: 'Three Lines', child: Text('Three Lines')),
+                              DropdownMenuItem(value: 'Four Lines', child: Text('Four Lines')),
+                              DropdownMenuItem(value: 'Small Logo Chest', child: Text('Small Logo Chest')),
+                              DropdownMenuItem(value: 'Large Logo Back', child: Text('Large Logo Back')),
                             ],
                             onChanged: (value) {
                               if (value != null) {
