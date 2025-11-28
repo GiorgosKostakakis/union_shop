@@ -14,6 +14,7 @@ import 'package:union_shop/models/product.dart';
 import 'package:union_shop/auth/login_page.dart';
 import 'package:union_shop/auth/signup_page.dart';
 import 'package:union_shop/personalisation_page.dart';
+import 'package:union_shop/print_shack_about_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -130,6 +131,10 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/personalisation',
           builder: (context, state) => const PersonalisationPage(),
+        ),
+        GoRoute(
+          path: '/print-shack-about',
+          builder: (context, state) => const PrintShackAboutPage(),
         ),
       ],
     );
