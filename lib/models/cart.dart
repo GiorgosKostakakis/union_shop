@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:union_shop/models/cart_item.dart';
 import 'package:union_shop/models/product.dart';
 
@@ -10,6 +11,26 @@ class Cart {
 
   // Map of cart items using unique keys
   final Map<String, CartItem> _items = {};
+  
+  // Callbacks for notifying UI of changes
+  final List<VoidCallback> _listeners = [];
+
+  // Register a listener
+  void addListener(VoidCallback listener) {
+    _listeners.add(listener);
+  }
+
+  // Remove a listener
+  void removeListener(VoidCallback listener) {
+    _listeners.remove(listener);
+  }
+
+  // Notify all listeners
+  void _notifyListeners() {
+    for (var listener in _listeners) {
+      listener();
+    }
+  }
 
   // Get all cart items
   List<CartItem> get items => _items.values.toList();
@@ -54,11 +75,13 @@ class Cart {
       // Add new item
       _items[key] = cartItem;
     }
+    _notifyListeners();
   }
 
   // Remove item from cart completely
   void removeItem(String key) {
     _items.remove(key);
+    _notifyListeners();
   }
 
   // Update quantity of an item
@@ -69,6 +92,7 @@ class Cart {
       } else {
         _items[key] = _items[key]!.copyWith(quantity: quantity);
       }
+      _notifyListeners();
     }
   }
 
@@ -78,6 +102,7 @@ class Cart {
       _items[key] = _items[key]!.copyWith(
         quantity: _items[key]!.quantity + 1,
       );
+      _notifyListeners();
     }
   }
 
@@ -92,12 +117,14 @@ class Cart {
       } else {
         _items.remove(key);
       }
+      _notifyListeners();
     }
   }
 
   // Clear entire cart
   void clear() {
     _items.clear();
+    _notifyListeners();
   }
 
   // Check if product is in cart (with specific options)
