@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/models/cart.dart';
 
 class ProductPage extends StatefulWidget {
   final Product? product;
@@ -225,16 +227,77 @@ class _ProductPageState extends State<ProductPage> {
                           Row(
                             children: [
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  final cart = Cart();
+                                  cart.addItem(
+                                    product: displayProduct,
+                                    quantity: quantity,
+                                    selectedSize: selectedSize,
+                                    selectedColor: selectedColor,
+                                  );
+                                  
+                                  // Show confirmation snackbar
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Added ${displayProduct.title} to cart',
+                                      ),
+                                      duration: const Duration(seconds: 2),
+                                      action: SnackBarAction(
+                                        label: 'VIEW CART',
+                                        onPressed: () {
+                                          context.go('/cart');
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF4d2963),
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 32,
+                                    vertical: 16,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  elevation: 2,
                                 ),
-                                child: const Text('Add to cart'),
+                                child: const Text(
+                                  'ADD TO CART',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
                               ),
                               const SizedBox(width: 12),
                               OutlinedButton(
                                 onPressed: () {},
-                                child: const Text('Buy now'),
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: const Color(0xFF4d2963),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 32,
+                                    vertical: 16,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  side: const BorderSide(
+                                    color: Color(0xFF4d2963),
+                                    width: 2,
+                                  ),
+                                ),
+                                child: const Text(
+                                  'BUY NOW',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
