@@ -13,6 +13,7 @@ import 'package:union_shop/models/fixtures.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/auth/login_page.dart';
 import 'package:union_shop/auth/signup_page.dart';
+import 'package:union_shop/personalisation_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -125,6 +126,10 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/cart',
           builder: (context, state) => const CartPage(),
+        ),
+        GoRoute(
+          path: '/personalisation',
+          builder: (context, state) => const PersonalisationPage(),
         ),
       ],
     );
