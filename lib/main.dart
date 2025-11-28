@@ -82,10 +82,20 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/sale/products/:productId',
           builder: (context, state) {
-            // Check if we have a sale product passed via extra
-            final extraProduct = state.extra;
-            if (extraProduct != null && extraProduct is Product) {
-              return ProductPage(product: extraProduct);
+            // Check if we have sale data passed via extra
+            final extraData = state.extra;
+            if (extraData != null && extraData is Map<String, dynamic>) {
+              final saleProduct = extraData['product'] as Product?;
+              final originalPrice = extraData['originalPrice'] as String?;
+              if (saleProduct != null) {
+                return ProductPage(
+                  product: saleProduct,
+                  originalPrice: originalPrice,
+                );
+              }
+            } else if (extraData != null && extraData is Product) {
+              // Backward compatibility for simple Product extra
+              return ProductPage(product: extraData);
             }
             
             // Fallback to regular product lookup
