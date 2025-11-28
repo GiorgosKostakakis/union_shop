@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:union_shop/models/cart.dart';
 
-class Header extends StatelessWidget {
+class Header extends StatefulWidget {
   final VoidCallback? onLogoTap;
 
   const Header({super.key, this.onLogoTap});
 
   @override
+  State<Header> createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
+  @override
   Widget build(BuildContext context) {
+    final cart = Cart();
+    final cartItemCount = cart.itemCount;
+
     return Container(
       height: 100,
       color: Colors.white,
@@ -109,11 +118,42 @@ class Header extends StatelessWidget {
                           constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                           onPressed: () => context.go('/login'),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Color(0xFF4d2963)),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                          onPressed: () => context.go('/cart'),
+                        // Cart icon with badge
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Color(0xFF4d2963)),
+                              padding: const EdgeInsets.all(8),
+                              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                              onPressed: () => context.go('/cart'),
+                            ),
+                            if (cartItemCount > 0)
+                              Positioned(
+                                right: 4,
+                                top: 4,
+                                child: Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  constraints: const BoxConstraints(
+                                    minWidth: 16,
+                                    minHeight: 16,
+                                  ),
+                                  child: Text(
+                                    cartItemCount > 99 ? '99+' : '$cartItemCount',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                         const IconButton(
                           icon: Icon(Icons.menu, size: 18, color: Colors.grey),
