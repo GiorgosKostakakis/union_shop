@@ -109,11 +109,11 @@ class Header extends StatelessWidget {
                           constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                           onPressed: () => context.go('/login'),
                         ),
-                        const IconButton(
-                          icon: Icon(Icons.shopping_bag_outlined, size: 18, color: Colors.grey),
-                          padding: EdgeInsets.all(8),
-                          constraints: BoxConstraints(minWidth: 32, minHeight: 32),
-                          onPressed: null,
+                        IconButton(
+                          icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Color(0xFF4d2963)),
+                          padding: const EdgeInsets.all(8),
+                          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                          onPressed: () => context.go('/cart'),
                         ),
                         const IconButton(
                           icon: Icon(Icons.menu, size: 18, color: Colors.grey),
