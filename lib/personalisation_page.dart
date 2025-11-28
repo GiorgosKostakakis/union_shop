@@ -10,6 +10,8 @@ class PersonalisationPage extends StatefulWidget {
 }
 
 class _PersonalisationPageState extends State<PersonalisationPage> {
+  String personalisationText = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,11 +34,32 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
             ),
 
             // Placeholder for form content
-            const Padding(
-              padding: EdgeInsets.all(40),
-              child: Text(
-                'Form will go here',
-                style: TextStyle(fontSize: 18),
+            Padding(
+              padding: const EdgeInsets.all(40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Enter Your Text',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    maxLength: 50,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Type your personalisation text here...',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        personalisationText = value;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
 
