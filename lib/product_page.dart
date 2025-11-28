@@ -7,8 +7,9 @@ import 'package:union_shop/models/cart.dart';
 
 class ProductPage extends StatefulWidget {
   final Product? product;
+  final String? originalPrice;
 
-  const ProductPage({super.key, this.product});
+  const ProductPage({super.key, this.product, this.originalPrice});
 
   @override
   State<ProductPage> createState() => _ProductPageState();
@@ -112,15 +113,39 @@ class _ProductPageState extends State<ProductPage> {
 
                           const SizedBox(height: 12),
 
-                          // Product price
-                          Text(
-                            displayProduct.price,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF4d2963),
+                          // Product price (with original price if on sale)
+                          if (widget.originalPrice != null) ...[
+                            Row(
+                              children: [
+                                Text(
+                                  widget.originalPrice!,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  displayProduct.price,
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
+                          ] else ...[
+                            Text(
+                              displayProduct.price,
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF4d2963),
+                              ),
+                            ),
+                          ],
 
                           const SizedBox(height: 24),
 
