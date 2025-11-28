@@ -13,6 +13,23 @@ class Header extends StatefulWidget {
 
 class _HeaderState extends State<Header> {
   @override
+  void initState() {
+    super.initState();
+    // Listen to cart changes and rebuild
+    Cart().addListener(_onCartChanged);
+  }
+
+  @override
+  void dispose() {
+    Cart().removeListener(_onCartChanged);
+    super.dispose();
+  }
+
+  void _onCartChanged() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     final cart = Cart();
     final cartItemCount = cart.itemCount;
