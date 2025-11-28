@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header.dart';
 import 'package:union_shop/footer.dart';
+import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/models/product.dart';
 
 class PersonalisationPage extends StatefulWidget {
   const PersonalisationPage({super.key});
@@ -14,6 +17,18 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
   String selectedFont = 'Arial';
   String perLineOption = 'One Line of Text';
   int quantity = 1;
+
+  String _getFontFamily(String font) {
+    // Map font names to Flutter-supported fonts
+    switch (font) {
+      case 'Times New Roman':
+        return 'serif';
+      case 'Courier New':
+        return 'monospace';
+      default:
+        return 'sans-serif';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +58,24 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                               color: Colors.grey[200],
                             ),
                             child: Center(
-                              child: Text(
-                                'Preview Area',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
+                              child: personalisationText.isEmpty
+                                  ? Text(
+                                      'Preview Area\nYour text will appear here',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey[600],
+                                      ),
+                                    )
+                                  : Text(
+                                      personalisationText,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 32,
+                                        fontFamily: _getFontFamily(selectedFont),
+                                        color: Colors.black,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
