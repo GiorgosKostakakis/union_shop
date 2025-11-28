@@ -233,7 +233,45 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                // TODO: Add to cart logic
+                                if (personalisationText.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Please enter your personalisation text'),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                // Create a custom product for the personalised item
+                                final personalisedProduct = Product(
+                                  id: 'personalised-${DateTime.now().millisecondsSinceEpoch}',
+                                  title: 'Print Shack - $perLineOption',
+                                  price: '£15.00',
+                                  imageUrl: 'assets/product1.png',
+                                );
+
+                                // Add to cart with custom options
+                                Cart().addItem(
+                                  product: personalisedProduct,
+                                  quantity: quantity,
+                                  selectedSize: perLineOption,
+                                  selectedColor: 'Text: $personalisationText, Font: $selectedFont',
+                                );
+
+                                // Show success message
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: const Text('Added to cart!'),
+                                    duration: const Duration(seconds: 2),
+                                    action: SnackBarAction(
+                                      label: 'VIEW CART',
+                                      onPressed: () {
+                                        context.go('/cart');
+                                      },
+                                    ),
+                                  ),
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF4d2963),
