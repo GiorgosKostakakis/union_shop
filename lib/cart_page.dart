@@ -88,13 +88,38 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                       ),
                                       const SizedBox(height: 8),
-                                      Text(
-                                        item.product.price,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Color(0xFF4d2963),
+                                      // Product price (with original price if on sale)
+                                      if (item.originalPrice != null) ...[
+                                        Row(
+                                          children: [
+                                            Text(
+                                              item.originalPrice!,
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey,
+                                                decoration: TextDecoration.lineThrough,
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(
+                                              item.product.price,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                      ] else ...[
+                                        Text(
+                                          item.product.price,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Color(0xFF4d2963),
+                                          ),
+                                        ),
+                                      ],
                                       if (item.selectedSize != null) ...[
                                         const SizedBox(height: 4),
                                         Text('Size: ${item.selectedSize}'),
