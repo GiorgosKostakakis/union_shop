@@ -215,16 +215,28 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Acceptance: Items show up in cart after add-to-cart operations; checkout completes and clears cart
      - Commit: `Add CartPage and wire Add to Cart`
 
-### Print Shack (Personalisation) (3%)
+### Print Shack (Personalisation) (3%) [x]
 - Steps & prompts:
   1. Create `Personalisation` page with text inputs
      - Prompt: "Create a personalisation form with text input and dropdowns for font and color; update a preview area with live changes." 
      - Acceptance: Preview updates as inputs change
      - Subtasks:
-       - [ ] Add `PersonalisationPage` with basic text inputs and font/color dropdowns
+       - [x] Add `PersonalisationPage` with basic text inputs and font/color dropdowns
          - Commit: `Add Personalisation page form`
-       - [ ] Add a live preview area that renders the selected text/style
+       - [x] Add a live preview area that renders the selected text/style
          - Commit: `Add Personalisation live preview`
+       - [x] Add "Print Shack" link to header navigation
+         - Commit: `Add Print Shack to header navigation`
+       - [x] Add route for /personalisation page
+         - Commit: `Add /personalisation route`
+       - [x] Format page to match product page layout (image/preview left, form right)
+         - Commit: `Format personalisation page like product page`
+       - [x] Add Per Line dropdown with options (One Line, Two Lines, Three Lines, Four Lines, Small Logo Chest, Large Logo Back)
+         - Commit: `Add Per Line options to personalisation`
+       - [x] Wire Add to Cart button with validation and cart integration
+         - Commit: `Wire personalisation Add to Cart`
+       - [x] Add "Go Shopping" button to empty cart page
+         - Commit: `Add Go Shopping button to empty cart`
 
 ### Navigation (3%) [x]
 - Steps & prompts:
