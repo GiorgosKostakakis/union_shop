@@ -10,6 +10,7 @@ import 'package:union_shop/sale_page.dart';
 import 'package:union_shop/search_page.dart';
 import 'package:union_shop/cart_page.dart';
 import 'package:union_shop/models/fixtures.dart';
+import 'package:union_shop/models/product.dart';
 import 'package:union_shop/auth/login_page.dart';
 import 'package:union_shop/auth/signup_page.dart';
 
@@ -81,6 +82,13 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/sale/products/:productId',
           builder: (context, state) {
+            // Check if we have a sale product passed via extra
+            final extraProduct = state.extra;
+            if (extraProduct != null && extraProduct is Product) {
+              return ProductPage(product: extraProduct);
+            }
+            
+            // Fallback to regular product lookup
             final pid = state.pathParameters['productId'];
             if (pid != null) {
               final p = productById(pid);
