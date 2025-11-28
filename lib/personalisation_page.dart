@@ -213,59 +213,185 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                           ),
                           const SizedBox(height: 24),
 
-                          // Text input
-                          const Text(
-                            'Enter Your Text',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                          // Text input fields (shown only for text options)
+                          if (isTextOption) ...[
+                            const Text(
+                              'Enter Your Text - Line 1',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            maxLength: 50,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Type your personalisation text here...',
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                personalisationText = value;
-                              });
-                            },
-                          ),
-                          const SizedBox(height: 24),
-
-                          // Font dropdown
-                          const Text(
-                            'Select Font',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          DropdownButtonFormField<String>(
-                            value: selectedFont,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
-                            items: const [
-                              DropdownMenuItem(value: 'Arial', child: Text('Arial')),
-                              DropdownMenuItem(value: 'Times New Roman', child: Text('Times New Roman')),
-                              DropdownMenuItem(value: 'Courier New', child: Text('Courier New')),
-                              DropdownMenuItem(value: 'Georgia', child: Text('Georgia')),
-                              DropdownMenuItem(value: 'Verdana', child: Text('Verdana')),
-                            ],
-                            onChanged: (value) {
-                              if (value != null) {
+                            const SizedBox(height: 8),
+                            TextField(
+                              maxLength: 50,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Type line 1 here...',
+                              ),
+                              onChanged: (value) {
                                 setState(() {
-                                  selectedFont = value;
+                                  personalisationText = value;
                                 });
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 24),
+                              },
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+
+                          // Line 2 (shown only for 2+ lines)
+                          if (numberOfLines >= 2) ...[
+                            const Text(
+                              'Enter Your Text - Line 2',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextField(
+                              maxLength: 50,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Type line 2 here...',
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  line2Text = value;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+
+                          // Line 3 (shown only for 3+ lines)
+                          if (numberOfLines >= 3) ...[
+                            const Text(
+                              'Enter Your Text - Line 3',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextField(
+                              maxLength: 50,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Type line 3 here...',
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  line3Text = value;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+
+                          // Line 4 (shown only for 4 lines)
+                          if (numberOfLines >= 4) ...[
+                            const Text(
+                              'Enter Your Text - Line 4',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextField(
+                              maxLength: 50,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Type line 4 here...',
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  line4Text = value;
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+
+                          // Logo upload placeholder (shown only for logo options)
+                          if (isLogoOption) ...[
+                            const Text(
+                              'Upload Your Logo',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(40),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey[400]!),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Column(
+                                children: [
+                                  Icon(
+                                    Icons.cloud_upload_outlined,
+                                    size: 48,
+                                    color: Colors.grey[600],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Click to upload logo',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '(Feature coming soon)',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey[500],
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+
+                          // Font dropdown (shown only for text options)
+                          if (isTextOption) ...[
+                            const Text(
+                              'Select Font',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            DropdownButtonFormField<String>(
+                              value: selectedFont,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              items: const [
+                                DropdownMenuItem(value: 'Arial', child: Text('Arial')),
+                                DropdownMenuItem(value: 'Times New Roman', child: Text('Times New Roman')),
+                                DropdownMenuItem(value: 'Courier New', child: Text('Courier New')),
+                                DropdownMenuItem(value: 'Georgia', child: Text('Georgia')),
+                                DropdownMenuItem(value: 'Verdana', child: Text('Verdana')),
+                              ],
+                              onChanged: (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    selectedFont = value;
+                                  });
+                                }
+                              },
+                            ),
+                            const SizedBox(height: 24),
+                          ],
 
                           // Quantity selector
                           const Text(
@@ -309,14 +435,37 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                if (personalisationText.isEmpty) {
+                                // Validation based on option type
+                                if (isTextOption && personalisationText.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('Please enter your personalisation text'),
+                                      content: Text('Please enter text for at least line 1'),
                                       duration: Duration(seconds: 2),
                                     ),
                                   );
                                   return;
+                                }
+
+                                if (isLogoOption) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Logo upload feature coming soon!'),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                // Build description for multi-line text
+                                String textDescription = personalisationText;
+                                if (numberOfLines >= 2 && line2Text.isNotEmpty) {
+                                  textDescription += ' | $line2Text';
+                                }
+                                if (numberOfLines >= 3 && line3Text.isNotEmpty) {
+                                  textDescription += ' | $line3Text';
+                                }
+                                if (numberOfLines >= 4 && line4Text.isNotEmpty) {
+                                  textDescription += ' | $line4Text';
                                 }
 
                                 // Create a custom product for the personalised item
@@ -332,7 +481,7 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                   product: personalisedProduct,
                                   quantity: quantity,
                                   selectedSize: perLineOption,
-                                  selectedColor: 'Text: $personalisationText, Font: $selectedFont',
+                                  selectedColor: 'Text: $textDescription, Font: $selectedFont',
                                 );
 
                                 // Show success message
