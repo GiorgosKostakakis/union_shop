@@ -112,6 +112,17 @@ class _HeaderState extends State<Header> {
                               ),
                             ),
                           ),
+                          TextButton(
+                            onPressed: () => context.go('/personalisation'),
+                            child: const Text(
+                              'Print Shack',
+                              style: TextStyle(
+                                color: Color(0xFF4d2963),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
