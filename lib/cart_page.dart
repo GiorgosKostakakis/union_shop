@@ -104,12 +104,61 @@ class _CartPageState extends State<CartPage> {
                                         Text('Color: ${item.selectedColor}'),
                                       ],
                                       const SizedBox(height: 8),
-                                      Text(
-                                        'Quantity: ${item.quantity}',
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey,
-                                        ),
+                                      // Quantity controls
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            icon: const Icon(Icons.remove_circle_outline),
+                                            iconSize: 20,
+                                            padding: EdgeInsets.zero,
+                                            constraints: const BoxConstraints(),
+                                            onPressed: () {
+                                              setState(() {
+                                                if (item.quantity > 1) {
+                                                  cart.decrementQuantity(item.key);
+                                                } else {
+                                                  cart.removeItem(item.key);
+                                                }
+                                              });
+                                            },
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                                            child: Text(
+                                              '${item.quantity}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          IconButton(
+                                            icon: const Icon(Icons.add_circle_outline),
+                                            iconSize: 20,
+                                            padding: EdgeInsets.zero,
+                                            constraints: const BoxConstraints(),
+                                            onPressed: () {
+                                              setState(() {
+                                                cart.incrementQuantity(item.key);
+                                              });
+                                            },
+                                          ),
+                                          const SizedBox(width: 16),
+                                          TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                cart.removeItem(item.key);
+                                              });
+                                            },
+                                            child: const Text(
+                                              'Remove',
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
