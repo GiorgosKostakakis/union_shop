@@ -253,27 +253,57 @@ class _CartPageState extends State<CartPage> {
                     ),
                     const SizedBox(height: 24),
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        // Show loading dialog
                         showDialog(
                           context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Order Placed'),
-                            content: Text(
-                              'Your order of ${cart.itemCount} item(s) totaling £${cart.totalAmount.toStringAsFixed(2)} has been placed successfully!',
+                          barrierDismissible: false,
+                          builder: (context) => const AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CircularProgressIndicator(
+                                  color: Color(0xFF4d2963),
+                                ),
+                                SizedBox(height: 16),
+                                Text(
+                                  'Transaction in progress...',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ],
                             ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  setState(() {
-                                    cart.clear();
-                                  });
-                                },
-                                child: const Text('OK'),
-                              ),
-                            ],
                           ),
                         );
+
+                        // Simulate transaction delay
+                        await Future.delayed(const Duration(seconds: 2));
+
+                        // Close loading dialog
+                        if (context.mounted) {
+                          Navigator.of(context).pop();
+
+                          // Show success dialog
+                          showDialog(
+                            context: context,
+                            builder: (dialogContext) => AlertDialog(
+                              title: const Text('Order Placed'),
+                              content: Text(
+                                'Your order of ${cart.itemCount} item(s) totaling £${cart.totalAmount.toStringAsFixed(2)} has been placed successfully!',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(dialogContext).pop();
+                                    setState(() {
+                                      cart.clear();
+                                    });
+                                  },
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF4d2963),
