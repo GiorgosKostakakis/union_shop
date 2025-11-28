@@ -33,12 +33,14 @@ class Cart {
     int quantity = 1,
     String? selectedSize,
     String? selectedColor,
+    String? originalPrice,
   }) {
     final cartItem = CartItem(
       product: product,
       quantity: quantity,
       selectedSize: selectedSize,
       selectedColor: selectedColor,
+      originalPrice: originalPrice,
     );
 
     final key = cartItem.key;
