@@ -34,40 +34,41 @@ class _HeaderState extends State<Header> {
     final cart = Cart();
     final cartItemCount = cart.itemCount;
 
-    return Container(
-      height: 100,
+    return Material(
       color: Colors.white,
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            color: const Color(0xFF4d2963),
-            child: const Text(
-              'PLACEHOLDER HEADER TEXT',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 16),
+      child: SizedBox(
+        height: 100,
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              color: const Color(0xFF4d2963),
+              child: const Text(
+                'PLACEHOLDER HEADER TEXT',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  // Left: logo
-                  Image.asset(
-                    'assets/logo.png',
-                    height: 40,
-                    fit: BoxFit.contain,
-                  ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  children: [
+                    // Left: logo
+                    Image.asset(
+                      'assets/logo.png',
+                      height: 40,
+                      fit: BoxFit.contain,
+                    ),
 
-                  // Center: navigation buttons (kept centered between logo and icons)
-                  Expanded(
-                    child: Center(
-                      child: Wrap(
-                        spacing: 8,
-                        alignment: WrapAlignment.center,
-                        children: [
+                    // Center: navigation buttons (kept centered between logo and icons)
+                    Expanded(
+                      child: Center(
+                        child: Wrap(
+                          spacing: 8,
+                          alignment: WrapAlignment.center,
+                          children: [
                           TextButton(
                             onPressed: () => context.go('/'),
                             child: const Text(
@@ -112,14 +113,45 @@ class _HeaderState extends State<Header> {
                               ),
                             ),
                           ),
-                          TextButton(
-                            onPressed: () => context.go('/personalisation'),
-                            child: const Text(
-                              'Print Shack',
-                              style: TextStyle(
-                                color: Color(0xFF4d2963),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
+                          PopupMenuButton<String>(
+                            offset: const Offset(0, 40),
+                            onSelected: (String value) {
+                              if (value == 'personalisation') {
+                                context.go('/personalisation');
+                              } else if (value == 'about') {
+                                context.go('/print-shack-about');
+                              }
+                            },
+                            itemBuilder: (BuildContext context) => [
+                              const PopupMenuItem<String>(
+                                value: 'personalisation',
+                                child: Text('Personalisation'),
+                              ),
+                              const PopupMenuItem<String>(
+                                value: 'about',
+                                child: Text('About Print Shack'),
+                              ),
+                            ],
+                            child: TextButton(
+                              onPressed: null,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Text(
+                                    'Print Shack',
+                                    style: TextStyle(
+                                      color: Color(0xFF4d2963),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  const Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Color(0xFF4d2963),
+                                    size: 20,
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -198,6 +230,7 @@ class _HeaderState extends State<Header> {
           ),
         ],
       ),
+    ),
     );
   }
 }
