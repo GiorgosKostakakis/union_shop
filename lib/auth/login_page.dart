@@ -58,8 +58,8 @@ class _LoginPageState extends State<LoginPage> {
         );
 
         if (mounted) {
-          // Navigate to home page on success
-          context.go('/');
+          // Navigate to dashboard on success
+          context.go('/dashboard');
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Logged in successfully!'),
@@ -95,8 +95,8 @@ class _LoginPageState extends State<LoginPage> {
       await _authService.signInWithGoogle();
 
       if (mounted) {
-        // Navigate to home page on success
-        context.go('/');
+        // Navigate to dashboard on success
+        context.go('/dashboard');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Signed in with Google successfully!'),
