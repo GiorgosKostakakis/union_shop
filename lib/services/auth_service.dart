@@ -67,6 +67,10 @@ class AuthService with ChangeNotifier {
       // Use Firebase's signInWithPopup for web, which works reliably
       if (kIsWeb) {
         final googleProvider = GoogleAuthProvider();
+        // Force account selection every time
+        googleProvider.setCustomParameters({
+          'prompt': 'select_account',
+        });
         final userCredential = await _auth.signInWithPopup(googleProvider);
         notifyListeners();
         return userCredential.user;
