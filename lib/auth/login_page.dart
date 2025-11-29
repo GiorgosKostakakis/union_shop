@@ -209,7 +209,12 @@ class _LoginPageState extends State<LoginPage> {
                           buttonKey: const Key('forgotPasswordLink'),
                           text: 'Forgot Password?',
                           onPressed: () {
-                            Navigator.pushNamed(context, '/forgot-password');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Password reset feature coming soon!'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
                           },
                         ),
                       ),
