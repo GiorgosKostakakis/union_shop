@@ -62,7 +62,8 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                     builder: (context, constraints) {
                       // Preview/Image area (left side on desktop)
                       final Widget previewWidget = SizedBox(
-                        width: constraints.maxWidth >= 800 ? 420 : double.infinity,
+                        width:
+                            constraints.maxWidth >= 800 ? 420 : double.infinity,
                         child: Center(
                           child: Container(
                             height: constraints.maxWidth >= 800 ? 420 : 300,
@@ -71,11 +72,14 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                               color: Colors.grey[200],
                             ),
                             child: Center(
-                              child: personalisationText.isEmpty && line2Text.isEmpty && line3Text.isEmpty && line4Text.isEmpty
+                              child: personalisationText.isEmpty &&
+                                      line2Text.isEmpty &&
+                                      line3Text.isEmpty &&
+                                      line4Text.isEmpty
                                   ? Text(
-                                      isLogoOption 
-                                        ? 'Logo Preview\n(Upload feature coming soon)'
-                                        : 'Preview Area\nYour text will appear here',
+                                      isLogoOption
+                                          ? 'Logo Preview\n(Upload feature coming soon)'
+                                          : 'Preview Area\nYour text will appear here',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 18,
@@ -84,11 +88,15 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                     )
                                   : isLogoOption
                                       ? Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Icon(
                                               Icons.image_outlined,
-                                              size: perLineOption == 'Small Logo Chest' ? 80 : 150,
+                                              size: perLineOption ==
+                                                      'Small Logo Chest'
+                                                  ? 80
+                                                  : 150,
                                               color: Colors.grey[600],
                                             ),
                                             const SizedBox(height: 8),
@@ -102,7 +110,8 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                           ],
                                         )
                                       : Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             if (personalisationText.isNotEmpty)
                                               Text(
@@ -110,42 +119,49 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 32,
-                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  fontFamily: _getFontFamily(
+                                                      selectedFont),
                                                   color: Colors.black,
                                                 ),
                                               ),
-                                            if (numberOfLines >= 2 && line2Text.isNotEmpty) ...[
+                                            if (numberOfLines >= 2 &&
+                                                line2Text.isNotEmpty) ...[
                                               const SizedBox(height: 8),
                                               Text(
                                                 line2Text,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 32,
-                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  fontFamily: _getFontFamily(
+                                                      selectedFont),
                                                   color: Colors.black,
                                                 ),
                                               ),
                                             ],
-                                            if (numberOfLines >= 3 && line3Text.isNotEmpty) ...[
+                                            if (numberOfLines >= 3 &&
+                                                line3Text.isNotEmpty) ...[
                                               const SizedBox(height: 8),
                                               Text(
                                                 line3Text,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 32,
-                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  fontFamily: _getFontFamily(
+                                                      selectedFont),
                                                   color: Colors.black,
                                                 ),
                                               ),
                                             ],
-                                            if (numberOfLines >= 4 && line4Text.isNotEmpty) ...[
+                                            if (numberOfLines >= 4 &&
+                                                line4Text.isNotEmpty) ...[
                                               const SizedBox(height: 8),
                                               Text(
                                                 line4Text,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 32,
-                                                  fontFamily: _getFontFamily(selectedFont),
+                                                  fontFamily: _getFontFamily(
+                                                      selectedFont),
                                                   color: Colors.black,
                                                 ),
                                               ),
@@ -196,12 +212,23 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                               border: OutlineInputBorder(),
                             ),
                             items: const [
-                              DropdownMenuItem(value: 'One Line of Text', child: Text('One Line of Text')),
-                              DropdownMenuItem(value: 'Two Lines', child: Text('Two Lines')),
-                              DropdownMenuItem(value: 'Three Lines', child: Text('Three Lines')),
-                              DropdownMenuItem(value: 'Four Lines', child: Text('Four Lines')),
-                              DropdownMenuItem(value: 'Small Logo Chest', child: Text('Small Logo Chest')),
-                              DropdownMenuItem(value: 'Large Logo Back', child: Text('Large Logo Back')),
+                              DropdownMenuItem(
+                                  value: 'One Line of Text',
+                                  child: Text('One Line of Text')),
+                              DropdownMenuItem(
+                                  value: 'Two Lines', child: Text('Two Lines')),
+                              DropdownMenuItem(
+                                  value: 'Three Lines',
+                                  child: Text('Three Lines')),
+                              DropdownMenuItem(
+                                  value: 'Four Lines',
+                                  child: Text('Four Lines')),
+                              DropdownMenuItem(
+                                  value: 'Small Logo Chest',
+                                  child: Text('Small Logo Chest')),
+                              DropdownMenuItem(
+                                  value: 'Large Logo Back',
+                                  child: Text('Large Logo Back')),
                             ],
                             onChanged: (value) {
                               if (value != null) {
@@ -376,11 +403,18 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                 border: OutlineInputBorder(),
                               ),
                               items: const [
-                                DropdownMenuItem(value: 'Arial', child: Text('Arial')),
-                                DropdownMenuItem(value: 'Times New Roman', child: Text('Times New Roman')),
-                                DropdownMenuItem(value: 'Courier New', child: Text('Courier New')),
-                                DropdownMenuItem(value: 'Georgia', child: Text('Georgia')),
-                                DropdownMenuItem(value: 'Verdana', child: Text('Verdana')),
+                                DropdownMenuItem(
+                                    value: 'Arial', child: Text('Arial')),
+                                DropdownMenuItem(
+                                    value: 'Times New Roman',
+                                    child: Text('Times New Roman')),
+                                DropdownMenuItem(
+                                    value: 'Courier New',
+                                    child: Text('Courier New')),
+                                DropdownMenuItem(
+                                    value: 'Georgia', child: Text('Georgia')),
+                                DropdownMenuItem(
+                                    value: 'Verdana', child: Text('Verdana')),
                               ],
                               onChanged: (value) {
                                 if (value != null) {
@@ -436,10 +470,12 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             child: ElevatedButton(
                               onPressed: () {
                                 // Validation based on option type
-                                if (isTextOption && personalisationText.isEmpty) {
+                                if (isTextOption &&
+                                    personalisationText.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('Please enter text for at least line 1'),
+                                      content: Text(
+                                          'Please enter text for at least line 1'),
                                       duration: Duration(seconds: 2),
                                     ),
                                   );
@@ -449,7 +485,8 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                 if (isLogoOption) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('Logo upload feature coming soon!'),
+                                      content: Text(
+                                          'Logo upload feature coming soon!'),
                                       duration: Duration(seconds: 2),
                                     ),
                                   );
@@ -458,13 +495,16 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
 
                                 // Build description for multi-line text
                                 String textDescription = personalisationText;
-                                if (numberOfLines >= 2 && line2Text.isNotEmpty) {
+                                if (numberOfLines >= 2 &&
+                                    line2Text.isNotEmpty) {
                                   textDescription += ' | $line2Text';
                                 }
-                                if (numberOfLines >= 3 && line3Text.isNotEmpty) {
+                                if (numberOfLines >= 3 &&
+                                    line3Text.isNotEmpty) {
                                   textDescription += ' | $line3Text';
                                 }
-                                if (numberOfLines >= 4 && line4Text.isNotEmpty) {
+                                if (numberOfLines >= 4 &&
+                                    line4Text.isNotEmpty) {
                                   textDescription += ' | $line4Text';
                                 }
 
@@ -481,7 +521,8 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                   product: personalisedProduct,
                                   quantity: quantity,
                                   selectedSize: perLineOption,
-                                  selectedColor: 'Text: $textDescription, Font: $selectedFont',
+                                  selectedColor:
+                                      'Text: $textDescription, Font: $selectedFont',
                                 );
 
                                 // Show success message
@@ -500,7 +541,8 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF4d2963),
-                                padding: const EdgeInsets.symmetric(vertical: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4),
                                 ),
@@ -551,4 +593,3 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
     );
   }
 }
-
