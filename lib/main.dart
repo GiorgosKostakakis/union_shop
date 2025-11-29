@@ -13,6 +13,7 @@ import 'package:union_shop/models/fixtures.dart';
 import 'package:union_shop/models/product.dart';
 import 'package:union_shop/auth/login_page.dart';
 import 'package:union_shop/auth/signup_page.dart';
+import 'package:union_shop/dashboard_page.dart';
 import 'package:union_shop/personalisation_page.dart';
 import 'package:union_shop/print_shack_about_page.dart';
 
@@ -116,6 +117,10 @@ class UnionShopApp extends StatelessWidget {
         GoRoute(
           path: '/signup',
           builder: (context, state) => const SignupPage(),
+        ),
+        GoRoute(
+          path: '/dashboard',
+          builder: (context, state) => const DashboardPage(),
         ),
         GoRoute(
           path: '/search',
