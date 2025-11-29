@@ -304,7 +304,7 @@ class _SignupPageState extends State<SignupPage> {
                             buttonKey: const Key('loginLink'),
                             text: 'Log In',
                             onPressed: () {
-                              Navigator.pushNamed(context, '/login');
+                              context.go('/login');
                             },
                           ),
                         ],
