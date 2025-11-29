@@ -35,7 +35,7 @@ class AuthService with ChangeNotifier {
       notifyListeners();
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthException(e);
+      throw Exception(_handleAuthException(e));
     } catch (e) {
       throw Exception('An unexpected error occurred: $e');
     }
@@ -55,7 +55,7 @@ class AuthService with ChangeNotifier {
       notifyListeners();
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthException(e);
+      throw Exception(_handleAuthException(e));
     } catch (e) {
       throw Exception('An unexpected error occurred: $e');
     }
@@ -88,7 +88,7 @@ class AuthService with ChangeNotifier {
       notifyListeners();
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthException(e);
+      throw Exception(_handleAuthException(e));
     } catch (e) {
       throw Exception('An unexpected error occurred: $e');
     }
@@ -112,7 +112,7 @@ class AuthService with ChangeNotifier {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthException(e);
+      throw Exception(_handleAuthException(e));
     } catch (e) {
       throw Exception('Failed to send password reset email: $e');
     }
@@ -146,7 +146,7 @@ class AuthService with ChangeNotifier {
       await currentUser?.delete();
       notifyListeners();
     } on FirebaseAuthException catch (e) {
-      throw _handleAuthException(e);
+      throw Exception(_handleAuthException(e));
     } catch (e) {
       throw Exception('Failed to delete account: $e');
     }
