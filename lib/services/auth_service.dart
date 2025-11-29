@@ -64,7 +64,15 @@ class AuthService with ChangeNotifier {
   /// Sign in with Google
   Future<User?> signInWithGoogle() async {
     try {
-      // Trigger the Google Sign-In flow
+      // Use Firebase's signInWithPopup for web, which works reliably
+      if (kIsWeb) {
+        final googleProvider = GoogleAuthProvider();
+        final userCredential = await _auth.signInWithPopup(googleProvider);
+        notifyListeners();
+        return userCredential.user;
+      }
+
+      // For mobile platforms, use the google_sign_in package
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser == null) {
