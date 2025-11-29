@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:union_shop/services/auth_service.dart';
 import 'auth_widgets.dart';
 
 class SignupPage extends StatefulWidget {
@@ -14,7 +16,9 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _authService = AuthService();
   bool _isLoading = false;
+  bool _isGoogleLoading = false;
 
   @override
   void dispose() {
@@ -71,20 +75,74 @@ class _SignupPageState extends State<SignupPage> {
         _isLoading = true;
       });
 
-      // Simulate network delay
-      await Future.delayed(const Duration(seconds: 1));
+      try {
+        await _authService.signUpWithEmail(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+          displayName: _nameController.text.trim(),
+        );
 
-      setState(() {
-        _isLoading = false;
-      });
+        if (mounted) {
+          // Navigate to home page on success
+          context.go('/');
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Account created successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.toString()),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    }
+  }
+
+  Future<void> _handleGoogleSignIn() async {
+    setState(() {
+      _isGoogleLoading = true;
+    });
+
+    try {
+      await _authService.signInWithGoogle();
 
       if (mounted) {
+        // Navigate to home page on success
+        context.go('/');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Account created successfully!'),
+            content: Text('Signed in with Google successfully!'),
             backgroundColor: Colors.green,
           ),
         );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.toString()),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isGoogleLoading = false;
+        });
       }
     }
   }
@@ -205,6 +263,32 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           Expanded(child: Divider()),
                         ],
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Google Sign-In button
+                      OutlinedButton.icon(
+                        onPressed: _isGoogleLoading ? null : _handleGoogleSignIn,
+                        icon: _isGoogleLoading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : Image.network(
+                                'https://www.google.com/favicon.ico',
+                                height: 20,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.login, size: 20),
+                              ),
+                        label: Text(
+                          _isGoogleLoading ? 'Signing in...' : 'Sign up with Google',
+                          style: const TextStyle(color: Colors.black87),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          side: const BorderSide(color: Colors.grey),
+                        ),
                       ),
                       const SizedBox(height: 8),
 
