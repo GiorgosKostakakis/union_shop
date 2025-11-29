@@ -18,25 +18,36 @@ class _DashboardPageState extends State<DashboardPage> {
   bool _isLoading = false;
 
   Future<void> _handleLogout() async {
-    setState(() => _isLoading = true);
-    
     try {
+      setState(() => _isLoading = true);
       await _authService.signOut();
+      
+      // Show success message before navigating
       if (mounted) {
-        context.go('/');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Signed out successfully!'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 1),
+          ),
+        );
+        
+        // Small delay to show the snackbar
+        await Future.delayed(const Duration(milliseconds: 500));
+        
+        if (mounted) {
+          context.go('/');
+        }
       }
     } catch (e) {
       if (mounted) {
+        setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to sign out: ${e.toString()}'),
             backgroundColor: Colors.red,
           ),
         );
-      }
-    } finally {
-      if (mounted) {
-        setState(() => _isLoading = false);
       }
     }
   }
