@@ -187,6 +187,20 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             ),
                           ),
                           const SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () {
+                              context.go('/print-shack-about');
+                            },
+                            child: const Text(
+                              'Learn more about Print Shack →',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF4d2963),
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
                           const Text(
                             '£15.00',
                             style: TextStyle(
