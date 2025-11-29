@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,37 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
-    appId: 'YOUR_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    authDomain: 'YOUR_PROJECT_ID.firebaseapp.com',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+    apiKey: 'AIzaSyAlgjruTE1LZsjHLlxcQLqKvIUGi5ei0ug',
+    appId: '1:426164924838:web:9a8dcae3585e96dc395f67',
+    messagingSenderId: '426164924838',
+    projectId: 'union-3c208',
+    authDomain: 'union-3c208.firebaseapp.com',
+    storageBucket: 'union-3c208.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR_ANDROID_API_KEY',
-    appId: 'YOUR_ANDROID_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+    apiKey: 'AIzaSyBgvN6zsarD-CTri9v3gXqmhEGrVjUc2oo',
+    appId: '1:426164924838:android:a9501c8badb4a90c395f67',
+    messagingSenderId: '426164924838',
+    projectId: 'union-3c208',
+    storageBucket: 'union-3c208.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR_IOS_API_KEY',
-    appId: 'YOUR_IOS_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+    apiKey: 'AIzaSyBAtPhAu0wFcSkaFwb5qjTiKnUYkUPl_oM',
+    appId: '1:426164924838:ios:5368ae8e91137e62395f67',
+    messagingSenderId: '426164924838',
+    projectId: 'union-3c208',
+    storageBucket: 'union-3c208.firebasestorage.app',
     iosBundleId: 'com.example.unionShop',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'YOUR_MACOS_API_KEY',
-    appId: 'YOUR_MACOS_APP_ID',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_PROJECT_ID.appspot.com',
+    apiKey: 'AIzaSyBAtPhAu0wFcSkaFwb5qjTiKnUYkUPl_oM',
+    appId: '1:426164924838:ios:5368ae8e91137e62395f67',
+    messagingSenderId: '426164924838',
+    projectId: 'union-3c208',
+    storageBucket: 'union-3c208.firebasestorage.app',
     iosBundleId: 'com.example.unionShop',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAlgjruTE1LZsjHLlxcQLqKvIUGi5ei0ug',
+    appId: '1:426164924838:web:b562a47a04292819395f67',
+    messagingSenderId: '426164924838',
+    projectId: 'union-3c208',
+    authDomain: 'union-3c208.firebaseapp.com',
+    storageBucket: 'union-3c208.firebasestorage.app',
+  );
+
 }
