@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/services/auth_service.dart';
+import 'package:union_shop/header.dart';
 import 'auth_widgets.dart';
 
 class SignupPage extends StatefulWidget {
@@ -153,13 +154,11 @@ class _SignupPageState extends State<SignupPage> {
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF4d2963),
-        foregroundColor: Colors.white,
-        title: const Text('Sign Up'),
-        centerTitle: true,
-      ),
-      body: Center(
+      body: Column(
+        children: [
+          const Header(),
+          Expanded(
+            child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Container(
@@ -316,6 +315,9 @@ class _SignupPageState extends State<SignupPage> {
             ),
           ),
         ),
+            ),
+          ),
+        ],
       ),
     );
   }
