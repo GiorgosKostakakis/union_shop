@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/product_page.dart';
@@ -27,6 +29,24 @@ void main() async {
   runApp(const UnionShopApp());
 }
 
+/// Helper class to refresh GoRouter when auth state changes
+class GoRouterRefreshStream extends ChangeNotifier {
+  GoRouterRefreshStream(Stream<dynamic> stream) {
+    notifyListeners();
+    _subscription = stream.asBroadcastStream().listen(
+      (dynamic _) => notifyListeners(),
+    );
+  }
+
+  late final StreamSubscription<dynamic> _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}
+
 class UnionShopApp extends StatelessWidget {
   const UnionShopApp({super.key});
 
@@ -34,6 +54,26 @@ class UnionShopApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final GoRouter router = GoRouter(
       initialLocation: '/',
+      redirect: (context, state) {
+        final user = FirebaseAuth.instance.currentUser;
+        final isAuthRoute = state.matchedLocation == '/login' || 
+                           state.matchedLocation == '/signup';
+        final isDashboard = state.matchedLocation == '/dashboard';
+
+        // If user is not logged in and trying to access dashboard, redirect to login
+        if (user == null && isDashboard) {
+          return '/login';
+        }
+
+        // If user is logged in and on auth pages, redirect to dashboard
+        if (user != null && isAuthRoute) {
+          return '/dashboard';
+        }
+
+        // No redirect needed
+        return null;
+      },
+      refreshListenable: GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
       routes: <RouteBase>[
         GoRoute(
           path: '/',
