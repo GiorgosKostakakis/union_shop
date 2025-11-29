@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/models/cart.dart';
 
@@ -173,10 +174,22 @@ class _HeaderState extends State<Header> {
                           onPressed: () => context.go('/search'),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.person_outline, size: 18, color: Color(0xFF4d2963)),
+                          icon: Icon(
+                            FirebaseAuth.instance.currentUser != null 
+                              ? Icons.person 
+                              : Icons.person_outline,
+                            size: 18,
+                            color: const Color(0xFF4d2963),
+                          ),
                           padding: const EdgeInsets.all(8),
                           constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                          onPressed: () => context.go('/login'),
+                          onPressed: () {
+                            if (FirebaseAuth.instance.currentUser != null) {
+                              context.go('/dashboard');
+                            } else {
+                              context.go('/login');
+                            }
+                          },
                         ),
                         // Cart icon with badge
                         Stack(
