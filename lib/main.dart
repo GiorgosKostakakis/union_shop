@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
+import 'package:union_shop/config/firebase_options.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/product_page.dart';
 import 'package:union_shop/views/collections_page.dart';
