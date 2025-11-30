@@ -221,7 +221,7 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                           ),
                           const SizedBox(height: 8),
                           DropdownButtonFormField<String>(
-                            value: perLineOption,
+                            initialValue: perLineOption,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                             ),
@@ -412,7 +412,7 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             ),
                             const SizedBox(height: 8),
                             DropdownButtonFormField<String>(
-                              value: selectedFont,
+                              initialValue: selectedFont,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
