@@ -257,7 +257,7 @@ This file contains a structured feature checklist and step-by-step implementatio
      - Subtasks:
        - [x] Add responsive breakpoints so grids show 1 column on mobile and multiple on wide screens
          - Commit: `Responsive grid breakpoints`
-       - [ ] Check and fix header/nav wrap at narrow widths
+       - [x] Check and fix header/nav wrap at narrow widths
          - Commit: `Responsive header/nav adjustments`
 
 ---
