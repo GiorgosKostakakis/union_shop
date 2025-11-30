@@ -279,16 +279,34 @@ This file contains a structured feature checklist and step-by-step implementatio
        - [x] Add Google Sign-In integration with account picker
          - Commit: `Add Google Sign-In with account selection`
 
-### Cart management (6%)
+### Cart management (6%) [x]
 - Steps & prompts:
   1. Improve `Cart` persistence and totals
      - Prompt: "Persist cart to local storage; implement price calculations and per-item quantity edits and deletions." 
      - Acceptance: Cart persists between runs, quantities and totals update correctly
      - Subtasks:
-       - [ ] Persist cart to local storage using SharedPreferences or local file
-         - Commit: `Persist cart to local storage`
-       - [ ] Add price calculations and ensure totals update on quantity change
+       - [x] Add price calculations and ensure totals update on quantity change
          - Commit: `Add cart totals and quantity updates`
+       - [x] Implement quantity editing (increment/decrement) and item removal
+         - Commit: `Add cart quantity controls and removal`
+       - [x] Add checkout flow with order completion
+         - Commit: `Add checkout with transaction simulation`
+
+### Order History / Persistence (6%)
+- Description: Store completed orders and display purchase history to authenticated users
+- Steps & prompts:
+  1. Implement order history persistence with Firebase
+     - Prompt: "Store completed orders in Firestore when user checks out; display order history on dashboard for authenticated users."
+     - Acceptance: Orders are saved to Firestore on checkout; authenticated users can view their past purchases with order details (items, prices, date)
+     - Subtasks:
+       - [ ] Add Order model (id, userId, items, total, timestamp)
+         - Commit: `Add Order model for purchase history`
+       - [ ] Save orders to Firestore on checkout completion
+         - Commit: `Persist orders to Firestore on checkout`
+       - [ ] Add order history view to dashboard page
+         - Commit: `Add order history display to dashboard`
+       - [ ] Display order details (items, quantities, prices, date)
+         - Commit: `Show detailed order information in history`
 
 ### Search (4%) [x]
 - Steps & prompts:
