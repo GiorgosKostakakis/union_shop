@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'services/auth_service.dart';
-import 'header.dart';
-import 'footer.dart';
+import 'package:union_shop/services/auth_service.dart';
+import 'package:union_shop/header.dart';
+import 'package:union_shop/footer.dart';
 
 /// Account Dashboard Page
 /// Shows user information and account management options
