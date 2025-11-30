@@ -264,18 +264,20 @@ This file contains a structured feature checklist and step-by-step implementatio
 
 ## Advanced (25%)
 
-### Authentication system (8%)
+### Authentication system (8%) [x]
 - Steps & prompts:
   1. Add Firebase Auth or mock auth
      - Prompt: "Integrate Firebase/Mock auth, add login/signup flows with persistent session state and a dashboard page." 
      - Acceptance: Users can sign up, log in, and see a dashboard
      - Subtasks:
-       - [ ] Add mock auth provider and session state for development (optionally Firebase later)
-         - Commit: `Add mock auth provider and state`
-       - [ ] Add login persistence and logout flows
+       - [x] Add Firebase Auth and configure Firebase project
+         - Commit: `Add Firebase Auth configuration`
+       - [x] Add login persistence and logout flows
          - Commit: `Add auth persistence and logout`
-       - [ ] Implement sign-up and protected dashboard route
+       - [x] Implement sign-up and protected dashboard route
          - Commit: `Add sign-up and protected dashboard`
+       - [x] Add Google Sign-In integration with account picker
+         - Commit: `Add Google Sign-In with account selection`
 
 ### Cart management (6%)
 - Steps & prompts:
