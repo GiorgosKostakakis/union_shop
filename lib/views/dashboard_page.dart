@@ -197,31 +197,32 @@ class _DashboardPageState extends State<DashboardPage> {
                                   separatorBuilder: (context, index) => const Divider(height: 32),
                                   itemBuilder: (context, index) {
                                     final order = _orders[index];
-                                    return Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Order #${order.id.substring(0, 8)}',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                    return ExpansionTile(
+                                      tilePadding: EdgeInsets.zero,
+                                      childrenPadding: const EdgeInsets.only(top: 16, bottom: 8),
+                                      title: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Order #${order.id.substring(0, 8)}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                            Text(
-                                              '£${order.total.toStringAsFixed(2)}',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFF4d2963),
-                                              ),
+                                          ),
+                                          Text(
+                                            '£${order.total.toStringAsFixed(2)}',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF4d2963),
                                             ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Row(
+                                          ),
+                                        ],
+                                      ),
+                                      subtitle: Padding(
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Row(
                                           children: [
                                             Icon(
                                               Icons.calendar_today,
@@ -251,6 +252,127 @@ class _DashboardPageState extends State<DashboardPage> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                                      ),
+                                      children: [
+                                        // Order Items
+                                        Container(
+                                          padding: const EdgeInsets.all(12),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[50],
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                'Items:',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 12),
+                                              ...order.items.map((item) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.only(bottom: 12),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      // Product image
+                                                      Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(color: Colors.grey[300]!),
+                                                          borderRadius: BorderRadius.circular(4),
+                                                        ),
+                                                        child: item.product.imageUrl.isNotEmpty
+                                                            ? ClipRRect(
+                                                                borderRadius: BorderRadius.circular(4),
+                                                                child: Image.asset(
+                                                                  item.product.imageUrl,
+                                                                  fit: BoxFit.cover,
+                                                                  errorBuilder: (context, error, stackTrace) =>
+                                                                      const Icon(Icons.image, size: 24),
+                                                                ),
+                                                              )
+                                                            : const Icon(Icons.image, size: 24),
+                                                      ),
+                                                      const SizedBox(width: 12),
+                                                      // Product details
+                                                      Expanded(
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              item.product.title,
+                                                              style: const TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight: FontWeight.w600,
+                                                              ),
+                                                            ),
+                                                            const SizedBox(height: 4),
+                                                            if (item.selectedSize != null || item.selectedColor != null)
+                                                              Text(
+                                                                [
+                                                                  if (item.selectedSize != null) 'Size: ${item.selectedSize}',
+                                                                  if (item.selectedColor != null) 'Color: ${item.selectedColor}',
+                                                                ].join(', '),
+                                                                style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors.grey[600],
+                                                                ),
+                                                              ),
+                                                            const SizedBox(height: 4),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  'Qty: ${item.quantity}',
+                                                                  style: TextStyle(
+                                                                    fontSize: 12,
+                                                                    color: Colors.grey[700],
+                                                                  ),
+                                                                ),
+                                                                const SizedBox(width: 12),
+                                                                if (item.originalPrice != null) ...[
+                                                                  Text(
+                                                                    item.originalPrice!,
+                                                                    style: const TextStyle(
+                                                                      fontSize: 12,
+                                                                      color: Colors.grey,
+                                                                      decoration: TextDecoration.lineThrough,
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(width: 6),
+                                                                ],
+                                                                Text(
+                                                                  item.product.price,
+                                                                  style: TextStyle(
+                                                                    fontSize: 12,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: item.originalPrice != null ? Colors.red : const Color(0xFF4d2963),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      // Item total
+                                                      Text(
+                                                        '£${item.totalPrice.toStringAsFixed(2)}',
+                                                        style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     );
