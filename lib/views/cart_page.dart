@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/widgets/footer.dart';
 import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/services/order_service.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -483,6 +485,10 @@ class _CartPageState extends State<CartPage> {
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: () async {
+                        // Get current user
+                        final user = FirebaseAuth.instance.currentUser;
+                        final userId = user?.uid ?? 'guest';
+                        
                         // Show loading dialog
                         showDialog(
                           context: context,
@@ -506,6 +512,13 @@ class _CartPageState extends State<CartPage> {
 
                         // Simulate transaction delay
                         await Future.delayed(const Duration(seconds: 2));
+                        
+                        // Save order to OrderService
+                        await OrderService().saveOrder(
+                          userId: userId,
+                          items: cart.items,
+                          total: cart.totalAmount,
+                        );
 
                         // Close loading dialog
                         if (context.mounted) {
