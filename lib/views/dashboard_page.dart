@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/services/auth_service.dart';
+import 'package:union_shop/services/order_service.dart';
+import 'package:union_shop/models/order.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/widgets/footer.dart';
 
@@ -15,7 +17,25 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final AuthService _authService = AuthService();
+  final OrderService _orderService = OrderService();
   bool _isLoading = false;
+  List<Order> _orders = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadOrders();
+  }
+
+  Future<void> _loadOrders() async {
+    final user = _authService.currentUser;
+    if (user != null) {
+      final orders = await _orderService.getOrdersForUser(user.uid);
+      setState(() {
+        _orders = orders;
+      });
+    }
+  }
 
   Future<void> _handleLogout() async {
     try {
@@ -122,6 +142,120 @@ class _DashboardPageState extends State<DashboardPage> {
                                 user?.uid ?? 'Not available',
                                 Icons.fingerprint,
                               ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 32),
+                      
+                      // Order History Section
+                      Card(
+                        elevation: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Order History',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              
+                              if (_orders.isEmpty)
+                                Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(24.0),
+                                    child: Column(
+                                      children: [
+                                        Icon(
+                                          Icons.shopping_bag_outlined,
+                                          size: 64,
+                                          color: Colors.grey[400],
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          'No orders yet',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.grey[600],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              else
+                                ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: _orders.length,
+                                  separatorBuilder: (context, index) => const Divider(height: 32),
+                                  itemBuilder: (context, index) {
+                                    final order = _orders[index];
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Order #${order.id.substring(0, 8)}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Text(
+                                              '£${order.total.toStringAsFixed(2)}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFF4d2963),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Icon(
+                                              Icons.calendar_today,
+                                              size: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Text(
+                                              order.formattedDate,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey[600],
+                                              ),
+                                            ),
+                                            const SizedBox(width: 16),
+                                            Icon(
+                                              Icons.shopping_cart,
+                                              size: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Text(
+                                              '${order.itemCount} item${order.itemCount == 1 ? '' : 's'}',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey[600],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
                             ],
                           ),
                         ),
