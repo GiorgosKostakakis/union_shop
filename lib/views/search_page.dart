@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header.dart';
-import 'package:union_shop/footer.dart';
+import 'package:union_shop/widgets/header.dart';
+import 'package:union_shop/widgets/footer.dart';
 import 'package:union_shop/models/fixtures.dart';
 import 'package:union_shop/models/product.dart';
 

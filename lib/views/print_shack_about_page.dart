@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header.dart';
-import 'package:union_shop/footer.dart';
+import 'package:union_shop/widgets/header.dart';
+import 'package:union_shop/widgets/footer.dart';
 
 class PrintShackAboutPage extends StatelessWidget {
   const PrintShackAboutPage({super.key});
