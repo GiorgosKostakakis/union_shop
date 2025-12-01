@@ -5,7 +5,7 @@ import 'package:union_shop/models/fixtures.dart';
 import '../test_helpers.dart';
 
 void main() {
-
+  setupFirebaseMocks();
 
   group('CollectionsPage Tests', () {
     testWidgets('renders with title and collections', (tester) async {
