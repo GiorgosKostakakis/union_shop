@@ -254,30 +254,28 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                           ),
                           const SizedBox(height: 24),
 
-                          // Text input fields (shown only for text options)
-                          if (isTextOption) ...[
-                            const Text(
-                              'Enter Your Text - Line 1',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          // Text input fields
+                          const Text(
+                            'Enter Your Text - Line 1',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
                             ),
-                            const SizedBox(height: 8),
-                            TextField(
-                              maxLength: 50,
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: 'Type line 1 here...',
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  personalisationText = value;
-                                });
-                              },
+                          ),
+                          const SizedBox(height: 8),
+                          TextField(
+                            maxLength: 50,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: 'Type line 1 here...',
                             ),
-                            const SizedBox(height: 24),
-                          ],
+                            onChanged: (value) {
+                              setState(() {
+                                personalisationText = value;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 24),
 
                           // Line 2 (shown only for 2+ lines)
                           if (numberOfLines >= 2) ...[
@@ -354,55 +352,7 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             const SizedBox(height: 24),
                           ],
 
-                          // Logo upload placeholder (shown only for logo options)
-                          if (isLogoOption) ...[
-                            const Text(
-                              'Upload Your Logo',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(40),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey[400]!),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.cloud_upload_outlined,
-                                    size: 48,
-                                    color: Colors.grey[600],
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    'Click to upload logo',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    '(Feature coming soon)',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey[500],
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                          ],
-
-                          // Font dropdown (shown only for text options)
-                          if (isTextOption) ...[
+                          // Font dropdown
                             const Text(
                               'Select Font',
                               style: TextStyle(
@@ -439,7 +389,6 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                               },
                             ),
                             const SizedBox(height: 24),
-                          ],
 
                           // Quantity selector
                           const Text(
@@ -483,24 +432,12 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                // Validation based on option type
-                                if (isTextOption &&
-                                    personalisationText.isEmpty) {
+                                // Validation
+                                if (personalisationText.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(
                                           'Please enter text for at least line 1'),
-                                      duration: Duration(seconds: 2),
-                                    ),
-                                  );
-                                  return;
-                                }
-
-                                if (isLogoOption) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          'Logo upload feature coming soon!'),
                                       duration: Duration(seconds: 2),
                                     ),
                                   );
