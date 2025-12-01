@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/cart_page.dart';
 import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/models/cart_item.dart';
@@ -227,6 +228,139 @@ void main() {
       
       // Total should be £10 + (£15 x 2) = £40
       expect(find.text('£40.00'), findsWidgets);
+    });
+
+    testWidgets('GO SHOPPING button navigates to home', (tester) async {
+      setupLargeViewport(tester);
+      final router = GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => const Scaffold(body: Text('Home Page')),
+          ),
+          GoRoute(
+            path: '/cart',
+            builder: (context, state) => const CartPage(),
+          ),
+        ],
+        initialLocation: '/cart',
+      );
+
+      await tester.pumpWidget(
+        MaterialApp.router(routerConfig: router),
+      );
+
+      await tester.tap(find.text('GO SHOPPING'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Home Page'), findsOneWidget);
+    });
+
+    testWidgets('increments quantity when + button tapped', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'inc-1',
+        title: 'Increment Test',
+        price: '£10.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        selectedSize: 'M',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      final incrementButton = find.byIcon(Icons.add_circle_outline).first;
+      await tester.tap(incrementButton);
+      await tester.pump();
+
+      expect(find.text('2'), findsWidgets);
+    });
+
+    testWidgets('decrements quantity when - button tapped', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'dec-1',
+        title: 'Decrement Test',
+        price: '£10.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 3,
+        selectedSize: 'M',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      final decrementButton = find.byIcon(Icons.remove_circle_outline).first;
+      await tester.tap(decrementButton);
+      await tester.pump();
+
+      expect(find.text('2'), findsWidgets);
+    });
+
+    testWidgets('removes item when quantity is 1 and - button tapped', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'rem-1',
+        title: 'Remove by Decrement',
+        price: '£10.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        selectedSize: 'M',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('Remove by Decrement'), findsOneWidget);
+
+      final decrementButton = find.byIcon(Icons.remove_circle_outline).first;
+      await tester.tap(decrementButton);
+      await tester.pump();
+
+      expect(find.text('Your cart is empty'), findsOneWidget);
+    });
+
+    testWidgets('removes item when Remove button tapped', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'rem-2',
+        title: 'Remove Button Test',
+        price: '£10.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 2,
+        selectedSize: 'M',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('Remove Button Test'), findsOneWidget);
+
+      await tester.tap(find.text('Remove'));
+      await tester.pump();
+
+      expect(find.text('Your cart is empty'), findsOneWidget);
     });
   });
 }
