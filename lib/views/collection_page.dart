@@ -3,6 +3,7 @@ import 'package:union_shop/widgets/footer.dart';
 import 'package:union_shop/widgets/header.dart';
 import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/product.dart';
+import 'package:union_shop/models/fixtures.dart';
 import 'package:go_router/go_router.dart';
 
 class CollectionPage extends StatefulWidget {
@@ -130,6 +131,16 @@ class _CollectionPageState extends State<CollectionPage> {
                 childAspectRatio: 0.8,
                 children: widget.collection != null && filteredProducts.isNotEmpty
                     ? filteredProducts.map((Product p) {
+                        // Check if product is on sale
+                        final saleItem = saleItems.firstWhere(
+                          (item) => (item['product'] as Product).id == p.id,
+                          orElse: () => <String, dynamic>{},
+                        );
+                        final isOnSale = saleItem.isNotEmpty;
+                        final discount = isOnSale ? saleItem['discountPercent'] as int : 0;
+                        final originalPrice = isOnSale ? saleItem['price'] as num : 0;
+                        final salePrice = isOnSale ? originalPrice * (1 - discount / 100.0) : 0;
+
                         return GestureDetector(
                           onTap: () {
                               // Navigate to the nested collection/product path with context.go to update URL
@@ -140,32 +151,79 @@ class _CollectionPageState extends State<CollectionPage> {
                               }
                           },
                           child: Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Stack(
                             children: [
-                              Expanded(
-                                child: Image.asset(
-                                  p.imageUrl,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: Colors.grey[300],
-                                      child: const Center(child: Icon(Icons.image_not_supported)),
-                                    );
-                                  },
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Image.asset(
+                                      p.imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return Container(
+                                          color: Colors.grey[300],
+                                          child: const Center(child: Icon(Icons.image_not_supported)),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(p.title, style: const TextStyle(fontSize: 14)),
+                                        const SizedBox(height: 4),
+                                        if (isOnSale)
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '£${originalPrice.toStringAsFixed(2)}',
+                                                style: const TextStyle(
+                                                  fontSize: 13,
+                                                  color: Colors.grey,
+                                                  decoration: TextDecoration.lineThrough,
+                                                ),
+                                              ),
+                                              const SizedBox(width: 8),
+                                              Text(
+                                                '£${salePrice.toStringAsFixed(2)}',
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.red,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        else
+                                          Text(p.price, style: const TextStyle(color: Colors.grey)),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(p.title, style: const TextStyle(fontSize: 14)),
-                                    const SizedBox(height: 4),
-                                    Text(p.price, style: const TextStyle(color: Colors.grey)),
-                                  ],
+                              if (isOnSale)
+                                Positioned(
+                                  top: 8,
+                                  left: 8,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.redAccent,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      '-$discount%',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
