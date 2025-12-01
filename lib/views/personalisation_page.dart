@@ -439,7 +439,7 @@ class _PersonalisationPageState extends State<PersonalisationPage> {
                                   id: 'personalised-${DateTime.now().millisecondsSinceEpoch}',
                                   title: 'Print Shack - $perLineOption',
                                   price: '£15.00',
-                                  imageUrl: 'assets/product1.png',
+                                  imageUrl: 'assets/hoodie.png',
                                 );
 
                                 // Add to cart with custom options
