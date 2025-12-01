@@ -16,9 +16,9 @@ void main() {
         find.text('Union Shop'),
         findsOneWidget,
       );
-      expect(find.text('Placeholder Hero Title'), findsOneWidget);
+      expect(find.text('Discover Our Collection'), findsOneWidget);
       expect(find.text('PRODUCTS SECTION'), findsOneWidget);
-      expect(find.text('BROWSE PRODUCTS'), findsOneWidget);
+      expect(find.text('BROWSE COLLECTION'), findsOneWidget);
     });
 
     testWidgets('should display product cards', (tester) async {
