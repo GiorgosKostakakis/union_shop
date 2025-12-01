@@ -4,7 +4,9 @@ import 'package:union_shop/main.dart';
 import 'test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+  setUpAll(() async {
+    await setupFirebaseMocks();
+  });
   
   group('Home Page Tests', () {
     testWidgets('should display home page with basic elements', (tester) async {
