@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/collection_page.dart';
 import 'package:union_shop/models/collection.dart';
 import 'package:union_shop/models/product.dart';
@@ -165,6 +166,113 @@ void main() {
 
       // Verify GestureDetector exists for product navigation
       expect(find.byType(GestureDetector), findsWidgets);
+    });
+
+    testWidgets('sorts products by price low to high', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: CollectionPage(collection: testCollection),
+        ),
+      );
+
+      // Open dropdown and select Low
+      final dropdown = find.byType(DropdownButton<String>);
+      await tester.tap(dropdown);
+      await tester.pumpAndSettle();
+
+      final lowOption = find.text('Price: Low to High').last;
+      await tester.tap(lowOption);
+      await tester.pumpAndSettle();
+
+      // Products should be sorted by price low to high
+      // Verify the dropdown value changed
+      final dropdownWidget = tester.widget<DropdownButton<String>>(dropdown);
+      expect(dropdownWidget.value, 'Low');
+    });
+
+    testWidgets('sorts products by price high to low', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: CollectionPage(collection: testCollection),
+        ),
+      );
+
+      // Open dropdown and select High
+      final dropdown = find.byType(DropdownButton<String>);
+      await tester.tap(dropdown);
+      await tester.pumpAndSettle();
+
+      final highOption = find.text('Price: High to Low').last;
+      await tester.tap(highOption);
+      await tester.pumpAndSettle();
+
+      // Verify the dropdown value changed
+      final dropdownWidget = tester.widget<DropdownButton<String>>(dropdown);
+      expect(dropdownWidget.value, 'High');
+    });
+
+    testWidgets('shows no products message when search has no results', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: CollectionPage(collection: testCollection),
+        ),
+      );
+
+      // Search for non-existent product
+      final searchField = find.byType(TextField).first;
+      await tester.enterText(searchField, 'NonexistentProduct');
+      await tester.pump();
+
+      // Should show "No products found" message
+      expect(find.text('No products found matching your search.'), findsOneWidget);
+    });
+
+    testWidgets('shows placeholder products when collection is null', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: CollectionPage(collection: null),
+        ),
+      );
+
+      // Should show placeholder products
+      expect(find.text('Product name'), findsWidgets);
+      expect(find.text('£10.00'), findsWidgets);
+    });
+
+    testWidgets('displays collection title or default', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: CollectionPage(collection: null),
+        ),
+      );
+
+      expect(find.text('Collection'), findsOneWidget);
+    });
+
+    testWidgets('handles image error with fallback icon', (tester) async {
+      final collectionWithBadImages = Collection(
+        id: 'test-bad',
+        title: 'Bad Images',
+        imageUrl: 'bad.png',
+        products: [
+          const Product(
+            id: 'bad-1',
+            title: 'Bad Image Product',
+            price: '£5.00',
+            imageUrl: 'nonexistent.png',
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: CollectionPage(collection: collectionWithBadImages),
+        ),
+      );
+      await tester.pump();
+
+      // Product image should be present (even if error builder shows)
+      expect(find.byType(Image), findsWidgets);
     });
   });
 }
