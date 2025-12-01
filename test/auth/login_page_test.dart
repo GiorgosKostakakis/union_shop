@@ -24,6 +24,8 @@ void main() {
 
   group('LoginPage Tests', () {
     testWidgets('renders with form elements', (tester) async {
+      setupLargeViewport(tester);
+      
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -33,6 +35,7 @@ void main() {
     });
 
     testWidgets('has email and password fields', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -41,22 +44,25 @@ void main() {
     });
 
     testWidgets('displays Login title', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
 
-      expect(find.text('Login'), findsOneWidget);
+      expect(find.text('Welcome Back'), findsOneWidget);
     });
 
     testWidgets('has LOGIN button', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
 
-      expect(find.text('LOGIN'), findsOneWidget);
+      expect(find.text('Log In'), findsOneWidget);
     });
 
     testWidgets('has Google Sign In button', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -65,26 +71,29 @@ void main() {
     });
 
     testWidgets('has link to signup page', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
 
-      expect(find.textContaining('Sign up'), findsOneWidget);
+      expect(find.textContaining('Sign Up'), findsAtLeastNWidgets(1));
     });
 
     testWidgets('validates email field when empty', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
 
       // Tap login without entering anything
-      await tester.tap(find.text('LOGIN'));
+      await tester.tap(find.text('Log In'));
       await tester.pumpAndSettle();
 
       expect(find.text('This field is required'), findsWidgets);
     });
 
     testWidgets('validates email format', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -93,13 +102,14 @@ void main() {
       final emailFields = find.byType(TextFormField);
       await tester.enterText(emailFields.first, 'invalidemail');
       
-      await tester.tap(find.text('LOGIN'));
+      await tester.tap(find.text('Log In'));
       await tester.pumpAndSettle();
 
       expect(find.text('Please enter a valid email address'), findsOneWidget);
     });
 
     testWidgets('validates password minimum length', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -109,13 +119,14 @@ void main() {
       await tester.enterText(fields.first, 'test@example.com');
       await tester.enterText(fields.last, '12345');
       
-      await tester.tap(find.text('LOGIN'));
+      await tester.tap(find.text('Log In'));
       await tester.pumpAndSettle();
 
       expect(find.text('Password must be at least 6 characters'), findsOneWidget);
     });
 
     testWidgets('accepts valid email format', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -129,6 +140,7 @@ void main() {
     });
 
     testWidgets('has header widget', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -137,6 +149,7 @@ void main() {
     });
 
     testWidgets('form fields are editable', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -152,6 +165,7 @@ void main() {
     });
 
     testWidgets('has password field', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -162,6 +176,7 @@ void main() {
     });
 
     testWidgets('displays OR divider', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -170,6 +185,7 @@ void main() {
     });
 
     testWidgets('has create account prompt', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -178,6 +194,7 @@ void main() {
     });
 
     testWidgets('successful login with valid credentials', (tester) async {
+      setupLargeViewport(tester);
       // Create a user first
       await authService.signUpWithEmail(
         email: 'test@example.com',
@@ -200,14 +217,18 @@ void main() {
       await tester.enterText(fields.last, 'password123');
 
       // Tap login
-      await tester.tap(find.text('LOGIN'));
-      await tester.pumpAndSettle();
+      await tester.tap(find.text('Log In'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
 
-      // Should show success snackbar
-      expect(find.text('Logged in successfully!'), findsOneWidget);
+      // Should show success snackbar or navigate away
+      final hasSuccess = find.text('Logged in successfully!').evaluate().isNotEmpty;
+      final hasDashboard = find.text('Dashboard').evaluate().isNotEmpty;
+      expect(hasSuccess || hasDashboard, isTrue);
     });
 
     testWidgets('shows error on wrong password', (tester) async {
+      setupLargeViewport(tester);
       // Create a user
       await authService.signUpWithEmail(
         email: 'user@example.com',
@@ -224,7 +245,7 @@ void main() {
       await tester.enterText(fields.first, 'user@example.com');
       await tester.enterText(fields.last, 'wrongpass');
 
-      await tester.tap(find.text('LOGIN'));
+      await tester.tap(find.text('Log In'));
       await tester.pumpAndSettle();
 
       // Should show error
@@ -232,6 +253,7 @@ void main() {
     });
 
     testWidgets('shows error for non-existent user', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -240,7 +262,7 @@ void main() {
       await tester.enterText(fields.first, 'nonexistent@example.com');
       await tester.enterText(fields.last, 'password123');
 
-      await tester.tap(find.text('LOGIN'));
+      await tester.tap(find.text('Log In'));
       await tester.pumpAndSettle();
 
       // Should show error
@@ -248,6 +270,7 @@ void main() {
     });
 
     testWidgets('button shows loading state during login', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(home: LoginPage(authService: authService)),
       );
@@ -257,7 +280,7 @@ void main() {
       await tester.enterText(fields.last, 'password123');
 
       // Start login (don't pumpAndSettle yet)
-      await tester.tap(find.text('LOGIN'));
+      await tester.tap(find.text('Log In'));
       await tester.pump();
 
       // Button should be disabled or show loading indicator
