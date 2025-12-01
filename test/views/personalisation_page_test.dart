@@ -438,7 +438,7 @@ void main() {
       await tester.pump();
 
       // Should show validation error for missing text
-      expect(find.text('Please enter text'), findsOneWidget);
+      expect(find.text('Please enter text for at least line 1'), findsOneWidget);
     });
 
     testWidgets('shows text inputs for logo options', (tester) async {
@@ -456,7 +456,7 @@ void main() {
 
       // Should show text inputs and font selector (logo options now have same fields)
       expect(find.text('Enter Your Text - Line 1'), findsOneWidget);
-      expect(find.text('Select Font'), findsNothing);
+      expect(find.text('Select Font'), findsOneWidget);
     });
 
     testWidgets('adds multi-line item to cart', (tester) async {
