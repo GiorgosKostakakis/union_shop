@@ -24,12 +24,12 @@ void main() {
       );
 
       // Enter search query
-      await tester.enterText(find.byType(TextField), 'Product A');
+      await tester.enterText(find.byType(TextField), 'Hoodie');
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pump();
 
-      // Should find Product A
-      expect(find.text('Product A'), findsWidgets);
+      // Should find University Hoodie
+      expect(find.text('University Hoodie'), findsWidgets);
     });
 
     testWidgets('shows no results message when search finds nothing', (tester) async {
@@ -67,13 +67,13 @@ void main() {
     testWidgets('initializes with initialQuery if provided', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: SearchPage(initialQuery: 'Product B'),
+          home: SearchPage(initialQuery: 'T-Shirt'),
         ),
       );
 
       // TextField should contain initial query
       final textField = tester.widget<TextField>(find.byType(TextField));
-      expect(textField.controller?.text, equals('Product B'));
+      expect(textField.controller?.text, equals('T-Shirt'));
     });
 
     testWidgets('search is case-insensitive', (tester) async {
@@ -82,12 +82,12 @@ void main() {
       );
 
       // Search with lowercase
-      await tester.enterText(find.byType(TextField), 'product a');
+      await tester.enterText(find.byType(TextField), 'hoodie');
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pump();
 
-      // Should find Product A regardless of case
-      expect(find.text('Product A'), findsWidgets);
+      // Should find University Hoodie regardless of case
+      expect(find.text('University Hoodie'), findsWidgets);
     });
 
     testWidgets('displays multiple results when query matches multiple products', (tester) async {
@@ -95,14 +95,14 @@ void main() {
         const MaterialApp(home: SearchPage()),
       );
 
-      // Search for "Product" which should match multiple items
-      await tester.enterText(find.byType(TextField), 'Product');
+      // Search for "University" which should match multiple items
+      await tester.enterText(find.byType(TextField), 'University');
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pump();
 
       // Should find multiple products
       final productCount = products.where((p) => 
-        p.title.toLowerCase().contains('product')).length;
+        p.title.toLowerCase().contains('university')).length;
       expect(productCount, greaterThan(1));
     });
 
@@ -112,7 +112,7 @@ void main() {
       );
 
       // Search for a product
-      await tester.enterText(find.byType(TextField), 'Product A');
+      await tester.enterText(find.byType(TextField), 'Hoodie');
       await tester.testTextInput.receiveAction(TextInputAction.done);
       await tester.pump();
 
