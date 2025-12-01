@@ -9,21 +9,26 @@ import 'package:union_shop/widgets/footer.dart';
 /// Account Dashboard Page
 /// Shows user information and account management options
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key});
+  final AuthService? authService; // For testing
+  final OrderService? orderService; // For testing
+  
+  const DashboardPage({super.key, this.authService, this.orderService});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  final AuthService _authService = AuthService();
-  final OrderService _orderService = OrderService();
+  late final AuthService _authService;
+  late final OrderService _orderService;
   bool _isLoading = false;
   List<Order> _orders = [];
 
   @override
   void initState() {
     super.initState();
+    _authService = widget.authService ?? AuthService();
+    _orderService = widget.orderService ?? OrderService();
     _loadOrders();
   }
 
