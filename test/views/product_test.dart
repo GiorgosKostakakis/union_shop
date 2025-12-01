@@ -17,7 +17,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Scroll to and navigate to first product
-      final productFinder = find.text('Product A').first;
+      final productFinder = find.text('University Hoodie').first;
       await tester.ensureVisible(productFinder);
       await tester.pumpAndSettle();
       await tester.tap(productFinder);
@@ -25,10 +25,10 @@ void main() {
 
       // Check that basic UI elements are present
       expect(
-        find.text('PLACEHOLDER HEADER TEXT'),
+        find.text('Union Shop'),
         findsOneWidget,
       );
-      expect(find.text('Product A'), findsWidgets);
+      expect(find.text('University Hoodie'), findsWidgets);
       expect(find.text('£10.00'), findsWidgets);
     });
 
