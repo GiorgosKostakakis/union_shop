@@ -130,6 +130,7 @@ void main() {
     });
 
     testWidgets('increments quantity when + button tapped', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(
           home: ProductPage(product: testProduct),
@@ -146,6 +147,7 @@ void main() {
     });
 
     testWidgets('decrements quantity when - button tapped', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(
           home: ProductPage(product: testProduct),
@@ -167,6 +169,7 @@ void main() {
     });
 
     testWidgets('does not decrement quantity below 1', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         MaterialApp(
           home: ProductPage(product: testProduct),
