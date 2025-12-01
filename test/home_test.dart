@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
+import 'test_helpers.dart';
 
 void main() {
+  setupFirebaseMocks();
+  
   group('Home Page Tests', () {
     testWidgets('should display home page with basic elements', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
