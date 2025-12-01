@@ -44,7 +44,7 @@ void main() {
         const MaterialApp(home: SignupPage()),
       );
 
-      expect(find.text('CREATE ACCOUNT'), findsOneWidget);
+      expect(find.text('Sign Up'), findsOneWidget);
     });
 
     testWidgets('has Google Sign Up button', (tester) async {
@@ -62,7 +62,7 @@ void main() {
         const MaterialApp(home: SignupPage()),
       );
 
-      expect(find.textContaining('Log in'), findsOneWidget);
+      expect(find.textContaining('Log In'), findsOneWidget);
     });
 
     testWidgets('validates name field when empty', (tester) async {
@@ -71,7 +71,7 @@ void main() {
         const MaterialApp(home: SignupPage()),
       );
 
-      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
       expect(find.text('This field is required'), findsWidgets);
@@ -86,7 +86,7 @@ void main() {
       final fields = find.byType(TextFormField);
       await tester.enterText(fields.first, 'A');
       
-      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
       expect(find.text('Name must be at least 2 characters'), findsOneWidget);
@@ -102,7 +102,7 @@ void main() {
       await tester.enterText(fields.at(0), 'John Doe');
       await tester.enterText(fields.at(1), 'invalidemail');
       
-      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
       expect(find.text('Please enter a valid email address'), findsOneWidget);
@@ -119,7 +119,7 @@ void main() {
       await tester.enterText(fields.at(1), 'john@example.com');
       await tester.enterText(fields.at(2), '12345');
       
-      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
       expect(find.text('Password must be at least 6 characters'), findsOneWidget);
@@ -137,7 +137,7 @@ void main() {
       await tester.enterText(fields.at(2), 'password123');
       await tester.enterText(fields.at(3), 'password456');
       
-      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
       expect(find.text('Passwords do not match'), findsOneWidget);
@@ -170,13 +170,13 @@ void main() {
       expect(fields, findsNWidgets(4));
     });
 
-    testWidgets('displays OR divider', (tester) async {
+    testWidgets('displays Sign Up title', (tester) async {
       setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
 
-      expect(find.text('OR'), findsOneWidget);
+      expect(find.text('Create Account'), findsOneWidget);
     });
 
     testWidgets('has login prompt', (tester) async {
