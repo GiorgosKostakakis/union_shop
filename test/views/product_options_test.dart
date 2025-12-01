@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
+import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/models/fixtures.dart';
-import 'test_helpers.dart';
+import '../test_helpers.dart';
 
 void main() {
   setupFirebaseMocks();
