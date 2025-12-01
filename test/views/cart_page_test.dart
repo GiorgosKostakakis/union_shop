@@ -430,5 +430,54 @@ void main() {
 
       expect(find.textContaining('Color: Blue'), findsOneWidget);
     });
+
+    testWidgets('displays original price when item is on sale', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'sale-1',
+        title: 'Sale Item',
+        price: '£15.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        originalPrice: '£25.00',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('£25.00'), findsWidgets);
+      expect(find.text('£15.00'), findsWidgets);
+    });
+
+    testWidgets('displays Order Summary section', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'sum-1',
+        title: 'Summary Test',
+        price: '£30.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        selectedSize: 'M',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('Order Summary'), findsOneWidget);
+      expect(find.text('Subtotal:'), findsOneWidget);
+      expect(find.text('Delivery:'), findsOneWidget);
+      expect(find.text('FREE'), findsOneWidget);
+      expect(find.text('Total:'), findsOneWidget);
+    });
   });
 }
