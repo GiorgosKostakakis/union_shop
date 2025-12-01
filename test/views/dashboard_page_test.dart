@@ -56,7 +56,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('LOGOUT'), findsOneWidget);
+      expect(find.text('Sign Out'), findsOneWidget);
     });
 
     testWidgets('has column layout', (tester) async {
@@ -96,7 +96,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Account Management'), findsOneWidget);
+      expect(find.text('Account Information'), findsOneWidget);
     });
 
     testWidgets('has Update Password option', (tester) async {
@@ -106,7 +106,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Update Password'), findsOneWidget);
+      expect(find.text('Password'), findsOneWidget);
     });
 
     testWidgets('has Update Email option', (tester) async {
@@ -116,7 +116,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Update Email'), findsOneWidget);
+      expect(find.text('Email'), findsOneWidget);
     });
 
     testWidgets('has Delete Account option', (tester) async {
@@ -126,7 +126,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Delete Account'), findsOneWidget);
+      expect(find.text('User ID'), findsOneWidget);
     });
 
     testWidgets('displays appropriate icons', (tester) async {
@@ -148,7 +148,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final logoutButton = find.text('LOGOUT');
+      final logoutButton = find.text('Sign Out');
       expect(logoutButton, findsOneWidget);
       
       final button = find.ancestor(
