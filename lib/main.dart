@@ -243,7 +243,7 @@ class HomeScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
-                          'Placeholder Hero Title',
+                          'Discover Our Collection',
                           style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -253,7 +253,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         const Text(
-                          "This is placeholder text for the hero section.",
+                          "Premium university branded clothing and merchandise designed for style and comfort",
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -274,7 +274,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'BROWSE PRODUCTS',
+                            'BROWSE COLLECTION',
                             style: TextStyle(fontSize: 14, letterSpacing: 1),
                           ),
                         ),
