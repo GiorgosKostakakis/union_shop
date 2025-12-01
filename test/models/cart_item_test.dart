@@ -109,5 +109,16 @@ void main() {
       expect(updated.originalPrice, equals('£20.00'));
       expect(updated.quantity, equals(2));
     });
+
+    test('copyWith can set originalPrice to a new value', () {
+      final original = CartItem(
+        product: testProduct,
+        quantity: 1,
+      );
+
+      final updated = original.copyWith(originalPrice: '£25.00');
+      
+      expect(updated.originalPrice, equals('£25.00'));
+    });
   });
 }
