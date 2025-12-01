@@ -12,7 +12,13 @@ void main() {
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
-  expect(find.text('PLACEHOLDER HEADER TEXT'), findsWidgets);
+      expect(find.text('PLACEHOLDER HEADER TEXT'), findsWidgets);
+      
+      // On narrow screens (800px test viewport < 900px), navigation is in drawer
+      // Open the menu drawer to access navigation items
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      
       expect(find.text('About Us'), findsOneWidget);
       expect(find.text('Collections'), findsOneWidget);
       expect(find.byIcon(Icons.search), findsOneWidget);
@@ -23,6 +29,10 @@ void main() {
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
       
+      // Open menu drawer to find navigation
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      
       // Find and tap About button
       final aboutButton = find.text('About Us');
       expect(aboutButton, findsOneWidget);
@@ -30,8 +40,16 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('PLACEHOLDER HEADER TEXT'), findsOneWidget);
 
+      // Open menu again
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      
       // Go back home
       await tester.tap(find.text('Home'));
+      await tester.pumpAndSettle();
+      
+      // Open menu again for Collections
+      await tester.tap(find.byIcon(Icons.menu));
       await tester.pumpAndSettle();
       
       // Find and tap Collections button
@@ -54,7 +72,11 @@ void main() {
       await tester.tap(productFinder);
       await tester.pumpAndSettle();
 
-      // Find the Home button in the header and tap it
+      // On narrow screens, Home is in the drawer
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      
+      // Find the Home button in the drawer and tap it
       final homeFinder = find.text('Home');
       expect(homeFinder, findsOneWidget);
       await tester.tap(homeFinder);
@@ -69,6 +91,10 @@ void main() {
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
+      // Open menu to navigate to collections page
+      await tester.tap(find.byIcon(Icons.menu));
+      await tester.pumpAndSettle();
+      
       // Navigate to collections page
       await tester.tap(find.text('Collections'));
       await tester.pumpAndSettle();

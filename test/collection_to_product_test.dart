@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
 import 'package:union_shop/models/fixtures.dart';
@@ -13,6 +14,10 @@ void main() {
     await tester.pumpWidget(const UnionShopApp());
     await tester.pumpAndSettle();
 
+    // Open menu to navigate to Collections (narrow screen mode in tests)
+    await tester.tap(find.byIcon(Icons.menu));
+    await tester.pumpAndSettle();
+    
     // Navigate to Collections
     await tester.tap(find.text('Collections'));
     await tester.pumpAndSettle();
