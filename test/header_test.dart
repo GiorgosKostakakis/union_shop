@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
 import 'package:union_shop/models/fixtures.dart';
+import 'test_helpers.dart';
 
 void main() {
+  setupFirebaseMocks();
+  
   group('Header widget', () {
     testWidgets('appears on home and shows navigation items', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
