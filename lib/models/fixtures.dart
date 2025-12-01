@@ -76,7 +76,7 @@ final List<Collection> collections = [
   ),
   Collection(
     id: 'sale',
-    title: 'SALE',
+    title: 'Featured Items',
     imageUrl: 'assets/product2.png', // Fallback to existing asset
     products: [products[1], products[5]],
   ),
