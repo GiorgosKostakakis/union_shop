@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:union_shop/config/firebase_options.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/product_page.dart';
@@ -56,7 +55,7 @@ class UnionShopApp extends StatelessWidget {
     final GoRouter router = GoRouter(
       initialLocation: '/',
       redirect: (context, state) {
-        final user = FirebaseAuth.instance.currentUser;
+        final user = auth_provider.AuthProvider.instance.currentUser;
         final isAuthRoute = state.matchedLocation == '/login' || 
                            state.matchedLocation == '/signup';
         final isDashboard = state.matchedLocation == '/dashboard';

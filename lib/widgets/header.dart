@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/models/cart.dart';
+import 'package:union_shop/services/auth_provider.dart' as auth_provider;
 
 class Header extends StatefulWidget {
   final VoidCallback? onLogoTap;
@@ -248,7 +248,7 @@ class _HeaderState extends State<Header> {
                       ),
                       IconButton(
                         icon: Icon(
-                          FirebaseAuth.instance.currentUser != null 
+                          auth_provider.AuthProvider.instance.currentUser != null 
                             ? Icons.person 
                             : Icons.person_outline,
                           size: 18,
@@ -257,7 +257,7 @@ class _HeaderState extends State<Header> {
                         padding: const EdgeInsets.all(8),
                         constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                         onPressed: () {
-                          if (FirebaseAuth.instance.currentUser != null) {
+                          if (auth_provider.AuthProvider.instance.currentUser != null) {
                             context.go('/dashboard');
                           } else {
                             context.go('/login');
