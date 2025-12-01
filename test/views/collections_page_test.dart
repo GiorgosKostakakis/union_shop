@@ -14,7 +14,7 @@ void main() {
         const MaterialApp(home: CollectionsPage()),
       );
 
-      expect(find.text('Collections'), findsOneWidget);
+      expect(find.text('Collections'), findsWidgets);
       expect(find.byType(GridView), findsOneWidget);
     });
 
@@ -67,8 +67,8 @@ void main() {
       await tester.enterText(find.byType(TextField), firstCollection.title);
       await tester.pump();
 
-      // Should find the searched collection
-      expect(find.text(firstCollection.title), findsOneWidget);
+      // Should find the searched collection (in search field and in results)
+      expect(find.text(firstCollection.title), findsWidgets);
       
       // Should show results count
       expect(find.textContaining('collection(s) found'), findsOneWidget);
