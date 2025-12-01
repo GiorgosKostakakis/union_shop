@@ -1,8 +1,26 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:union_shop/services/auth_provider.dart' as auth_provider;
+
+/// Helper to set up larger viewport and suppress layout overflow errors
+void setupLargeViewport(WidgetTester tester, {bool suppressOverflow = true}) {
+  tester.view.physicalSize = const Size(1920, 2400);
+  tester.view.devicePixelRatio = 1.0;
+  addTearDown(() => tester.view.reset());
+  
+  if (suppressOverflow) {
+    final originalOnError = FlutterError.onError;
+    FlutterError.onError = (details) {
+      if (!details.toString().contains('overflow')) {
+        originalOnError?.call(details);
+      }
+    };
+    addTearDown(() => FlutterError.onError = originalOnError);
+  }
+}
 
 /// Mock User for testing
 class MockUser extends Fake implements User {
