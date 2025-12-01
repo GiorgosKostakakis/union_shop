@@ -1,0 +1,199 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:union_shop/auth/signup_page.dart';
+import '../test_helpers.dart';
+
+void main() {
+  setupFirebaseMocks();
+
+  group('SignupPage Tests', () {
+    testWidgets('renders with form elements', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.byType(SignupPage), findsOneWidget);
+      expect(find.byType(Form), findsOneWidget);
+    });
+
+    testWidgets('has all required fields', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      // Name, Email, Password, Confirm Password
+      expect(find.byType(TextFormField), findsNWidgets(4));
+    });
+
+    testWidgets('displays Sign Up title', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.text('Sign Up'), findsOneWidget);
+    });
+
+    testWidgets('has CREATE ACCOUNT button', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.text('CREATE ACCOUNT'), findsOneWidget);
+    });
+
+    testWidgets('has Google Sign Up button', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.textContaining('Google'), findsOneWidget);
+    });
+
+    testWidgets('has link to login page', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.textContaining('Log in'), findsOneWidget);
+    });
+
+    testWidgets('validates name field when empty', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('This field is required'), findsWidgets);
+    });
+
+    testWidgets('validates name minimum length', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.first, 'A');
+      
+      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Name must be at least 2 characters'), findsOneWidget);
+    });
+
+    testWidgets('validates email format', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.at(0), 'John Doe');
+      await tester.enterText(fields.at(1), 'invalidemail');
+      
+      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Please enter a valid email address'), findsOneWidget);
+    });
+
+    testWidgets('validates password minimum length', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.at(0), 'John Doe');
+      await tester.enterText(fields.at(1), 'john@example.com');
+      await tester.enterText(fields.at(2), '12345');
+      
+      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Password must be at least 6 characters'), findsOneWidget);
+    });
+
+    testWidgets('validates password confirmation match', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.at(0), 'John Doe');
+      await tester.enterText(fields.at(1), 'john@example.com');
+      await tester.enterText(fields.at(2), 'password123');
+      await tester.enterText(fields.at(3), 'password456');
+      
+      await tester.tap(find.text('CREATE ACCOUNT'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Passwords do not match'), findsOneWidget);
+    });
+
+    testWidgets('accepts valid input', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.at(0), 'John Doe');
+      await tester.enterText(fields.at(1), 'john@example.com');
+      await tester.enterText(fields.at(2), 'password123');
+      await tester.enterText(fields.at(3), 'password123');
+      await tester.pump();
+
+      expect(find.text('John Doe'), findsOneWidget);
+      expect(find.text('john@example.com'), findsOneWidget);
+    });
+
+    testWidgets('has password fields', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      final fields = find.byType(TextFormField);
+      expect(fields, findsNWidgets(4));
+    });
+
+    testWidgets('displays OR divider', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.text('OR'), findsOneWidget);
+    });
+
+    testWidgets('has login prompt', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.textContaining('Already have an account?'), findsOneWidget);
+    });
+
+    testWidgets('has scrollable content', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+    });
+
+    testWidgets('form fields are editable', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      final fields = find.byType(TextFormField);
+      
+      await tester.enterText(fields.at(0), 'Test User');
+      await tester.enterText(fields.at(1), 'test@example.com');
+      await tester.enterText(fields.at(2), 'testpass123');
+      await tester.enterText(fields.at(3), 'testpass123');
+      await tester.pump();
+
+      expect(find.text('Test User'), findsOneWidget);
+      expect(find.text('test@example.com'), findsOneWidget);
+    });
+  });
+}
