@@ -68,7 +68,7 @@ const List<Product> products = [
     id: 'product-k',
     title: 'Water Bottle',
     price: '£8.00',
-    imageUrl: 'assets/bottle.png',
+    imageUrl: 'assets/water_bottle.png',
   ),
   Product(
     id: 'product-l',
