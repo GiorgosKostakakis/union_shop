@@ -1,7 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void setupFirebaseMocks() {
+Future<void> setupFirebaseMocks() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   // Setup Firebase Core mocks
@@ -10,20 +11,18 @@ void setupFirebaseMocks() {
     const MethodChannel('plugins.flutter.io/firebase_core'),
     (MethodCall methodCall) async {
       if (methodCall.method == 'Firebase#initializeCore') {
-        return {
-          'apps': [
-            {
-              'name': '[DEFAULT]',
-              'options': {
-                'apiKey': 'test-api-key',
-                'appId': 'test-app-id',
-                'messagingSenderId': 'test-sender-id',
-                'projectId': 'test-project-id',
-              },
-            }
-          ],
-          'pluginConstants': {},
-        };
+        return [
+          {
+            'name': '[DEFAULT]',
+            'options': {
+              'apiKey': 'test-api-key',
+              'appId': 'test-app-id',
+              'messagingSenderId': 'test-sender-id',
+              'projectId': 'test-project-id',
+            },
+            'pluginConstants': {},
+          }
+        ];
       }
       if (methodCall.method == 'Firebase#initializeApp') {
         return {
@@ -48,9 +47,23 @@ void setupFirebaseMocks() {
     (MethodCall methodCall) async {
       if (methodCall.method == 'Auth#registerIdTokenListener' ||
           methodCall.method == 'Auth#registerAuthStateListener') {
-        return {'user': null};
+        return null;
       }
       return null;
     },
   );
+
+  // Initialize Firebase to create the [DEFAULT] app
+  try {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: 'test-api-key',
+        appId: 'test-app-id',
+        messagingSenderId: 'test-sender-id',
+        projectId: 'test-project-id',
+      ),
+    );
+  } catch (e) {
+    // App already initialized
+  }
 }
