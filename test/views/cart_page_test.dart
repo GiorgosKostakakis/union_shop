@@ -7,7 +7,7 @@ import 'package:union_shop/models/product.dart';
 import '../test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+
 
   setUp(() {
     // Clear cart before each test
@@ -16,6 +16,7 @@ void main() {
 
   group('CartPage Tests', () {
     testWidgets('renders with title', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CartPage()),
       );
@@ -24,6 +25,7 @@ void main() {
     });
 
     testWidgets('shows empty cart message when cart is empty', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CartPage()),
       );
@@ -33,6 +35,7 @@ void main() {
     });
 
     testWidgets('displays cart items when cart has items', (tester) async {
+      setupLargeViewport(tester);
       // Add item to cart
       final testProduct = const Product(
         id: 'test-1',
@@ -57,6 +60,7 @@ void main() {
     });
 
     testWidgets('displays quantity for cart items', (tester) async {
+      setupLargeViewport(tester);
       final testProduct = const Product(
         id: 'test-2',
         title: 'Quantity Test',
@@ -80,6 +84,7 @@ void main() {
     });
 
     testWidgets('displays cart total', (tester) async {
+      setupLargeViewport(tester);
       final testProduct = const Product(
         id: 'test-3',
         title: 'Total Test',
@@ -103,6 +108,7 @@ void main() {
     });
 
     testWidgets('has remove button for cart items', (tester) async {
+      setupLargeViewport(tester);
       final testProduct = const Product(
         id: 'test-4',
         title: 'Remove Test',
@@ -126,6 +132,7 @@ void main() {
     });
 
     testWidgets('has quantity controls for items', (tester) async {
+      setupLargeViewport(tester);
       final testProduct = const Product(
         id: 'test-6',
         title: 'Quantity Controls',
@@ -150,6 +157,7 @@ void main() {
     });
 
     testWidgets('has checkout button when cart has items', (tester) async {
+      setupLargeViewport(tester);
       final testProduct = const Product(
         id: 'test-8',
         title: 'Checkout Test',
@@ -172,6 +180,7 @@ void main() {
     });
 
     testWidgets('has scrollable content', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CartPage()),
       );
@@ -180,6 +189,7 @@ void main() {
     });
 
     testWidgets('displays multiple cart items', (tester) async {
+      setupLargeViewport(tester);
       final product1 = const Product(
         id: 'multi-1',
         title: 'Product One',
