@@ -4,7 +4,9 @@ import 'package:union_shop/models/fixtures.dart';
 import 'test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+  setUpAll(() async {
+    await setupFirebaseMocks();
+  });
   testWidgets('tapping a product in CollectionPage opens ProductPage with details', (
     tester,
   ) async {
