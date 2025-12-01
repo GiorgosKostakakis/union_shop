@@ -13,7 +13,7 @@ void main() {
 
       // Check that basic UI elements are present
       expect(
-        find.text('PLACEHOLDER HEADER TEXT'),
+        find.text('Union Shop'),
         findsOneWidget,
       );
       expect(find.text('Placeholder Hero Title'), findsOneWidget);
@@ -26,10 +26,10 @@ void main() {
       await tester.pumpAndSettle();
 
       // Check that product cards are displayed (using actual fixture data)
-      expect(find.text('Product A'), findsOneWidget);
-      expect(find.text('Product B'), findsOneWidget);
-      expect(find.text('Product C'), findsOneWidget);
-      expect(find.text('Product D'), findsOneWidget);
+      expect(find.text('University Hoodie'), findsOneWidget);
+      expect(find.text('Varsity T-Shirt'), findsOneWidget);
+      expect(find.text('Campus Sweatshirt'), findsOneWidget);
+      expect(find.text('College Cap'), findsOneWidget);
 
       // Check prices are displayed (from fixtures)
       expect(find.text('£10.00'), findsOneWidget);
