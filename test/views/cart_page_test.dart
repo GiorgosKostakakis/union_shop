@@ -362,5 +362,73 @@ void main() {
 
       expect(find.text('Your cart is empty'), findsOneWidget);
     });
+
+    testWidgets('displays size and color for cart items', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'opt-1',
+        title: 'Options Test',
+        price: '£20.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        selectedSize: 'XL',
+        selectedColor: 'Red',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.textContaining('Size: XL'), findsOneWidget);
+      expect(find.textContaining('Color: Red'), findsOneWidget);
+    });
+
+    testWidgets('displays only size when color is null', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'opt-2',
+        title: 'Size Only',
+        price: '£20.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        selectedSize: 'L',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.textContaining('Size: L'), findsOneWidget);
+    });
+
+    testWidgets('displays only color when size is null', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'opt-3',
+        title: 'Color Only',
+        price: '£20.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        selectedColor: 'Blue',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.textContaining('Color: Blue'), findsOneWidget);
+    });
   });
 }
