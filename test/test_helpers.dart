@@ -1,69 +1,30 @@
-import 'package:flutter/services.dart';
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:union_shop/services/auth_provider.dart' as auth_provider;
 
-Future<void> setupFirebaseMocks() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
+/// Mock Firebase Auth for testing that returns no user
+class MockFirebaseAuth implements FirebaseAuth {
+  @override
+  Stream<User?> authStateChanges() => Stream.value(null);
 
-  // Setup Firebase Core mocks
-  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMethodCallHandler(
-    const MethodChannel('plugins.flutter.io/firebase_core'),
-    (MethodCall methodCall) async {
-      if (methodCall.method == 'Firebase#initializeCore') {
-        return [
-          {
-            'name': '[DEFAULT]',
-            'options': {
-              'apiKey': 'test-api-key',
-              'appId': 'test-app-id',
-              'messagingSenderId': 'test-sender-id',
-              'projectId': 'test-project-id',
-            },
-            'pluginConstants': {},
-          }
-        ];
-      }
-      if (methodCall.method == 'Firebase#initializeApp') {
-        return {
-          'name': '[DEFAULT]',
-          'options': {
-            'apiKey': 'test-api-key',
-            'appId': 'test-app-id',
-            'messagingSenderId': 'test-sender-id',
-            'projectId': 'test-project-id',
-          },
-          'pluginConstants': {},
-        };
-      }
-      return null;
-    },
-  );
+  @override
+  Stream<User?> idTokenChanges() => Stream.value(null);
 
-  // Setup Firebase Auth mocks
-  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .setMockMethodCallHandler(
-    const MethodChannel('plugins.flutter.io/firebase_auth'),
-    (MethodCall methodCall) async {
-      if (methodCall.method == 'Auth#registerIdTokenListener' ||
-          methodCall.method == 'Auth#registerAuthStateListener') {
-        return null;
-      }
-      return null;
-    },
-  );
+  @override
+  Stream<User?> userChanges() => Stream.value(null);
 
-  // Initialize Firebase to create the [DEFAULT] app
-  try {
-    await Firebase.initializeApp(
-      options: const FirebaseOptions(
-        apiKey: 'test-api-key',
-        appId: 'test-app-id',
-        messagingSenderId: 'test-sender-id',
-        projectId: 'test-project-id',
-      ),
-    );
-  } catch (e) {
-    // App already initialized
-  }
+  @override
+  User? get currentUser => null;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
+
+void setupFirebaseMocks() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  
+  // Set mock Firebase Auth instance
+  auth_provider.AuthProvider.setMockInstance(MockFirebaseAuth());
+}
+

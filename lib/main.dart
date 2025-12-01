@@ -19,6 +19,7 @@ import 'package:union_shop/auth/login_page.dart';
 import 'package:union_shop/auth/signup_page.dart';
 import 'package:union_shop/views/dashboard_page.dart';
 import 'package:union_shop/views/personalisation_page.dart';
+import 'package:union_shop/services/auth_provider.dart' as auth_provider;
 import 'package:union_shop/views/print_shack_about_page.dart';
 
 void main() async {
@@ -73,7 +74,7 @@ class UnionShopApp extends StatelessWidget {
         // No redirect needed
         return null;
       },
-      refreshListenable: GoRouterRefreshStream(FirebaseAuth.instance.authStateChanges()),
+      refreshListenable: GoRouterRefreshStream(auth_provider.AuthProvider.instance.authStateChanges()),
       routes: <RouteBase>[
         GoRoute(
           path: '/',
