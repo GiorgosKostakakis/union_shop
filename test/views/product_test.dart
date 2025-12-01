@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
+import 'package:union_shop/views/product_page.dart';
+import 'package:union_shop/models/product.dart';
 import '../test_helpers.dart';
 
 void main() {
@@ -82,6 +84,156 @@ void main() {
       expect(find.text('Opening Hours'), findsOneWidget);
       expect(find.text('Help & Info'), findsOneWidget);
       expect(find.text('Latest Offers'), findsOneWidget);
+    });
+  });
+
+  group('ProductPage Widget Tests', () {
+    final testProduct = const Product(
+      id: 'test-1',
+      title: 'Test Product',
+      price: '£25.00',
+      imageUrl: 'assets/test.png',
+    );
+
+    testWidgets('renders with product data', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      expect(find.text('Test Product'), findsOneWidget);
+      expect(find.text('£25.00'), findsWidgets);
+    });
+
+    testWidgets('renders with placeholder when no product provided', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: ProductPage(product: null),
+        ),
+      );
+
+      expect(find.text('Placeholder Product Name'), findsOneWidget);
+      expect(find.text('£15.00'), findsWidgets);
+    });
+
+    testWidgets('has quantity controls', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      // Find quantity controls - should have at least one of each
+      expect(find.byIcon(Icons.remove), findsAtLeastNWidgets(1));
+      expect(find.byIcon(Icons.add), findsAtLeastNWidgets(1));
+    });
+
+    testWidgets('increments quantity when + button tapped', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      // Find and tap an increment button
+      final incrementButtons = find.byIcon(Icons.add);
+      // Tap the first one that's likely the quantity control
+      await tester.tap(incrementButtons.at(1)); // Skip header icon
+      await tester.pump();
+
+      // Quantity should increase
+      expect(find.text('2'), findsAtLeastNWidgets(1));
+    });
+
+    testWidgets('decrements quantity when - button tapped', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      // First increment to 2
+      final incrementButtons = find.byIcon(Icons.add);
+      await tester.tap(incrementButtons.at(1));
+      await tester.pump();
+
+      // Then decrement
+      final decrementButtons = find.byIcon(Icons.remove);
+      await tester.tap(decrementButtons.first);
+      await tester.pump();
+
+      // Should be back to 1
+      expect(find.text('1'), findsAtLeastNWidgets(1));
+    });
+
+    testWidgets('does not decrement quantity below 1', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      // Get initial state - should start at 1
+      expect(find.text('1'), findsAtLeastNWidgets(1));
+      
+      // Try to decrement from 1
+      final decrementButtons = find.byIcon(Icons.remove);
+      await tester.tap(decrementButtons.first);
+      await tester.pump();
+
+      // Should still have at least one '1' (quantity should not go below 1)
+      expect(find.text('1'), findsAtLeastNWidgets(1));
+    });
+
+    testWidgets('has ADD TO CART button', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      expect(find.text('ADD TO CART'), findsOneWidget);
+    });
+
+    testWidgets('displays original price when provided', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: ProductPage(
+            product: Product(
+              id: 'sale-1',
+              title: 'Sale Product',
+              price: '£15.00',
+              imageUrl: 'assets/sale.png',
+            ),
+            originalPrice: '£25.00',
+          ),
+        ),
+      );
+
+      // Should show both original and sale price
+      expect(find.text('£25.00'), findsOneWidget);
+      expect(find.text('£15.00'), findsWidgets);
+    });
+
+    testWidgets('has scrollable content', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+    });
+
+    testWidgets('displays product image', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: ProductPage(product: testProduct),
+        ),
+      );
+
+      expect(find.byType(Image), findsWidgets);
     });
   });
 }
