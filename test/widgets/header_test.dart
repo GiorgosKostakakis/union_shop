@@ -5,10 +5,11 @@ import 'package:union_shop/models/fixtures.dart';
 import '../test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+
   
   group('Header widget', () {
     testWidgets('appears on home and shows navigation items', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
@@ -25,6 +26,7 @@ void main() {
     });
 
     testWidgets('appears on About and Collections pages', (tester) async {
+      setupLargeViewport(tester);
       // Use UnionShopApp and navigate to pages
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
@@ -61,6 +63,7 @@ void main() {
     });
 
     testWidgets('logo tap navigates to home from ProductPage', (tester) async {
+      setupLargeViewport(tester);
       // Use UnionShopApp with proper routing
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
@@ -87,6 +90,7 @@ void main() {
     });
 
     testWidgets('Header is present on CollectionPage with fixtures', (tester) async {
+      setupLargeViewport(tester);
       final collection = collections.first;
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
@@ -108,6 +112,7 @@ void main() {
     });
 
     testWidgets('displays cart badge when items in cart', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
@@ -129,6 +134,7 @@ void main() {
     });
 
     testWidgets('cart icon navigates to cart page', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
@@ -141,6 +147,7 @@ void main() {
     });
 
     testWidgets('person icon is present in header', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
