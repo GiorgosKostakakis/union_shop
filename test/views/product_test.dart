@@ -125,8 +125,8 @@ void main() {
       );
 
       // Find quantity controls - should have at least one of each
-      expect(find.byIcon(Icons.remove), findsAtLeastNWidgets(1));
-      expect(find.byIcon(Icons.add), findsAtLeastNWidgets(1));
+      expect(find.byIcon(Icons.remove_circle_outline), findsAtLeastNWidgets(1));
+      expect(find.byIcon(Icons.add_circle_outline), findsAtLeastNWidgets(1));
     });
 
     testWidgets('increments quantity when + button tapped', (tester) async {
@@ -137,7 +137,7 @@ void main() {
       );
 
       // Find and tap an increment button
-      final incrementButtons = find.byIcon(Icons.add);
+      final incrementButtons = find.byIcon(Icons.add_circle_outline);
       // Tap the first one that's likely the quantity control
       await tester.tap(incrementButtons.at(1)); // Skip header icon
       await tester.pump();
@@ -154,12 +154,12 @@ void main() {
       );
 
       // First increment to 2
-      final incrementButtons = find.byIcon(Icons.add);
+      final incrementButtons = find.byIcon(Icons.add_circle_outline);
       await tester.tap(incrementButtons.at(1));
       await tester.pump();
 
       // Then decrement
-      final decrementButtons = find.byIcon(Icons.remove);
+      final decrementButtons = find.byIcon(Icons.remove_circle_outline);
       await tester.tap(decrementButtons.first);
       await tester.pump();
 
@@ -178,7 +178,7 @@ void main() {
       expect(find.text('1'), findsAtLeastNWidgets(1));
       
       // Try to decrement from 1
-      final decrementButtons = find.byIcon(Icons.remove);
+      final decrementButtons = find.byIcon(Icons.remove_circle_outline);
       await tester.tap(decrementButtons.first);
       await tester.pump();
 
