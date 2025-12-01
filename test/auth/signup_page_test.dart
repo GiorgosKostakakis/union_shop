@@ -8,6 +8,7 @@ void main() {
 
   group('SignupPage Tests', () {
     testWidgets('renders with form elements', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -17,6 +18,8 @@ void main() {
     });
 
     testWidgets('has all required fields', (tester) async {
+      setupLargeViewport(tester);
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -26,6 +29,8 @@ void main() {
     });
 
     testWidgets('displays Sign Up title', (tester) async {
+      setupLargeViewport(tester);
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -34,6 +39,7 @@ void main() {
     });
 
     testWidgets('has CREATE ACCOUNT button', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -42,6 +48,7 @@ void main() {
     });
 
     testWidgets('has Google Sign Up button', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -50,6 +57,7 @@ void main() {
     });
 
     testWidgets('has link to login page', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -58,6 +66,7 @@ void main() {
     });
 
     testWidgets('validates name field when empty', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -69,6 +78,7 @@ void main() {
     });
 
     testWidgets('validates name minimum length', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -83,6 +93,7 @@ void main() {
     });
 
     testWidgets('validates email format', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -98,6 +109,7 @@ void main() {
     });
 
     testWidgets('validates password minimum length', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -114,6 +126,7 @@ void main() {
     });
 
     testWidgets('validates password confirmation match', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -131,6 +144,7 @@ void main() {
     });
 
     testWidgets('accepts valid input', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -147,6 +161,7 @@ void main() {
     });
 
     testWidgets('has password fields', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -156,6 +171,7 @@ void main() {
     });
 
     testWidgets('displays OR divider', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -164,6 +180,7 @@ void main() {
     });
 
     testWidgets('has login prompt', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -172,6 +189,7 @@ void main() {
     });
 
     testWidgets('has scrollable content', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -180,6 +198,7 @@ void main() {
     });
 
     testWidgets('form fields are editable', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
