@@ -176,7 +176,7 @@ void main() {
         const MaterialApp(home: CartPage()),
       );
 
-      expect(find.text('CHECKOUT'), findsAtLeastNWidgets(1));
+      expect(find.text('PROCEED TO CHECKOUT'), findsAtLeastNWidgets(1));
     });
 
     testWidgets('has scrollable content', (tester) async {
