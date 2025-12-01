@@ -5,10 +5,11 @@ import 'package:union_shop/models/fixtures.dart';
 import '../test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+
 
   group('CollectionsPage Tests', () {
     testWidgets('renders with title and collections', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -18,6 +19,7 @@ void main() {
     });
 
     testWidgets('displays all collections from fixtures', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -29,6 +31,7 @@ void main() {
     });
 
     testWidgets('displays product count for each collection', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -42,6 +45,7 @@ void main() {
     });
 
     testWidgets('has search field', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -51,6 +55,7 @@ void main() {
     });
 
     testWidgets('filters collections by search query', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -70,6 +75,7 @@ void main() {
     });
 
     testWidgets('shows no results message when search finds nothing', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -83,6 +89,7 @@ void main() {
     });
 
     testWidgets('search is case-insensitive', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -98,6 +105,7 @@ void main() {
     });
 
     testWidgets('has sort dropdown with options', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -112,6 +120,7 @@ void main() {
     });
 
     testWidgets('uses column layout on narrow screens', (tester) async {
+      setupLargeViewport(tester);
       tester.view.physicalSize = const Size(500, 800);
       tester.view.devicePixelRatio = 1.0;
 
@@ -128,6 +137,7 @@ void main() {
     });
 
     testWidgets('uses row layout on wide screens', (tester) async {
+      setupLargeViewport(tester);
       tester.view.physicalSize = const Size(1000, 800);
       tester.view.devicePixelRatio = 1.0;
 
@@ -144,6 +154,7 @@ void main() {
     });
 
     testWidgets('collection cards are tappable with GestureDetector', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -153,6 +164,7 @@ void main() {
     });
 
     testWidgets('displays collection images', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -162,6 +174,7 @@ void main() {
     });
 
     testWidgets('has scrollable content', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
@@ -170,6 +183,7 @@ void main() {
     });
 
     testWidgets('clears search results when query is cleared', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: CollectionsPage()),
       );
