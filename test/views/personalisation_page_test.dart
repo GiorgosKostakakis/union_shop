@@ -363,10 +363,9 @@ void main() {
       await tester.tap(find.text('Small Logo Chest').last);
       await tester.pumpAndSettle();
 
-      // Should show logo upload UI
-      expect(find.text('Upload Your Logo'), findsOneWidget);
-      expect(find.text('Click to upload logo'), findsOneWidget);
-      expect(find.byIcon(Icons.cloud_upload_outlined), findsOneWidget);
+      // Should show text input UI (logo options now have same fields as text options)
+      expect(find.text('Enter Your Text - Line 1'), findsOneWidget);
+      expect(find.text('Select Font'), findsOneWidget);
     });
 
     testWidgets('shows logo preview for Small Logo Chest', (tester) async {
@@ -382,8 +381,7 @@ void main() {
       await tester.tap(find.text('Small Logo Chest').last);
       await tester.pumpAndSettle();
 
-      // Should show logo preview - icon appears in preview area, not upload UI
-      expect(find.text('Logo Preview\n(Upload feature coming soon)'), findsOneWidget);
+      // Logo options now show text preview like other options
       expect(find.text('Small Logo Chest'), findsWidgets);
     });
 
@@ -400,9 +398,9 @@ void main() {
       await tester.tap(find.text('Large Logo Back').last);
       await tester.pumpAndSettle();
 
-      // Should show logo upload UI
-      expect(find.text('Upload Your Logo'), findsOneWidget);
-      expect(find.text('Click to upload logo'), findsOneWidget);
+      // Should show text input UI (logo options now have same fields as text options)
+      expect(find.text('Enter Your Text - Line 1'), findsOneWidget);
+      expect(find.text('Select Font'), findsOneWidget);
     });
 
     testWidgets('shows logo preview for Large Logo Back', (tester) async {
@@ -418,12 +416,11 @@ void main() {
       await tester.tap(find.text('Large Logo Back').last);
       await tester.pumpAndSettle();
 
-      // Should show logo preview
-      expect(find.text('Logo Preview\n(Upload feature coming soon)'), findsOneWidget);
+      // Logo options now show text preview like other options
       expect(find.text('Large Logo Back'), findsWidgets);
     });
 
-    testWidgets('shows coming soon message for logo upload', (tester) async {
+    testWidgets('validates text input for logo options', (tester) async {
       setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
@@ -436,14 +433,15 @@ void main() {
       await tester.tap(find.text('Small Logo Chest').last);
       await tester.pumpAndSettle();
 
-      // Tap ADD TO CART
+      // Tap ADD TO CART without entering text
       await tester.tap(find.text('ADD TO CART'));
       await tester.pump();
 
-      expect(find.text('Logo upload feature coming soon!'), findsOneWidget);
+      // Should show validation error for missing text
+      expect(find.text('Please enter text'), findsOneWidget);
     });
 
-    testWidgets('hides text inputs for logo options', (tester) async {
+    testWidgets('shows text inputs for logo options', (tester) async {
       setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
@@ -456,8 +454,8 @@ void main() {
       await tester.tap(find.text('Small Logo Chest').last);
       await tester.pumpAndSettle();
 
-      // Should not show text inputs or font selector
-      expect(find.text('Enter Your Text - Line 1'), findsNothing);
+      // Should show text inputs and font selector (logo options now have same fields)
+      expect(find.text('Enter Your Text - Line 1'), findsOneWidget);
       expect(find.text('Select Font'), findsNothing);
     });
 
@@ -644,7 +642,7 @@ void main() {
       expect(find.text('Preview Area\nYour text will appear here'), findsOneWidget);
     });
 
-    testWidgets('shows logo preview message when no logo uploaded', (tester) async {
+    testWidgets('shows text input for logo options', (tester) async {
       setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
@@ -657,8 +655,8 @@ void main() {
       await tester.tap(find.text('Small Logo Chest').last);
       await tester.pumpAndSettle();
 
-      // Should show logo preview placeholder
-      expect(find.text('Logo Preview\n(Upload feature coming soon)'), findsOneWidget);
+      // Should show text input field (logo options now work like text options)
+      expect(find.text('Enter Your Text - Line 1'), findsOneWidget);
     });
 
     testWidgets('Learn more link navigates to print shack about page', (tester) async {
