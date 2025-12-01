@@ -7,7 +7,7 @@ void main() {
       final product = productById('product-a');
       expect(product, isNotNull);
       expect(product!.id, equals('product-a'));
-      expect(product.title, equals('Product A'));
+      expect(product.title, equals('University Hoodie'));
     });
 
     test('productById returns null for non-existent id', () {
@@ -35,9 +35,9 @@ void main() {
     });
 
     test('products list contains all products', () {
-      expect(products, hasLength(6));
+      expect(products, hasLength(18));
       expect(products[0].id, equals('product-a'));
-      expect(products[0].title, equals('Product A'));
+      expect(products[0].title, equals('University Hoodie'));
     });
 
     test('collections list contains all collections', () {
