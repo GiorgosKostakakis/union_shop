@@ -5,7 +5,9 @@ import 'package:union_shop/models/fixtures.dart';
 import 'test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+  setUpAll(() async {
+    await setupFirebaseMocks();
+  });
   
   group('Header widget', () {
     testWidgets('appears on home and shows navigation items', (tester) async {
