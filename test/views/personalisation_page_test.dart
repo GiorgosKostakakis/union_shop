@@ -5,7 +5,7 @@ import 'package:union_shop/models/cart.dart';
 import '../test_helpers.dart';
 
 void main() {
-
+  setupFirebaseMocks();
 
   setUp(() {
     Cart().clear();
