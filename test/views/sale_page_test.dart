@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/sale_page.dart';
 import 'package:union_shop/models/fixtures.dart';
 import '../test_helpers.dart';
@@ -99,6 +100,52 @@ void main() {
 
       // Verify GestureDetector exists for product navigation
       expect(find.byType(GestureDetector), findsWidgets);
+    });
+
+    testWidgets('tapping a product navigates with sale price and original price', (tester) async {
+      String? navigatedRoute;
+      Object? navigatedExtra;
+
+      final router = GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => const SalePage(),
+          ),
+          GoRoute(
+            path: '/sale/products/:id',
+            builder: (context, state) {
+              navigatedRoute = state.uri.toString();
+              navigatedExtra = state.extra;
+              return const Scaffold(body: Text('Product Page'));
+            },
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(
+        MaterialApp.router(
+          routerConfig: router,
+        ),
+      );
+
+      // Find and tap the first sale product
+      final firstProductTile = find.byKey(const Key('saleProductTile_0'));
+      expect(firstProductTile, findsOneWidget);
+
+      await tester.tap(firstProductTile);
+      await tester.pumpAndSettle();
+
+      // Verify navigation occurred
+      expect(navigatedRoute, isNotNull);
+      expect(navigatedRoute, contains('/sale/products/'));
+      
+      // Verify extra data contains both product and original price
+      expect(navigatedExtra, isA<Map>());
+      final extra = navigatedExtra as Map;
+      expect(extra.containsKey('product'), isTrue);
+      expect(extra.containsKey('originalPrice'), isTrue);
+      expect(extra['originalPrice'], startsWith('£'));
     });
   });
 }
