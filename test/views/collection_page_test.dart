@@ -136,5 +136,35 @@ void main() {
 
       expect(find.byType(SingleChildScrollView), findsOneWidget);
     });
+
+    testWidgets('has sort dropdown with Low and High options', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: CollectionPage(collection: testCollection),
+        ),
+      );
+
+      // Verify sort dropdown exists
+      final sortDropdown = find.byType(DropdownButton<String>);
+      expect(sortDropdown, findsOneWidget);
+      
+      // Verify dropdown has Low and High options
+      final dropdownWidget = tester.widget<DropdownButton<String>>(sortDropdown);
+      expect(dropdownWidget.items, isNotNull);
+      final itemValues = dropdownWidget.items!.map((item) => item.value).toList();
+      expect(itemValues, contains('Low'));
+      expect(itemValues, contains('High'));
+    });
+
+    testWidgets('product cards have GestureDetector for navigation', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: CollectionPage(collection: testCollection),
+        ),
+      );
+
+      // Verify GestureDetector exists for product navigation
+      expect(find.byType(GestureDetector), findsWidgets);
+    });
   });
 }
