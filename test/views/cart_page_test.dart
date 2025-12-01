@@ -7,7 +7,7 @@ import 'package:union_shop/models/product.dart';
 import '../test_helpers.dart';
 
 void main() {
-
+  setupFirebaseMocks();
 
   setUp(() {
     // Clear cart before each test
@@ -127,8 +127,8 @@ void main() {
         const MaterialApp(home: CartPage()),
       );
 
-      // Should have remove button (close icon)
-      expect(find.byIcon(Icons.close), findsAtLeastNWidgets(1));
+      // Items are removed by decrementing quantity to 0
+      expect(find.byIcon(Icons.remove_circle_outline), findsAtLeastNWidgets(1));
     });
 
     testWidgets('has quantity controls for items', (tester) async {
@@ -152,8 +152,8 @@ void main() {
       );
 
       // Should have increment and decrement buttons
-      expect(find.byIcon(Icons.remove), findsAtLeastNWidgets(1));
-      expect(find.byIcon(Icons.add), findsAtLeastNWidgets(1));
+      expect(find.byIcon(Icons.remove_circle_outline), findsAtLeastNWidgets(1));
+      expect(find.byIcon(Icons.add_circle_outline), findsAtLeastNWidgets(1));
     });
 
     testWidgets('has checkout button when cart has items', (tester) async {
