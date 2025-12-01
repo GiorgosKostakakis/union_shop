@@ -1,12 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'auth_provider.dart' as auth_provider;
 
 /// Firebase Authentication Service
 /// Handles user authentication with email/password and Google Sign-In
 class AuthService with ChangeNotifier {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  FirebaseAuth get _auth => auth_provider.AuthProvider.instance;
+  GoogleSignIn? _googleSignInInstance;
+  GoogleSignIn get _googleSignIn => _googleSignInInstance ?? GoogleSignIn();
+  
+  // For testing - allow injecting a mock GoogleSignIn
+  AuthService({GoogleSignIn? googleSignIn}) : _googleSignInInstance = googleSignIn;
 
   User? get currentUser => _auth.currentUser;
   bool get isAuthenticated => currentUser != null;
