@@ -6,38 +6,110 @@ import 'package:union_shop/models/collection.dart';
 const List<Product> products = [
   Product(
     id: 'product-a',
-    title: 'Product A',
+    title: 'University Hoodie',
     price: '£10.00',
     imageUrl: 'assets/product1.png',
   ),
   Product(
     id: 'product-b',
-    title: 'Product B',
+    title: 'Varsity T-Shirt',
     price: '£12.50',
     imageUrl: 'assets/product2.png',
   ),
   Product(
     id: 'product-c',
-    title: 'Product C',
+    title: 'Campus Sweatshirt',
     price: '£15.00',
     imageUrl: 'assets/product3.png',
   ),
   Product(
     id: 'product-d',
-    title: 'Product D',
+    title: 'College Cap',
     price: '£20.00',
     imageUrl: 'assets/product4.png',
   ),
   Product(
     id: 'product-e',
-    title: 'Product E',
+    title: 'Student Backpack',
     price: '£8.50',
     imageUrl: 'assets/product5.png',
   ),
   Product(
     id: 'product-f',
-    title: 'Product F',
+    title: 'University Jacket',
     price: '£30.00',
+    imageUrl: 'assets/product6.png',
+  ),
+  Product(
+    id: 'product-g',
+    title: 'Sports Polo Shirt',
+    price: '£18.00',
+    imageUrl: 'assets/product1.png',
+  ),
+  Product(
+    id: 'product-h',
+    title: 'Zip-Up Hoodie',
+    price: '£35.00',
+    imageUrl: 'assets/product2.png',
+  ),
+  Product(
+    id: 'product-i',
+    title: 'Track Pants',
+    price: '£25.00',
+    imageUrl: 'assets/product3.png',
+  ),
+  Product(
+    id: 'product-j',
+    title: 'University Scarf',
+    price: '£12.00',
+    imageUrl: 'assets/product4.png',
+  ),
+  Product(
+    id: 'product-k',
+    title: 'Water Bottle',
+    price: '£8.00',
+    imageUrl: 'assets/product5.png',
+  ),
+  Product(
+    id: 'product-l',
+    title: 'University Mug',
+    price: '£6.50',
+    imageUrl: 'assets/product6.png',
+  ),
+  Product(
+    id: 'product-m',
+    title: 'Laptop Sleeve',
+    price: '£15.00',
+    imageUrl: 'assets/product1.png',
+  ),
+  Product(
+    id: 'product-n',
+    title: 'Graduation Gown',
+    price: '£45.00',
+    imageUrl: 'assets/product2.png',
+  ),
+  Product(
+    id: 'product-o',
+    title: 'Graduation Cap',
+    price: '£15.00',
+    imageUrl: 'assets/product3.png',
+  ),
+  Product(
+    id: 'product-p',
+    title: 'University Pen Set',
+    price: '£5.00',
+    imageUrl: 'assets/product4.png',
+  ),
+  Product(
+    id: 'product-q',
+    title: 'Notebook Bundle',
+    price: '£10.00',
+    imageUrl: 'assets/product5.png',
+  ),
+  Product(
+    id: 'product-r',
+    title: 'Sports Shorts',
+    price: '£16.00',
     imageUrl: 'assets/product6.png',
   ),
 ];
@@ -48,37 +120,37 @@ final List<Collection> collections = [
     id: 'clothing',
     title: 'Clothing',
     imageUrl: 'assets/collection_clothing.png',
-    products: [products[0], products[1], products[2]],
+    products: [products[0], products[1], products[2], products[5], products[6], products[7], products[8], products[17]],
   ),
   Collection(
     id: 'signature',
     title: 'Signature Range',
     imageUrl: 'assets/logo.png', // Fallback to existing asset
-    products: [products[2], products[3]],
+    products: [products[2], products[3], products[5], products[7]],
   ),
   Collection(
     id: 'merch',
     title: 'Merchandise',
     imageUrl: 'assets/product3.png', // Fallback to existing asset
-    products: [products[0], products[3], products[4]],
+    products: [products[10], products[11], products[15], products[16]],
   ),
   Collection(
     id: 'graduation',
     title: 'Graduation',
     imageUrl: 'assets/product4.png', // Fallback to existing asset
-    products: [products[4], products[5]],
+    products: [products[13], products[14]],
   ),
   Collection(
     id: 'essentials',
     title: 'Student Essentials',
     imageUrl: 'assets/product1.png', // Fallback to existing asset
-    products: [products[0], products[1]],
+    products: [products[4], products[12], products[15], products[16]],
   ),
   Collection(
     id: 'sale',
     title: 'Featured Items',
     imageUrl: 'assets/product2.png', // Fallback to existing asset
-    products: [products[1], products[5], products[2]],
+    products: [products[1], products[5], products[2], products[7]],
   ),
 ];
 
