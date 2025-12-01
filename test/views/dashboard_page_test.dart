@@ -8,6 +8,8 @@ void main() {
 
   group('DashboardPage Tests', () {
     testWidgets('renders without crashing', (tester) async {
+      setupLargeViewport(tester);
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -16,6 +18,8 @@ void main() {
     });
 
     testWidgets('has scaffold structure', (tester) async {
+      setupLargeViewport(tester);
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -24,6 +28,8 @@ void main() {
     });
 
     testWidgets('displays My Account text', (tester) async {
+      setupLargeViewport(tester);
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -33,6 +39,8 @@ void main() {
     });
 
     testWidgets('displays Order History section', (tester) async {
+      setupLargeViewport(tester);
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -42,6 +50,7 @@ void main() {
     });
 
     testWidgets('displays logout button', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -51,6 +60,7 @@ void main() {
     });
 
     testWidgets('has column layout', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -59,6 +69,7 @@ void main() {
     });
 
     testWidgets('displays user email when available', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -69,6 +80,7 @@ void main() {
     });
 
     testWidgets('has scrollable content area', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -78,6 +90,7 @@ void main() {
     });
 
     testWidgets('displays account management section', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -87,6 +100,7 @@ void main() {
     });
 
     testWidgets('has Update Password option', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -96,6 +110,7 @@ void main() {
     });
 
     testWidgets('has Update Email option', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -105,6 +120,7 @@ void main() {
     });
 
     testWidgets('has Delete Account option', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -114,6 +130,7 @@ void main() {
     });
 
     testWidgets('displays appropriate icons', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
@@ -125,6 +142,7 @@ void main() {
     });
 
     testWidgets('logout button has correct styling', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: DashboardPage()),
       );
