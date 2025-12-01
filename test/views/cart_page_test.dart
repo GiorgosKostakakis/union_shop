@@ -479,5 +479,117 @@ void main() {
       expect(find.text('FREE'), findsOneWidget);
       expect(find.text('Total:'), findsOneWidget);
     });
+
+    testWidgets('uses narrow layout on small screen', (tester) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final testProduct = const Product(
+        id: 'narrow-1',
+        title: 'Narrow Layout',
+        price: '£15.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        selectedSize: 'M',
+        selectedColor: 'Green',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('Narrow Layout'), findsOneWidget);
+      expect(find.text('£15.00'), findsWidgets);
+    });
+
+    testWidgets('narrow layout displays sale price correctly', (tester) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final testProduct = const Product(
+        id: 'narrow-sale',
+        title: 'Narrow Sale Item',
+        price: '£10.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+        originalPrice: '£20.00',
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('£20.00'), findsWidgets);
+      expect(find.text('£10.00'), findsWidgets);
+    });
+
+    testWidgets('narrow layout has remove button', (tester) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final testProduct = const Product(
+        id: 'narrow-rem',
+        title: 'Narrow Remove',
+        price: '£5.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('Remove'), findsOneWidget);
+      
+      await tester.tap(find.text('Remove'));
+      await tester.pump();
+
+      expect(find.text('Your cart is empty'), findsOneWidget);
+    });
+
+    testWidgets('narrow layout quantity controls work', (tester) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final testProduct = const Product(
+        id: 'narrow-qty',
+        title: 'Narrow Quantity',
+        price: '£8.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 2,
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      await tester.tap(find.byIcon(Icons.add_circle_outline).first);
+      await tester.pump();
+      expect(find.text('3'), findsWidgets);
+
+      await tester.tap(find.byIcon(Icons.remove_circle_outline).first);
+      await tester.pump();
+      expect(find.text('2'), findsWidgets);
+    });
   });
 }
