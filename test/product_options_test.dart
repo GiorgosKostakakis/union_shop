@@ -5,7 +5,9 @@ import 'package:union_shop/models/fixtures.dart';
 import 'test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+  setUpAll(() async {
+    await setupFirebaseMocks();
+  });
   testWidgets('product options update local state', (tester) async {
     final product = products.first;
 
