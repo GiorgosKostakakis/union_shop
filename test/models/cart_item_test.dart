@@ -81,5 +81,33 @@ void main() {
       expect(updated.selectedColor, equals('Red'));
       expect(updated.originalPrice, equals('£25.00'));
     });
+
+    test('creates cart item with originalPrice for sale items', () {
+      final cartItem = CartItem(
+        product: testProduct,
+        quantity: 1,
+        selectedSize: 'M',
+        selectedColor: 'Blue',
+        originalPrice: '£20.00',
+      );
+
+      expect(cartItem.originalPrice, equals('£20.00'));
+      expect(cartItem.product.id, equals('test-1'));
+      expect(cartItem.selectedSize, equals('M'));
+      expect(cartItem.selectedColor, equals('Blue'));
+    });
+
+    test('copyWith preserves originalPrice when not specified', () {
+      final original = CartItem(
+        product: testProduct,
+        quantity: 1,
+        originalPrice: '£20.00',
+      );
+
+      final updated = original.copyWith(quantity: 2);
+      
+      expect(updated.originalPrice, equals('£20.00'));
+      expect(updated.quantity, equals(2));
+    });
   });
 }
