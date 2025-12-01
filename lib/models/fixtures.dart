@@ -86,31 +86,31 @@ const List<Product> products = [
     id: 'product-n',
     title: 'Graduation Gown',
     price: '£45.00',
-    imageUrl: 'assets/gown.png',
+    imageUrl: 'assets/jacket.png',
   ),
   Product(
     id: 'product-o',
     title: 'Graduation Cap',
     price: '£15.00',
-    imageUrl: 'assets/grad_cap.png',
+    imageUrl: 'assets/cap.png',
   ),
   Product(
     id: 'product-p',
     title: 'University Pen Set',
     price: '£5.00',
-    imageUrl: 'assets/pens.png',
+    imageUrl: 'assets/logo.png',
   ),
   Product(
     id: 'product-q',
     title: 'Notebook Bundle',
     price: '£10.00',
-    imageUrl: 'assets/notebooks.png',
+    imageUrl: 'assets/logo.png',
   ),
   Product(
     id: 'product-r',
     title: 'Sports Shorts',
     price: '£16.00',
-    imageUrl: 'assets/shorts.png',
+    imageUrl: 'assets/pants.png',
   ),
 ];
 
@@ -125,31 +125,31 @@ final List<Collection> collections = [
   Collection(
     id: 'signature',
     title: 'Signature Range',
-    imageUrl: 'assets/collection_signature.png',
+    imageUrl: 'assets/hoodie.png',
     products: [products[2], products[3], products[5], products[7]],
   ),
   Collection(
     id: 'merch',
     title: 'Merchandise',
-    imageUrl: 'assets/collection_merch.png',
+    imageUrl: 'assets/mug.png',
     products: [products[10], products[11], products[15], products[16]],
   ),
   Collection(
     id: 'graduation',
     title: 'Graduation',
-    imageUrl: 'assets/collection_graduation.png',
+    imageUrl: 'assets/jacket.png',
     products: [products[13], products[14]],
   ),
   Collection(
     id: 'essentials',
     title: 'Student Essentials',
-    imageUrl: 'assets/collection_essentials.png',
+    imageUrl: 'assets/backpack.png',
     products: [products[4], products[12], products[15], products[16]],
   ),
   Collection(
     id: 'sale',
     title: 'Featured Items',
-    imageUrl: 'assets/collection_featured.png',
+    imageUrl: 'assets/tshirt.png',
     products: [products[1], products[5], products[2], products[7]],
   ),
 ];
