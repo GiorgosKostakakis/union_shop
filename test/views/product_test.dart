@@ -37,7 +37,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Scroll to and navigate to first product
-      final productFinder = find.text('Product A').first;
+      final productFinder = find.text('University Hoodie').first;
       await tester.ensureVisible(productFinder);
       await tester.pumpAndSettle();
       await tester.tap(productFinder);
@@ -46,7 +46,7 @@ void main() {
       // Check that product description is present
       expect(
         find.text(
-          'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
+          'Cozy and warm university branded hoodie, perfect for campus life and chilly days.',
         ),
         findsOneWidget,
       );
@@ -57,7 +57,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Scroll to and navigate to first product
-      final productFinder = find.text('Product A').first;
+      final productFinder = find.text('University Hoodie').first;
       await tester.ensureVisible(productFinder);
       await tester.pumpAndSettle();
       await tester.tap(productFinder);
@@ -74,7 +74,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Scroll to and navigate to first product
-      final productFinder = find.text('Product A').first;
+      final productFinder = find.text('University Hoodie').first;
       await tester.ensureVisible(productFinder);
       await tester.pumpAndSettle();
       await tester.tap(productFinder);
