@@ -1,15 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/auth/login_page.dart';
+import 'package:union_shop/services/auth_service.dart';
+import 'package:union_shop/services/auth_provider.dart' as auth_provider;
 import '../test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+  late MockFirebaseAuth mockAuth;
+  late MockGoogleSignIn mockGoogleSignIn;
+  late AuthService authService;
+
+  setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    mockAuth = MockFirebaseAuth();
+    mockGoogleSignIn = MockGoogleSignIn();
+    auth_provider.AuthProvider.setMockInstance(mockAuth);
+    authService = AuthService(googleSignIn: mockGoogleSignIn);
+  });
+
+  tearDown(() {
+    mockAuth.dispose();
+  });
 
   group('LoginPage Tests', () {
     testWidgets('renders with form elements', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.byType(LoginPage), findsOneWidget);
@@ -18,7 +34,7 @@ void main() {
 
     testWidgets('has email and password fields', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.byType(TextFormField), findsNWidgets(2));
@@ -26,7 +42,7 @@ void main() {
 
     testWidgets('displays Login title', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.text('Login'), findsOneWidget);
@@ -34,7 +50,7 @@ void main() {
 
     testWidgets('has LOGIN button', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.text('LOGIN'), findsOneWidget);
@@ -42,7 +58,7 @@ void main() {
 
     testWidgets('has Google Sign In button', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.textContaining('Google'), findsOneWidget);
@@ -50,7 +66,7 @@ void main() {
 
     testWidgets('has link to signup page', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.textContaining('Sign up'), findsOneWidget);
@@ -58,7 +74,7 @@ void main() {
 
     testWidgets('validates email field when empty', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       // Tap login without entering anything
@@ -70,7 +86,7 @@ void main() {
 
     testWidgets('validates email format', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       // Enter invalid email
@@ -85,7 +101,7 @@ void main() {
 
     testWidgets('validates password minimum length', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       // Enter valid email but short password
@@ -101,7 +117,7 @@ void main() {
 
     testWidgets('accepts valid email format', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       final emailFields = find.byType(TextFormField);
@@ -114,7 +130,7 @@ void main() {
 
     testWidgets('has header widget', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.byType(SingleChildScrollView), findsOneWidget);
@@ -122,7 +138,7 @@ void main() {
 
     testWidgets('form fields are editable', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       final fields = find.byType(TextFormField);
@@ -137,7 +153,7 @@ void main() {
 
     testWidgets('has password field', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       // Password field exists
@@ -147,7 +163,7 @@ void main() {
 
     testWidgets('displays OR divider', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.text('OR'), findsOneWidget);
@@ -155,10 +171,97 @@ void main() {
 
     testWidgets('has create account prompt', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(home: LoginPage()),
+        MaterialApp(home: LoginPage(authService: authService)),
       );
 
       expect(find.textContaining('Don\'t have an account?'), findsOneWidget);
+    });
+
+    testWidgets('successful login with valid credentials', (tester) async {
+      // Create a user first
+      await authService.signUpWithEmail(
+        email: 'test@example.com',
+        password: 'password123',
+      );
+      await authService.signOut();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: LoginPage(authService: authService),
+          routes: {
+            '/dashboard': (context) => const Scaffold(body: Text('Dashboard')),
+          },
+        ),
+      );
+
+      // Enter credentials
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.first, 'test@example.com');
+      await tester.enterText(fields.last, 'password123');
+
+      // Tap login
+      await tester.tap(find.text('LOGIN'));
+      await tester.pumpAndSettle();
+
+      // Should show success snackbar
+      expect(find.text('Logged in successfully!'), findsOneWidget);
+    });
+
+    testWidgets('shows error on wrong password', (tester) async {
+      // Create a user
+      await authService.signUpWithEmail(
+        email: 'user@example.com',
+        password: 'correctpass',
+      );
+      await authService.signOut();
+
+      await tester.pumpWidget(
+        MaterialApp(home: LoginPage(authService: authService)),
+      );
+
+      // Try wrong password
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.first, 'user@example.com');
+      await tester.enterText(fields.last, 'wrongpass');
+
+      await tester.tap(find.text('LOGIN'));
+      await tester.pumpAndSettle();
+
+      // Should show error
+      expect(find.textContaining('Exception:'), findsOneWidget);
+    });
+
+    testWidgets('shows error for non-existent user', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(home: LoginPage(authService: authService)),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.first, 'nonexistent@example.com');
+      await tester.enterText(fields.last, 'password123');
+
+      await tester.tap(find.text('LOGIN'));
+      await tester.pumpAndSettle();
+
+      // Should show error
+      expect(find.textContaining('Exception:'), findsOneWidget);
+    });
+
+    testWidgets('button shows loading state during login', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(home: LoginPage(authService: authService)),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.first, 'test@example.com');
+      await tester.enterText(fields.last, 'password123');
+
+      // Start login (don't pumpAndSettle yet)
+      await tester.tap(find.text('LOGIN'));
+      await tester.pump();
+
+      // Button should be disabled or show loading indicator
+      expect(find.byType(CircularProgressIndicator), findsAtLeastNWidgets(1));
     });
   });
 }
