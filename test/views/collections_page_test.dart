@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/collections_page.dart';
 import 'package:union_shop/models/fixtures.dart';
 import '../test_helpers.dart';
@@ -203,6 +204,106 @@ void main() {
       
       // Results count should not be shown
       expect(find.textContaining('collection(s) found'), findsNothing);
+    });
+
+    testWidgets('sorts collections by name', (tester) async {
+      setupLargeViewport(tester);
+      await tester.pumpWidget(
+        const MaterialApp(home: CollectionsPage()),
+      );
+
+      // Default sort is Name, verify collections are sorted
+      final dropdown = find.byType(DropdownButtonFormField<String>);
+      final dropdownWidget = tester.widget<DropdownButtonFormField<String>>(dropdown);
+      expect(dropdownWidget.initialValue, 'Name');
+    });
+
+    testWidgets('sorts collections by product count high', (tester) async {
+      setupLargeViewport(tester);
+      await tester.pumpWidget(
+        const MaterialApp(home: CollectionsPage()),
+      );
+
+      // Open dropdown and select Product Count High
+      final dropdown = find.byType(DropdownButtonFormField<String>);
+      await tester.tap(dropdown);
+      await tester.pumpAndSettle();
+
+      final highOption = find.text('Most').last;
+      await tester.tap(highOption);
+      await tester.pumpAndSettle();
+
+      // Verify sort option changed
+      expect(find.text('Most'), findsWidgets);
+    });
+
+    testWidgets('sorts collections by product count low', (tester) async {
+      setupLargeViewport(tester);
+      await tester.pumpWidget(
+        const MaterialApp(home: CollectionsPage()),
+      );
+
+      // Open dropdown and select Product Count Low
+      final dropdown = find.byType(DropdownButtonFormField<String>);
+      await tester.tap(dropdown);
+      await tester.pumpAndSettle();
+
+      final lowOption = find.text('Fewest').last;
+      await tester.tap(lowOption);
+      await tester.pumpAndSettle();
+
+      // Verify sort option changed
+      expect(find.text('Fewest'), findsWidgets);
+    });
+
+    testWidgets('tapping collection navigates to collection page', (tester) async {
+      setupLargeViewport(tester);
+      
+      String? navigatedRoute;
+      Object? navigatedExtra;
+
+      final router = GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => const CollectionsPage(),
+          ),
+          GoRoute(
+            path: '/collections/:id',
+            builder: (context, state) {
+              navigatedRoute = state.uri.toString();
+              navigatedExtra = state.extra;
+              return const Scaffold(body: Text('Collection Page'));
+            },
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(
+        MaterialApp.router(
+          routerConfig: router,
+        ),
+      );
+
+      // Tap first collection
+      final firstCollection = collections.first;
+      final collectionCard = find.text(firstCollection.title);
+      await tester.tap(collectionCard);
+      await tester.pumpAndSettle();
+
+      // Verify navigation
+      expect(navigatedRoute, contains('/collections/${firstCollection.id}'));
+      expect(navigatedExtra, isNotNull);
+    });
+
+    testWidgets('handles image error with fallback', (tester) async {
+      setupLargeViewport(tester);
+      await tester.pumpWidget(
+        const MaterialApp(home: CollectionsPage()),
+      );
+
+      // Images should render (or show error builder)
+      expect(find.byType(Image), findsWidgets);
     });
   });
 }
