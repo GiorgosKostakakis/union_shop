@@ -14,7 +14,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Header should be present
-      expect(find.text('PLACEHOLDER HEADER TEXT'), findsWidgets);
+      expect(find.text('Union Shop'), findsWidgets);
       
       // At large viewport (1920px), navigation should be visible in header
       // Cart and person icons should be visible
@@ -29,7 +29,7 @@ void main() {
       
       // Just verify header is present on home - full navigation testing would require
       // complex GoRouter setup that's beyond the scope of unit tests
-      expect(find.text('PLACEHOLDER HEADER TEXT'), findsOneWidget);
+      expect(find.text('Union Shop'), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsWidgets);
     });
 
@@ -39,7 +39,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify header is present with navigation elements
-      expect(find.text('PLACEHOLDER HEADER TEXT'), findsOneWidget);
+      expect(find.text('Union Shop'), findsOneWidget);
       expect(find.byIcon(Icons.shopping_bag_outlined), findsWidgets);
       
       // Home is in main navigation at large viewport
@@ -52,7 +52,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify header elements are present
-      expect(find.text('PLACEHOLDER HEADER TEXT'), findsOneWidget);
+      expect(find.text('Union Shop'), findsOneWidget);
       expect(find.text('Collections'), findsWidgets);
     });
 
@@ -65,7 +65,7 @@ void main() {
       expect(find.byIcon(Icons.shopping_bag_outlined), findsWidgets);
       
       // Initially cart is empty (badge shows 0 or hidden)
-      expect(find.text('PLACEHOLDER HEADER TEXT'), findsOneWidget);
+      expect(find.text('Union Shop'), findsOneWidget);
     });
 
     testWidgets('cart icon navigates to cart page', (tester) async {
