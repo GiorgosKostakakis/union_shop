@@ -136,10 +136,9 @@ void main() {
         ),
       );
 
-      // Find and tap an increment button
+      // Find and tap the increment button
       final incrementButtons = find.byIcon(Icons.add_circle_outline);
-      // Tap the first one that's likely the quantity control
-      await tester.tap(incrementButtons.at(1)); // Skip header icon
+      await tester.tap(incrementButtons.first);
       await tester.pump();
 
       // Quantity should increase
@@ -155,7 +154,7 @@ void main() {
 
       // First increment to 2
       final incrementButtons = find.byIcon(Icons.add_circle_outline);
-      await tester.tap(incrementButtons.at(1));
+      await tester.tap(incrementButtons.first);
       await tester.pump();
 
       // Then decrement

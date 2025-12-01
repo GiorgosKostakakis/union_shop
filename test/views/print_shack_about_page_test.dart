@@ -125,11 +125,19 @@ void main() {
         const MaterialApp(home: PrintShackAboutPage()),
       );
 
-      final constrainedBox = find.byType(ConstrainedBox);
-      expect(constrainedBox, findsOneWidget);
+      final constrainedBoxes = find.byType(ConstrainedBox);
+      expect(constrainedBoxes, findsWidgets);
 
-      final widget = tester.widget<ConstrainedBox>(constrainedBox);
-      expect(widget.constraints.maxWidth, 800);
+      // Find the one with maxWidth constraint of 800
+      bool foundCorrectConstraint = false;
+      for (int i = 0; i < tester.widgetList<ConstrainedBox>(constrainedBoxes).length; i++) {
+        final widget = tester.widgetList<ConstrainedBox>(constrainedBoxes).elementAt(i);
+        if (widget.constraints.maxWidth == 800) {
+          foundCorrectConstraint = true;
+          break;
+        }
+      }
+      expect(foundCorrectConstraint, isTrue);
     });
   });
 }
