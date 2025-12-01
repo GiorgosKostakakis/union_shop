@@ -91,5 +91,14 @@ void main() {
       // Verify SingleChildScrollView exists for scrolling
       expect(find.byType(SingleChildScrollView), findsOneWidget);
     });
+
+    testWidgets('product cards have GestureDetector for navigation', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SalePage()),
+      );
+
+      // Verify GestureDetector exists for product navigation
+      expect(find.byType(GestureDetector), findsWidgets);
+    });
   });
 }
