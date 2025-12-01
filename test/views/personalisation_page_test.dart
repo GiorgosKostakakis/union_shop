@@ -5,7 +5,7 @@ import 'package:union_shop/models/cart.dart';
 import '../test_helpers.dart';
 
 void main() {
-  setupFirebaseMocks();
+
 
   setUp(() {
     Cart().clear();
@@ -13,6 +13,7 @@ void main() {
 
   group('PersonalisationPage Tests', () {
     testWidgets('renders with default state', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -21,6 +22,7 @@ void main() {
     });
 
     testWidgets('has personalisation options dropdown', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -29,6 +31,7 @@ void main() {
     });
 
     testWidgets('has text input field for One Line option', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -37,6 +40,7 @@ void main() {
     });
 
     testWidgets('displays entered text in preview', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -50,6 +54,7 @@ void main() {
     });
 
     testWidgets('has font selection dropdown', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -58,6 +63,7 @@ void main() {
     });
 
     testWidgets('has quantity controls', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -68,6 +74,7 @@ void main() {
     });
 
     testWidgets('increments quantity when + button tapped', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -82,6 +89,7 @@ void main() {
     });
 
     testWidgets('decrements quantity when - button tapped', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -100,6 +108,7 @@ void main() {
     });
 
     testWidgets('does not decrement quantity below 1', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -114,6 +123,7 @@ void main() {
     });
 
     testWidgets('has ADD TO CART button', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -122,6 +132,7 @@ void main() {
     });
 
     testWidgets('has scrollable content', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -130,6 +141,7 @@ void main() {
     });
 
     testWidgets('displays preview container', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -139,6 +151,7 @@ void main() {
     });
 
     testWidgets('shows pricing information', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -148,6 +161,7 @@ void main() {
     });
 
     testWidgets('displays personalisation type label', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -156,6 +170,7 @@ void main() {
     });
 
     testWidgets('has Learn About Print Shack link', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
@@ -164,6 +179,7 @@ void main() {
     });
 
     testWidgets('content is constrained to max width', (tester) async {
+      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: PersonalisationPage()),
       );
