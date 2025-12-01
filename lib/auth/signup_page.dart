@@ -5,7 +5,9 @@ import 'package:union_shop/widgets/header.dart';
 import 'auth_widgets.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+  final AuthService? authService; // For testing
+  
+  const SignupPage({super.key, this.authService});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -17,9 +19,15 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final _authService = AuthService();
+  late final AuthService _authService;
   bool _isLoading = false;
   bool _isGoogleLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _authService = widget.authService ?? AuthService();
+  }
 
   @override
   void dispose() {
