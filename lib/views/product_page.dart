@@ -42,6 +42,7 @@ class _ProductPageState extends State<ProductPage> {
           title: 'Placeholder Product Name',
           price: '£15.00',
           imageUrl: 'assets/product1.png',
+          description: 'This is a placeholder product.',
         );
 
     return Scaffold(
@@ -237,9 +238,11 @@ class _ProductPageState extends State<ProductPage> {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          const Text(
-                            'This is a placeholder description for the product. Students should replace this with real product information and implement proper data management.',
-                            style: TextStyle(
+                          Text(
+                            displayProduct.description.isEmpty 
+                              ? 'No description available for this product.'
+                              : displayProduct.description,
+                            style: const TextStyle(
                               fontSize: 16,
                               color: Colors.grey,
                               height: 1.5,
