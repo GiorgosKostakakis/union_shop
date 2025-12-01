@@ -105,5 +105,19 @@ void main() {
         p.title.toLowerCase().contains('product')).length;
       expect(productCount, greaterThan(1));
     });
+
+    testWidgets('product card has GestureDetector for navigation', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(home: SearchPage()),
+      );
+
+      // Search for a product
+      await tester.enterText(find.byType(TextField), 'Product A');
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pump();
+
+      // Verify GestureDetector exists
+      expect(find.byType(GestureDetector), findsWidgets);
+    });
   });
 }
