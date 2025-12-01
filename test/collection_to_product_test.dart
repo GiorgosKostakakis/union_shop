@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
 import 'package:union_shop/models/fixtures.dart';
+import 'test_helpers.dart';
 
 void main() {
+  setupFirebaseMocks();
   testWidgets('tapping a product in CollectionPage opens ProductPage with details', (
     tester,
   ) async {
