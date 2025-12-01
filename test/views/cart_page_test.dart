@@ -591,5 +591,76 @@ void main() {
       await tester.pump();
       expect(find.text('2'), findsWidgets);
     });
+
+    testWidgets('displays product image when available', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'img-1',
+        title: 'Image Test',
+        price: '£15.00',
+        imageUrl: 'assets/product1.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.byType(Image), findsWidgets);
+    });
+
+    testWidgets('shows icon when imageUrl is empty', (tester) async {
+      setupLargeViewport(tester);
+      final testProduct = const Product(
+        id: 'img-2',
+        title: 'Empty Image URL',
+        price: '£15.00',
+        imageUrl: '',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.byIcon(Icons.image), findsWidgets);
+    });
+
+    testWidgets('narrow layout removes item when quantity 1 and - tapped', (tester) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
+      final testProduct = const Product(
+        id: 'narrow-rem-dec',
+        title: 'Narrow Remove Dec',
+        price: '£10.00',
+        imageUrl: 'assets/test.png',
+      );
+      
+      Cart().addItem(
+        product: testProduct,
+        quantity: 1,
+      );
+
+      await tester.pumpWidget(
+        const MaterialApp(home: CartPage()),
+      );
+
+      expect(find.text('Narrow Remove Dec'), findsOneWidget);
+
+      await tester.tap(find.byIcon(Icons.remove_circle_outline).first);
+      await tester.pump();
+
+      expect(find.text('Your cart is empty'), findsOneWidget);
+    });
   });
 }
