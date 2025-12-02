@@ -17,9 +17,24 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   // Local UI state for product options
-  String selectedSize = 'M';
-  String selectedColor = 'Black';
+  String? selectedSize;
+  String? selectedColor;
   int quantity = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize selections with first available option if product has them
+    final product = widget.product;
+    if (product != null) {
+      if (product.availableSizes != null && product.availableSizes!.isNotEmpty) {
+        selectedSize = product.availableSizes!.first;
+      }
+      if (product.availableColors != null && product.availableColors!.isNotEmpty) {
+        selectedColor = product.availableColors!.first;
+      }
+    }
+  }
 
   void _incrementQty() {
     setState(() {
@@ -154,47 +169,52 @@ class _ProductPageState extends State<ProductPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  const Text('Size: '),
-                                  const SizedBox(width: 8),
-                                  DropdownButton<String>(
-                                    key: const Key('sizeDropdown'),
-                                    value: selectedSize,
-                                    items: const [
-                                      DropdownMenuItem(value: 'S', child: Text('S')),
-                                      DropdownMenuItem(value: 'M', child: Text('M')),
-                                      DropdownMenuItem(value: 'L', child: Text('L')),
+                              // Only show size/color options if product has them
+                              if (displayProduct.availableSizes != null || displayProduct.availableColors != null)
+                                Row(
+                                  children: [
+                                    // Size dropdown - only show if available
+                                    if (displayProduct.availableSizes != null && displayProduct.availableSizes!.isNotEmpty) ...[
+                                      const Text('Size: '),
+                                      const SizedBox(width: 8),
+                                      DropdownButton<String>(
+                                        key: const Key('sizeDropdown'),
+                                        value: selectedSize,
+                                        items: displayProduct.availableSizes!
+                                            .map((size) => DropdownMenuItem(value: size, child: Text(size)))
+                                            .toList(),
+                                        onChanged: (v) {
+                                          if (v == null) return;
+                                          setState(() {
+                                            selectedSize = v;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(width: 24),
                                     ],
-                                    onChanged: (v) {
-                                      if (v == null) return;
-                                      setState(() {
-                                        selectedSize = v;
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 24),
-                                  const Text('Color: '),
-                                  const SizedBox(width: 8),
-                                  DropdownButton<String>(
-                                    key: const Key('colorDropdown'),
-                                    value: selectedColor,
-                                    items: const [
-                                      DropdownMenuItem(value: 'Black', child: Text('Black')),
-                                      DropdownMenuItem(value: 'White', child: Text('White')),
-                                      DropdownMenuItem(value: 'Blue', child: Text('Blue')),
+                                    // Color dropdown - only show if available
+                                    if (displayProduct.availableColors != null && displayProduct.availableColors!.isNotEmpty) ...[
+                                      const Text('Color: '),
+                                      const SizedBox(width: 8),
+                                      DropdownButton<String>(
+                                        key: const Key('colorDropdown'),
+                                        value: selectedColor,
+                                        items: displayProduct.availableColors!
+                                            .map((color) => DropdownMenuItem(value: color, child: Text(color)))
+                                            .toList(),
+                                        onChanged: (v) {
+                                          if (v == null) return;
+                                          setState(() {
+                                            selectedColor = v;
+                                          });
+                                        },
+                                      ),
                                     ],
-                                    onChanged: (v) {
-                                      if (v == null) return;
-                                      setState(() {
-                                        selectedColor = v;
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
+                                  ],
+                                ),
 
-                              const SizedBox(height: 12),
+                              if (displayProduct.availableSizes != null || displayProduct.availableColors != null)
+                                const SizedBox(height: 12),
 
                               // Quantity selector
                               Row(
@@ -222,7 +242,13 @@ class _ProductPageState extends State<ProductPage> {
                               const SizedBox(height: 12),
 
                               // Visible summary of selection
-                              Text('Size: $selectedSize  •  Color: $selectedColor  •  Qty: $quantity'),
+                              Text(
+                                [
+                                  if (selectedSize != null) 'Size: $selectedSize',
+                                  if (selectedColor != null) 'Color: $selectedColor',
+                                  'Qty: $quantity',
+                                ].join('  •  '),
+                              ),
                             ],
                           ),
 
