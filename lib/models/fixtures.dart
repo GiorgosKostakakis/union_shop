@@ -129,14 +129,14 @@ const List<Product> products = [
     id: 'product-p',
     title: 'University Pen Set',
     price: '£5.00',
-    imageUrl: 'assets/logo.png',
+    imageUrl: 'assets/university_pencil_set.png',
     description: 'Set of three ballpoint pens with university branding. Smooth writing.',
   ),
   Product(
     id: 'product-q',
     title: 'Notebook Bundle',
     price: '£10.00',
-    imageUrl: 'assets/logo.png',
+    imageUrl: 'assets/notebook_bundle.png',
     description: 'Bundle of three A5 notebooks with university logo. Ruled pages, perfect for notes.',
   ),
   Product(
