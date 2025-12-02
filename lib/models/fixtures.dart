@@ -10,6 +10,8 @@ const List<Product> products = [
     price: '£10.00',
     imageUrl: 'assets/hoodie.png',
     description: 'Cozy and warm university branded hoodie, perfect for campus life and chilly days.',
+    availableSizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    availableColors: ['Black', 'White', 'Navy', 'Grey'],
   ),
   Product(
     id: 'product-b',
@@ -17,6 +19,8 @@ const List<Product> products = [
     price: '£12.50',
     imageUrl: 'assets/tshirt.png',
     description: 'Classic varsity style t-shirt with university logo. Comfortable cotton blend.',
+    availableSizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    availableColors: ['Black', 'White', 'Red', 'Blue'],
   ),
   Product(
     id: 'product-c',
@@ -24,6 +28,8 @@ const List<Product> products = [
     price: '£15.00',
     imageUrl: 'assets/sweatshirt.png',
     description: 'Comfortable campus sweatshirt featuring university branding. Great for everyday wear.',
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    availableColors: ['Grey', 'Navy', 'Black'],
   ),
   Product(
     id: 'product-d',
@@ -45,6 +51,8 @@ const List<Product> products = [
     price: '£30.00',
     imageUrl: 'assets/jacket.png',
     description: 'Premium university jacket with full zip and side pockets. Water-resistant material.',
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    availableColors: ['Black', 'Navy', 'Grey'],
   ),
   Product(
     id: 'product-g',
@@ -52,6 +60,8 @@ const List<Product> products = [
     price: '£18.00',
     imageUrl: 'assets/polo.png',
     description: 'Athletic polo shirt perfect for sports and casual wear. Breathable fabric.',
+    availableSizes: ['S', 'M', 'L', 'XL'],
+    availableColors: ['White', 'Navy', 'Black', 'Red'],
   ),
   Product(
     id: 'product-h',
@@ -59,6 +69,8 @@ const List<Product> products = [
     price: '£35.00',
     imageUrl: 'assets/zip_hoodie.png',
     description: 'Premium zip-up hoodie with university branding. Full front zipper and hood.',
+    availableSizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    availableColors: ['Black', 'Grey', 'Navy'],
   ),
   Product(
     id: 'product-i',
@@ -66,6 +78,8 @@ const List<Product> products = [
     price: '£25.00',
     imageUrl: 'assets/pants.png',
     description: 'Comfortable track pants with university logo. Perfect for gym or leisure.',
+    availableSizes: ['S', 'M', 'L', 'XL'],
+    availableColors: ['Black', 'Navy', 'Grey'],
   ),
   Product(
     id: 'product-j',
@@ -101,6 +115,8 @@ const List<Product> products = [
     price: '£45.00',
     imageUrl: 'assets/jacket.png',
     description: 'Traditional graduation gown for ceremony day. High-quality material.',
+    availableSizes: ['S', 'M', 'L', 'XL'],
+    availableColors: ['Black'],
   ),
   Product(
     id: 'product-o',
@@ -129,6 +145,8 @@ const List<Product> products = [
     price: '£16.00',
     imageUrl: 'assets/pants.png',
     description: 'Comfortable sports shorts with university branding. Lightweight and breathable.',
+    availableSizes: ['S', 'M', 'L', 'XL'],
+    availableColors: ['Black', 'Navy', 'Grey'],
   ),
 ];
 
