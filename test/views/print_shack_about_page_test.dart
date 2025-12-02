@@ -113,6 +113,7 @@ void main() {
       final button = find.text('START PERSONALISING');
       expect(button, findsOneWidget);
       
+      await tester.ensureVisible(button);
       await tester.tap(button);
       await tester.pumpAndSettle();
 
