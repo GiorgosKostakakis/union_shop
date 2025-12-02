@@ -105,7 +105,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                             ),
                           ),
                           items: const [
-                            DropdownMenuItem(value: 'Name', child: Text('Name')),
+                            DropdownMenuItem(value: 'Name', child: Text('Name (A-Z)')),
                             DropdownMenuItem(
                                 value: 'Product Count High',
                                 child: Text('Most')),
@@ -167,7 +167,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                             ),
                           ),
                           items: const [
-                            DropdownMenuItem(value: 'Name', child: Text('Name')),
+                            DropdownMenuItem(value: 'Name', child: Text('Name (A-Z)')),
                             DropdownMenuItem(
                                 value: 'Product Count High',
                                 child: Text('Most')),
