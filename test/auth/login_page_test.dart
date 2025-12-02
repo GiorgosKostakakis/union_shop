@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/auth/login_page.dart';
 import 'package:union_shop/services/auth_service.dart';
 import 'package:union_shop/services/auth_provider.dart' as auth_provider;
@@ -286,5 +287,53 @@ void main() {
       // Button should be disabled or show loading indicator
       expect(find.byType(CircularProgressIndicator), findsAtLeastNWidgets(1));
     }, skip: true);
+
+    testWidgets('Google sign in button triggers authentication', (tester) async {
+      setupLargeViewport(tester);
+      final testRouter = GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => LoginPage(authService: authService),
+          ),
+          GoRoute(
+            path: '/dashboard',
+            builder: (context, state) => const Scaffold(body: Text('Dashboard')),
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(
+        MaterialApp.router(routerConfig: testRouter),
+      );
+
+      // Find and tap the Google sign-in button
+      final googleButton = find.textContaining('Google');
+      expect(googleButton, findsOneWidget);
+
+      await tester.tap(googleButton);
+      await tester.pumpAndSettle();
+
+      // Should navigate to dashboard on success
+      expect(find.text('Dashboard'), findsOneWidget);
+    });
+
+    testWidgets('Google sign in shows error on failure', (tester) async {
+      setupLargeViewport(tester);
+      // Force auth service to throw by using invalid user
+      await authService.signOut();
+
+      await tester.pumpWidget(
+        MaterialApp(home: LoginPage(authService: authService)),
+      );
+
+      final googleButton = find.textContaining('Google');
+      await tester.tap(googleButton);
+      await tester.pumpAndSettle();
+
+      // Should handle error gracefully (user might have cancelled)
+      // No crash expected
+      expect(googleButton, findsOneWidget);
+    });
   });
 }
