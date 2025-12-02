@@ -176,10 +176,12 @@ void main() {
 
       // Open dropdown and select Low
       final dropdown = find.byType(DropdownButton<String>);
+      await tester.ensureVisible(dropdown);
       await tester.tap(dropdown);
       await tester.pumpAndSettle();
 
       final lowOption = find.text('Price: Low to High').last;
+      await tester.ensureVisible(lowOption);
       await tester.tap(lowOption);
       await tester.pumpAndSettle();
 
@@ -198,10 +200,12 @@ void main() {
 
       // Open dropdown and select High
       final dropdown = find.byType(DropdownButton<String>);
+      await tester.ensureVisible(dropdown);
       await tester.tap(dropdown);
       await tester.pumpAndSettle();
 
       final highOption = find.text('Price: High to Low').last;
+      await tester.ensureVisible(highOption);
       await tester.tap(highOption);
       await tester.pumpAndSettle();
 
