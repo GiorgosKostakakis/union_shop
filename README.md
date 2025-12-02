@@ -116,49 +116,250 @@ The application adapts seamlessly between mobile and desktop views with touch-fr
 
 ### Prerequisites
 
-Ensure you have the following installed:
-- **Flutter SDK** (3.0 or higher)
-- **Dart SDK** (2.17 or higher)
-- **Git**
-- A code editor (VS Code, Android Studio, or IntelliJ IDEA)
-- **Google Chrome** (for web development)
+Before you begin, ensure your system meets the following requirements:
 
-Verify your Flutter installation:
+#### Operating System
+- **macOS** (10.14 or later) for iOS development
+- **Windows** (10 or later, 64-bit)
+- **Linux** (64-bit)
+
+#### Required Software & Tools
+
+1. **Flutter SDK** (version 3.0 or higher)
+   - Download from [flutter.dev](https://flutter.dev/docs/get-started/install)
+   - Add Flutter to your system PATH
+
+2. **Dart SDK** (version 2.17 or higher)
+   - Included with Flutter SDK
+   - Standalone download available at [dart.dev](https://dart.dev/get-dart)
+
+3. **Git** (version control)
+   - Download from [git-scm.com](https://git-scm.com/downloads)
+   - Or install via package manager:
+     - macOS: `brew install git`
+     - Windows: `choco install git`
+     - Linux: `sudo apt-get install git`
+
+4. **Code Editor** (choose one)
+   - [Visual Studio Code](https://code.visualstudio.com/) (recommended)
+     - Install Flutter and Dart extensions
+   - [Android Studio](https://developer.android.com/studio)
+   - [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+5. **Google Chrome** (for web development)
+   - Download from [google.com/chrome](https://www.google.com/chrome/)
+   - Required for running and testing the web application
+
+#### Verify Installation
+
+After installing Flutter, verify your setup:
 ```bash
 flutter doctor
 ```
 
+This command checks your environment and displays a report. Ensure all required components show a checkmark (✓). Address any issues indicated by the doctor command before proceeding.
+
+Expected output:
+```
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel stable, 3.x.x, on macOS/Windows/Linux)
+[✓] Chrome - develop for the web
+[✓] VS Code (version x.x.x)
+```
+
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/GiorgosKostakakis/union_shop.git
-   cd union_shop
-   ```
+Follow these step-by-step instructions to set up the project on your local machine:
 
-2. **Install dependencies**
-   ```bash
-   flutter pub get
-   ```
+#### Step 1: Clone the Repository
 
-3. **Run the application**
-   ```bash
-   flutter run -d chrome
-   ```
+Open your terminal or command prompt and run:
 
-   The application will open in Chrome. Open DevTools (F12) and enable mobile device emulation for the best experience.
+```bash
+git clone https://github.com/GiorgosKostakakis/union_shop.git
+```
+
+This will create a local copy of the repository in a folder named `union_shop`.
+
+#### Step 2: Navigate to Project Directory
+
+```bash
+cd union_shop
+```
+
+#### Step 3: Install Dependencies
+
+Install all required Flutter packages and dependencies:
+
+```bash
+flutter pub get
+```
+
+This command reads the `pubspec.yaml` file and downloads all necessary packages. Wait for the process to complete.
+
+Expected output:
+```
+Running "flutter pub get" in union_shop...
+Resolving dependencies...
+Got dependencies!
+```
+
+#### Step 4: Verify Project Setup
+
+Check that the project is properly configured:
+
+```bash
+flutter analyze
+```
+
+This ensures there are no immediate code issues. All checks should pass.
+
+### Running the Application
+
+This application is designed to run on **web** and is optimized for **mobile view**.
+
+#### Option 1: Run from Command Line (Recommended)
+
+```bash
+flutter run -d chrome
+```
+
+This command will:
+1. Build the application
+2. Launch Google Chrome
+3. Open the application in a new browser tab
+
+#### Option 2: Run from VS Code
+
+1. Open the project in VS Code
+2. Press `F5` or click **Run > Start Debugging**
+3. Select **Chrome** as the target device
+4. The app will launch in Chrome
+
+#### Option 3: Run from Android Studio/IntelliJ
+
+1. Open the project in Android Studio/IntelliJ
+2. Select **Chrome (web)** from the device dropdown
+3. Click the **Run** button (green play icon)
+
+### Viewing in Mobile Mode
+
+Once the application is running in Chrome:
+
+1. **Open Chrome DevTools**
+   - Right-click on the page and select **Inspect**
+   - Or press `F12` (Windows/Linux) or `Cmd+Option+I` (macOS)
+
+2. **Enable Device Toolbar**
+   - Click the **Toggle device toolbar** icon (looks like a phone/tablet)
+   - Or press `Ctrl+Shift+M` (Windows/Linux) or `Cmd+Shift+M` (macOS)
+
+3. **Select a Mobile Device**
+   - From the **Dimensions** dropdown, choose a device:
+     - iPhone 12 Pro
+     - iPhone SE
+     - Pixel 5
+     - Galaxy S20
+   - Or set custom dimensions (e.g., 375 x 667)
+
+4. **Refresh the Page**
+   - Press `F5` or `Ctrl+R` to reload with mobile viewport
 
 ### Firebase Configuration
 
-This application uses Firebase for authentication and data storage. The Firebase configuration is already set up in the repository. If you need to use your own Firebase project:
+This application uses Firebase for authentication and data storage. The Firebase configuration is already set up in the repository.
 
-1. Create a new Firebase project at [firebase.google.com](https://firebase.google.com)
-2. Enable **Firebase Authentication** (Email/Password and Google Sign-In)
-3. Enable **Cloud Firestore** database
-4. Download the configuration files:
-   - `google-services.json` for Android (place in `android/app/`)
-   - `GoogleService-Info.plist` for iOS (place in `ios/Runner/`)
-   - Web configuration (update `lib/config/firebase_options.dart`)
+#### Using the Existing Configuration (Recommended)
+
+The project includes pre-configured Firebase settings:
+- Web configuration in `lib/config/firebase_options.dart`
+- Android configuration in `android/app/google-services.json`
+- iOS configuration in `ios/Runner/GoogleService-Info.plist`
+
+No additional setup is required to run the application with the existing Firebase project.
+
+#### Setting Up Your Own Firebase Project (Optional)
+
+If you want to use your own Firebase instance:
+
+1. **Create Firebase Project**
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Click **Add Project**
+   - Follow the setup wizard
+
+2. **Enable Authentication**
+   - In Firebase Console, navigate to **Authentication**
+   - Click **Get Started**
+   - Enable **Email/Password** sign-in method
+   - Enable **Google** sign-in method
+   - Add your domain to authorized domains
+
+3. **Enable Cloud Firestore**
+   - Navigate to **Firestore Database**
+   - Click **Create Database**
+   - Start in **test mode** (for development)
+   - Choose a location
+
+4. **Configure Web App**
+   - Go to **Project Settings** > **Your apps**
+   - Click the **Web** icon (</>)
+   - Register your app
+   - Copy the Firebase configuration
+   - Update `lib/config/firebase_options.dart` with your values
+
+5. **Configure Android (Optional)**
+   - In Firebase Console, add an Android app
+   - Download `google-services.json`
+   - Place it in `android/app/`
+
+6. **Configure iOS (Optional)**
+   - In Firebase Console, add an iOS app
+   - Download `GoogleService-Info.plist`
+   - Place it in `ios/Runner/`
+
+### Running Tests
+
+Verify the application works correctly by running the test suite:
+
+```bash
+# Run all tests
+flutter test
+
+# Run tests with coverage report
+flutter test --coverage
+
+# Run specific test file
+flutter test test/views/cart_page_test.dart
+```
+
+All 420 tests should pass successfully.
+
+### Hot Reload & Hot Restart
+
+During development, Flutter provides fast iteration:
+
+- **Hot Reload** (`r` in terminal): Updates UI without losing state
+- **Hot Restart** (`R` in terminal): Restarts app and resets state
+- **Quit** (`q` in terminal): Stops the application
+
+### Troubleshooting
+
+#### Issue: "Flutter command not found"
+**Solution**: Add Flutter to your PATH. See [Flutter installation guide](https://flutter.dev/docs/get-started/install).
+
+#### Issue: Chrome not detected
+**Solution**: Install Google Chrome and ensure it's in your system PATH.
+
+#### Issue: Packages not found after `flutter pub get`
+**Solution**: Try `flutter pub cache repair` then run `flutter pub get` again.
+
+#### Issue: Firebase errors on startup
+**Solution**: Ensure Firebase configuration files are present and valid. Check `lib/config/firebase_options.dart`.
+
+#### Issue: Build fails on first run
+**Solution**: Run `flutter clean` then `flutter pub get` and try again.
+
+For more help, consult the [Flutter documentation](https://flutter.dev/docs) or check the [GitHub Issues](https://github.com/GiorgosKostakakis/union_shop/issues) page.
 
 ## 📁 Project Structure
 
