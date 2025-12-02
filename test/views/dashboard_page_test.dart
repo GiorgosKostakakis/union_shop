@@ -33,7 +33,7 @@ class MockOrderServiceForDashboard implements OrderService {
     : _orders = orders ?? [];
   
   @override
-  List<Order> getOrdersForUser(String userId) {
+  Future<List<Order>> getOrdersForUser(String userId) async {
     return _orders;
   }
   
@@ -47,12 +47,22 @@ class MockOrderServiceForDashboard implements OrderService {
   }
   
   @override
-  int getOrderCount(String userId) {
+  Future<int> getOrderCount(String userId) async {
     return _orders.length;
   }
   
   @override
   void clearAllOrders() {
+    // Not needed for these tests
+  }
+  
+  @override
+  void disableFirestore() {
+    // Not needed for these tests
+  }
+  
+  @override
+  void enableFirestore() {
     // Not needed for these tests
   }
 }
