@@ -25,4 +25,28 @@ class Order {
   String get formattedDate {
     return '${timestamp.day}/${timestamp.month}/${timestamp.year} ${timestamp.hour}:${timestamp.minute.toString().padLeft(2, '0')}';
   }
+
+  /// Convert Order to JSON for Firestore
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'userId': userId,
+      'items': items.map((item) => item.toJson()).toList(),
+      'total': total,
+      'timestamp': timestamp.toIso8601String(),
+    };
+  }
+
+  /// Create Order from Firestore JSON
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      id: json['id'] as String,
+      userId: json['userId'] as String,
+      items: (json['items'] as List)
+          .map((item) => CartItem.fromJson(item as Map<String, dynamic>))
+          .toList(),
+      total: (json['total'] as num).toDouble(),
+      timestamp: DateTime.parse(json['timestamp'] as String),
+    );
+  }
 }
