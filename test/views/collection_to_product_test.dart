@@ -47,7 +47,6 @@ void main() {
     } catch (e) {
       // Product not found or not tappable - skip this test
       // This can happen if GridView is virtualized
-      print('Skipping product tap test: $e');
     }
   });
 }
