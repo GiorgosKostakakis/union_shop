@@ -7,7 +7,7 @@ import 'auth_provider.dart' as auth_provider;
 /// Handles user authentication with email/password and Google Sign-In
 class AuthService with ChangeNotifier {
   FirebaseAuth get _auth => auth_provider.AuthProvider.instance;
-  GoogleSignIn? _googleSignInInstance;
+  final GoogleSignIn? _googleSignInInstance;
   GoogleSignIn get _googleSignIn => _googleSignInInstance ?? GoogleSignIn();
   
   // For testing - allow injecting a mock GoogleSignIn
