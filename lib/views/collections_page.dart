@@ -15,6 +15,8 @@ class CollectionsPage extends StatefulWidget {
 class _CollectionsPageState extends State<CollectionsPage> {
   String _searchQuery = '';
   String _sortOption = 'Name'; // 'Name', 'Product Count High', 'Product Count Low'
+  int _currentPage = 1;
+  final int _itemsPerPage = 6;
 
   List<Collection> _getFilteredAndSortedCollections() {
     // Filter by search query
@@ -38,9 +40,29 @@ class _CollectionsPageState extends State<CollectionsPage> {
     return filtered;
   }
 
+  List<Collection> _getPaginatedCollections(List<Collection> collections) {
+    final startIndex = (_currentPage - 1) * _itemsPerPage;
+    final endIndex = startIndex + _itemsPerPage;
+    
+    if (startIndex >= collections.length) {
+      return [];
+    }
+    
+    return collections.sublist(
+      startIndex,
+      endIndex > collections.length ? collections.length : endIndex,
+    );
+  }
+
+  int _getTotalPages(List<Collection> collections) {
+    return (collections.length / _itemsPerPage).ceil();
+  }
+
   @override
   Widget build(BuildContext context) {
     final filteredCollections = _getFilteredAndSortedCollections();
+    final paginatedCollections = _getPaginatedCollections(filteredCollections);
+    final totalPages = _getTotalPages(filteredCollections);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -87,6 +109,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                           onChanged: (value) {
                             setState(() {
                               _searchQuery = value;
+                              _currentPage = 1;
                             });
                           },
                         ),
@@ -117,6 +140,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                             if (value != null) {
                               setState(() {
                                 _sortOption = value;
+                                _currentPage = 1;
                               });
                             }
                           },
@@ -146,6 +170,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                           onChanged: (value) {
                             setState(() {
                               _searchQuery = value;
+                              _currentPage = 1;
                             });
                           },
                         ),
@@ -179,6 +204,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                             if (value != null) {
                               setState(() {
                                 _sortOption = value;
+                                _currentPage = 1;
                               });
                             }
                           },
@@ -190,21 +216,33 @@ class _CollectionsPageState extends State<CollectionsPage> {
               ),
             ),
 
-            // Results count
-            if (_searchQuery.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 48),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    '${filteredCollections.length} collection(s) found',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 14,
+            // Results count and pagination info
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (_searchQuery.isNotEmpty)
+                    Text(
+                      '${filteredCollections.length} collection(s) found',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                      ),
+                    )
+                  else
+                    const SizedBox.shrink(),
+                  if (totalPages > 1)
+                    Text(
+                      'Page $_currentPage of $totalPages',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                ),
+                ],
               ),
+            ),
             const SizedBox(height: 16),
 
             // Collections Grid - filtered and sorted
@@ -239,7 +277,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                       crossAxisSpacing: 24,
                       mainAxisSpacing: 24,
                       childAspectRatio: 1.2,
-                      children: filteredCollections.map((Collection col) {
+                      children: paginatedCollections.map((Collection col) {
                         return GestureDetector(
                           onTap: () {
                             // Navigate to collection by id using go_router with context.go to update URL
@@ -302,7 +340,109 @@ class _CollectionsPageState extends State<CollectionsPage> {
                         );
                       }).toList(),
                     )),
-            const SizedBox(height: 40),
+            const SizedBox(height: 24),
+
+            // Pagination Controls
+            if (totalPages > 1)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Previous button
+                    IconButton(
+                      onPressed: _currentPage > 1
+                          ? () {
+                              setState(() {
+                                _currentPage--;
+                              });
+                            }
+                          : null,
+                      icon: const Icon(Icons.chevron_left),
+                      tooltip: 'Previous page',
+                    ),
+                    const SizedBox(width: 16),
+                    
+                    // Page numbers
+                    ...List.generate(totalPages, (index) {
+                      final pageNum = index + 1;
+                      
+                      // Show first page, last page, current page, and pages around current
+                      if (pageNum == 1 ||
+                          pageNum == totalPages ||
+                          (pageNum >= _currentPage - 1 && pageNum <= _currentPage + 1)) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: pageNum == _currentPage
+                              ? Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF4d2963),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '$pageNum',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _currentPage = pageNum;
+                                    });
+                                  },
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey[300]!),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '$pageNum',
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                        );
+                      } else if (pageNum == _currentPage - 2 || pageNum == _currentPage + 2) {
+                        // Show ellipsis
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: Text('...'),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
+                    
+                    const SizedBox(width: 16),
+                    // Next button
+                    IconButton(
+                      onPressed: _currentPage < totalPages
+                          ? () {
+                              setState(() {
+                                _currentPage++;
+                              });
+                            }
+                          : null,
+                      icon: const Icon(Icons.chevron_right),
+                      tooltip: 'Next page',
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 16),
 
             // Footer
             const Footer(),
