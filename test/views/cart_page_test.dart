@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/cart_page.dart';
 import 'package:union_shop/models/cart.dart';
-import 'package:union_shop/models/cart_item.dart';
 import 'package:union_shop/models/product.dart';
 import '../test_helpers.dart';
 
