@@ -44,4 +44,36 @@ class CartItem {
   String get key {
     return '${product.id}_${selectedSize ?? 'nosize'}_${selectedColor ?? 'nocolor'}';
   }
+
+  /// Convert CartItem to JSON for Firestore
+  Map<String, dynamic> toJson() {
+    return {
+      'productId': product.id,
+      'productTitle': product.title,
+      'productPrice': product.price,
+      'productImageUrl': product.imageUrl,
+      'productDescription': product.description,
+      'quantity': quantity,
+      'selectedSize': selectedSize,
+      'selectedColor': selectedColor,
+      'originalPrice': originalPrice,
+    };
+  }
+
+  /// Create CartItem from Firestore JSON
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    return CartItem(
+      product: Product(
+        id: json['productId'] as String,
+        title: json['productTitle'] as String,
+        price: json['productPrice'] as String,
+        imageUrl: json['productImageUrl'] as String,
+        description: json['productDescription'] as String? ?? '',
+      ),
+      quantity: json['quantity'] as int,
+      selectedSize: json['selectedSize'] as String?,
+      selectedColor: json['selectedColor'] as String?,
+      originalPrice: json['originalPrice'] as String?,
+    );
+  }
 }
