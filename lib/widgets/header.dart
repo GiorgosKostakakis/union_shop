@@ -102,11 +102,14 @@ class _HeaderState extends State<Header> {
     final cart = Cart();
     final cartItemCount = cart.itemCount;
     final isNarrow = MediaQuery.of(context).size.width < 900;
+    final router = GoRouter.of(context);
+    final currentLocation = router.routeInformationProvider.value.uri.path;
+    final showBackButton = currentLocation != '/';
 
     return Material(
       color: Colors.white,
       child: SizedBox(
-        height: 100,
+        height: showBackButton ? 130 : 100,
         child: Column(
           children: [
             Container(
@@ -119,6 +122,53 @@ class _HeaderState extends State<Header> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
+            // Back navigation bar (only show if not on home page)
+            if (showBackButton)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey[300]!, width: 1),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back, size: 20),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                      onPressed: () {
+                        if (router.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/');
+                        }
+                      },
+                      tooltip: 'Go back',
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      onPressed: () {
+                        if (router.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/');
+                        }
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: const Size(0, 32),
+                      ),
+                      child: const Text(
+                        'Back',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
