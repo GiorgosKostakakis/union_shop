@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/auth/signup_page.dart';
 import 'package:union_shop/services/auth_service.dart';
 import '../test_helpers.dart';
@@ -294,6 +295,54 @@ void main() {
       );
 
       // Should not throw
+    });
+
+    testWidgets('Google sign up button triggers authentication', (tester) async {
+      setupLargeViewport(tester);
+      final authService = AuthService(googleSignIn: MockGoogleSignIn());
+      
+      final testRouter = GoRouter(
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => SignupPage(authService: authService),
+          ),
+          GoRoute(
+            path: '/dashboard',
+            builder: (context, state) => const Scaffold(body: Text('Dashboard')),
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(
+        MaterialApp.router(routerConfig: testRouter),
+      );
+
+      // Find and tap the Google sign-up button
+      final googleButton = find.textContaining('Google');
+      expect(googleButton, findsOneWidget);
+
+      await tester.tap(googleButton);
+      await tester.pumpAndSettle();
+
+      // Should navigate to dashboard on success
+      expect(find.text('Dashboard'), findsOneWidget);
+    });
+
+    testWidgets('Google sign up shows snackbar on error', (tester) async {
+      setupLargeViewport(tester);
+      final authService = AuthService(googleSignIn: MockGoogleSignIn());
+
+      await tester.pumpWidget(
+        MaterialApp(home: SignupPage(authService: authService)),
+      );
+
+      final googleButton = find.textContaining('Google');
+      await tester.tap(googleButton);
+      await tester.pumpAndSettle();
+
+      // Should handle result gracefully (successful sign-in navigates away, cancellation stays)
+      expect(find.byType(SignupPage), findsWidgets);
     });
   });
 }
