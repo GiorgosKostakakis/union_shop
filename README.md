@@ -86,27 +86,31 @@ A fully-featured e-commerce application built with Flutter, inspired by the Univ
 - Print Shack About page explaining personalization services
 - Footer with quick links and information
 
-## 📸 Screenshots
+## 📸 Screenshots & Demo
 
-> **Note**: Screenshots showcase the application in mobile view (primary target) and desktop view (responsive layout).
+> **Note**: The application is optimized for mobile view but fully responsive for desktop.
 
-### Homepage & Navigation
-- Hero section with featured products
-- Product grid showcasing popular items
-- Header with navigation and cart indicator
-- Mobile-friendly drawer menu
+### 🏠 Homepage
+<img src="assets/hero.png" width="300" alt="Homepage Hero Section">
 
-### Product Browsing
-- Collections overview page
-- Individual collection with filters
-- Product detail pages with variants
-- Sale items with discount badges
+The homepage features a hero banner with featured products and a grid showcasing popular items.
 
-### Shopping & Checkout
-- Shopping cart with item management
-- User dashboard with order history
-- Authentication screens (login/signup)
-- Personalization interface
+### 🛍️ Collections & Products
+Collections are organized by category with filtering and sorting capabilities. Each product page displays variants, pricing, and detailed information.
+
+### 🛒 Shopping Cart
+<img src="assets/logo.png" width="100" alt="Union Shop Logo">
+
+Real-time cart management with quantity adjustments, price calculations, and checkout flow.
+
+### 🔐 Authentication
+Secure login and signup with email/password or Google Sign-In integration. User dashboard displays order history.
+
+### 🎨 Personalization (Print Shack)
+Custom text personalization with live preview, multiple logo styles, and font selection options.
+
+### 📱 Responsive Design
+The application adapts seamlessly between mobile and desktop views with touch-friendly UI elements.
 
 ## 🚀 Getting Started
 
@@ -209,7 +213,7 @@ union_shop/
 └── README.md                          # This file
 ```
 
-## 🏗️ Architecture
+## 🏗️ Architecture & Technologies
 
 ### Design Patterns
 
@@ -224,6 +228,25 @@ union_shop/
 - **StreamBuilder**: For real-time Firebase data
 - **StatefulWidget**: For local component state
 - **InheritedWidget**: For auth state propagation
+
+### Technologies Used
+
+**Frontend Framework**:
+- Flutter SDK 3.0+ - Cross-platform UI toolkit
+- Dart 2.17+ - Programming language
+
+**Backend & Services**:
+- Firebase Authentication - User authentication
+- Cloud Firestore - NoSQL database
+- Google Sign-In - OAuth provider
+
+**Routing & Navigation**:
+- Go Router 17.0.0 - Declarative routing with deep linking
+
+**Development Tools**:
+- Flutter Test - Testing framework
+- Dart DevTools - Debugging and profiling
+- Git - Version control
 
 ### Key Dependencies
 
@@ -412,24 +435,28 @@ dart fix --apply
 2. Implement feature with tests
 3. Ensure tests pass: `flutter test`
 4. Ensure no analysis issues: `flutter analyze`
-5. Format code: `dart format .`
-6. Commit changes: `git commit -m "Add new feature"`
-7. Push to repository: `git push origin feature/my-new-feature`
+## 🐛 Known Issues & Limitations
 
-### Hot Reload
+### Current Limitations
 
-Flutter supports hot reload for rapid development:
-- Press `r` in the terminal to hot reload
-- Press `R` to hot restart
-- Press `q` to quit
+1. **Web-Only Deployment**: Currently optimized for web deployment. Native mobile builds (iOS/Android) require additional configuration.
 
-### Debugging
+2. **Payment Integration**: Checkout flow is simulated - no real payment processing is implemented.
 
-Enable debug mode features:
-- **Flutter DevTools**: Run `flutter pub global run devtools`
-- **Widget Inspector**: Available in IDE or DevTools
-- **Performance Overlay**: Press `P` while app is running
-- **Debug Paint**: Press `p` to show widget boundaries
+3. **Image Assets**: Uses local assets instead of a CDN or cloud storage solution for product images.
+
+4. **Offline Support**: Limited offline functionality - requires internet connection for authentication and order management.
+
+### Future Improvements
+
+- [ ] Implement real payment gateway integration (Stripe/PayPal)
+- [ ] Add product reviews and ratings system
+- [ ] Implement wishlist functionality
+- [ ] Add admin panel for product management
+- [ ] Support for multiple currencies
+- [ ] Enhanced analytics and user tracking
+- [ ] Push notifications for order updates
+- [ ] Native mobile app deployment
 
 ## 🤝 Contributing
 
@@ -452,7 +479,45 @@ Follow conventional commits:
 - `test:` Adding or updating tests
 - `refactor:` Code refactoring
 - `style:` Code style changes (formatting)
-- `chore:` Maintenance tasks
+- `chore:` Maintenance taskslease follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+## 📞 Contact & Support
+
+### Developer Information
+
+**Giorgos Kostakakis**
+- GitHub: [@GiorgosKostakakis](https://github.com/GiorgosKostakakis)
+- Repository: [github.com/GiorgosKostakakis/union_shop](https://github.com/GiorgosKostakakis/union_shop)
+
+### Getting Help
+
+For questions or issues:
+- **Bug Reports**: Use [GitHub Issues](https://github.com/GiorgosKostakakis/union_shop/issues) for bug reports
+- **Feature Requests**: Submit feature requests via GitHub Issues with the `enhancement` label
+- **Discussions**: Use GitHub Discussions for general questions
+
+## 🙏 Acknowledgments
+
+- **University of Portsmouth** for the coursework specification and support
+- **Flutter Team** for the excellent framework and comprehensive documentation
+- **Firebase Team** for robust backend services
+- **Open Source Community** for the amazing packages and tools
+- All contributors and testers who helped improve this project
+
+---
+
+## 📝 Project Information
+
+**Course**: Programming Applications and Programming Languages (M30235) / User Experience Design and Implementation (M32605)  
+**Institution**: University of Portsmouth  
+**Academic Year**: 2024-2025  
+**Project Type**: Coursework Assessment  
+
+---
+
+**Built with ❤️ using Flutter**
 
 ## 📄 License
 
