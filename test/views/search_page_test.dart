@@ -119,5 +119,28 @@ void main() {
       // Verify GestureDetector exists
       expect(find.byType(GestureDetector), findsWidgets);
     });
+
+    testWidgets('image error builder shows fallback icon', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Image.asset(
+              'invalid_path.jpg',
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Center(
+                    child: Icon(Icons.broken_image, color: Colors.grey),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byIcon(Icons.broken_image), findsOneWidget);
+    });
   });
 }

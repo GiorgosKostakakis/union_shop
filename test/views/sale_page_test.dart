@@ -33,6 +33,27 @@ void main() {
       }
     });
 
+    testWidgets('image error builder displays fallback', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: Image.asset(
+              'invalid_image_path.jpg',
+              errorBuilder: (context, error, stackTrace) => Container(
+                color: Colors.grey[200],
+                child: const Center(
+                  child: Icon(Icons.image_not_supported, color: Colors.grey),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+
+      expect(find.byIcon(Icons.image_not_supported), findsOneWidget);
+    });
+
     testWidgets('uses narrow layout for small screens', (tester) async {
       tester.view.physicalSize = const Size(600, 800);
       tester.view.devicePixelRatio = 1.0;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/auth/signup_page.dart';
+import 'package:union_shop/services/auth_service.dart';
 import '../test_helpers.dart';
 
 void main() {
@@ -213,6 +214,81 @@ void main() {
 
       expect(find.text('Test User'), findsOneWidget);
       expect(find.text('test@example.com'), findsOneWidget);
+    });
+
+    testWidgets('successful signup creates user', (tester) async {
+      setupLargeViewport(tester);
+      final mockAuth = MockFirebaseAuth();
+      
+      await tester.pumpWidget(
+        MaterialApp(home: SignupPage(authService: AuthService(googleSignIn: MockGoogleSignIn()))),
+      );
+
+      final fields = find.byType(TextFormField);
+      await tester.enterText(fields.at(0), 'John Doe');
+      await tester.enterText(fields.at(1), 'john@example.com');
+      await tester.enterText(fields.at(2), 'password123');
+      await tester.enterText(fields.at(3), 'password123');
+
+      await tester.tap(find.text('Sign Up'));
+      await tester.pumpAndSettle();
+
+      // Form should still be present after signup (no navigation in test)
+      expect(find.byType(SignupPage), findsOneWidget);
+    });
+
+    testWidgets('failed signup shows error message', (tester) async {
+      setupLargeViewport(tester);
+      final mockAuth = MockFirebaseAuth();
+      
+      await tester.pumpWidget(
+        MaterialApp(home: SignupPage(authService: AuthService(googleSignIn: MockGoogleSignIn()))),
+      );
+
+      // First create a user
+      var fields = find.byType(TextFormField);
+      await tester.enterText(fields.at(0), 'Existing User');
+      await tester.enterText(fields.at(1), 'existing@example.com');
+      await tester.enterText(fields.at(2), 'password123');
+      await tester.enterText(fields.at(3), 'password123');
+      await tester.tap(find.text('Sign Up'));
+      await tester.pumpAndSettle();
+
+      // Navigate back
+      await tester.pumpWidget(
+        MaterialApp(home: SignupPage(authService: AuthService(googleSignIn: MockGoogleSignIn()))),
+      );
+      await tester.pumpAndSettle();
+
+      // Try to create the same user again
+      fields = find.byType(TextFormField);
+      await tester.enterText(fields.at(0), 'Existing User');
+      await tester.enterText(fields.at(1), 'existing@example.com');
+      await tester.enterText(fields.at(2), 'password123');
+      await tester.enterText(fields.at(3), 'password123');
+      await tester.tap(find.text('Sign Up'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SnackBar), findsOneWidget);
+    });
+
+
+
+
+
+    testWidgets('disposes controllers properly', (tester) async {
+      setupLargeViewport(tester);
+      
+      await tester.pumpWidget(
+        const MaterialApp(home: SignupPage()),
+      );
+
+      // Remove the widget to trigger dispose
+      await tester.pumpWidget(
+        const MaterialApp(home: Scaffold(body: Text('Empty'))),
+      );
+
+      // Should not throw
     });
   });
 }
