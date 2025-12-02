@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/services/auth_provider.dart' as auth_provider;
+import 'package:union_shop/services/navigation_history.dart';
 
 class Header extends StatefulWidget {
   final VoidCallback? onLogoTap;
@@ -102,11 +103,27 @@ class _HeaderState extends State<Header> {
     final cart = Cart();
     final cartItemCount = cart.itemCount;
     final isNarrow = MediaQuery.of(context).size.width < 900;
+    final navHistory = NavigationHistory();
+    
+    // Try to get router, but handle gracefully if not available (e.g., in tests)
+    GoRouter? router;
+    String currentLocation = '/';
+    try {
+      router = GoRouter.of(context);
+      currentLocation = router.routeInformationProvider.value.uri.path;
+      // Track current location in history
+      navHistory.push(currentLocation);
+    } catch (_) {
+      // Router not available in this context (e.g., tests)
+    }
+    
+    // Show back button when we have history to go back to
+    final showBackButton = navHistory.canGoBack && router != null;
 
     return Material(
       color: Colors.white,
       child: SizedBox(
-        height: 100,
+        height: showBackButton ? 130 : 100,
         child: Column(
           children: [
             Container(
@@ -119,6 +136,50 @@ class _HeaderState extends State<Header> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
+            if (showBackButton)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey[300]!, width: 1),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back, size: 20),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                      onPressed: () {
+                        final previousLocation = navHistory.pop();
+                        if (previousLocation != null) {
+                          context.go(previousLocation);
+                        }
+                      },
+                      tooltip: 'Go back',
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      onPressed: () {
+                        final previousLocation = navHistory.pop();
+                        if (previousLocation != null) {
+                          context.go(previousLocation);
+                        }
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        minimumSize: const Size(0, 32),
+                      ),
+                      child: const Text(
+                        'Back',
+                        style: TextStyle(fontSize: 14),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
