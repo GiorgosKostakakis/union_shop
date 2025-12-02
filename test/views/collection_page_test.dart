@@ -214,6 +214,29 @@ void main() {
       expect(dropdownWidget.value, 'High');
     });
 
+    testWidgets('sorts products by name', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: CollectionPage(collection: testCollection),
+        ),
+      );
+
+      // Open dropdown and select Name
+      final dropdown = find.byType(DropdownButton<String>);
+      await tester.ensureVisible(dropdown);
+      await tester.tap(dropdown);
+      await tester.pumpAndSettle();
+
+      final nameOption = find.text('Name');
+      await tester.ensureVisible(nameOption);
+      await tester.tap(nameOption);
+      await tester.pumpAndSettle();
+
+      // Verify the dropdown value changed
+      final dropdownWidget = tester.widget<DropdownButton<String>>(dropdown);
+      expect(dropdownWidget.value, 'Name');
+    });
+
     testWidgets('shows no products message when search has no results', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
