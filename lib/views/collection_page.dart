@@ -34,8 +34,10 @@ class _CollectionPageState extends State<CollectionPage> {
       }).toList();
     }
     
-    // Sort by price
-    if (_sortOption == 'Low') {
+    // Sort by selected option
+    if (_sortOption == 'Name') {
+      products.sort((a, b) => a.title.compareTo(b.title));
+    } else if (_sortOption == 'Low') {
       products.sort((a, b) {
         final priceA = double.tryParse(a.price.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
         final priceB = double.tryParse(b.price.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
@@ -104,6 +106,7 @@ class _CollectionPageState extends State<CollectionPage> {
                     value: _sortOption,
                     items: const [
                       DropdownMenuItem(value: 'Sort', child: Text('Sort')),
+                      DropdownMenuItem(value: 'Name', child: Text('Name (A-Z)')),
                       DropdownMenuItem(value: 'Low', child: Text('Price: Low to High')),
                       DropdownMenuItem(value: 'High', child: Text('Price: High to Low')),
                     ],
