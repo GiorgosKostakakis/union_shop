@@ -87,21 +87,21 @@ class _SaleTile extends StatelessWidget {
     return Card(
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-  child: InkWell(
-  onTap: () {
-    // Create a product with the sale price
-    final saleProduct = Product(
-      id: product.id,
-      title: product.title,
-      price: '£${discounted.toStringAsFixed(2)}',
-      imageUrl: product.imageUrl,
-    );
-    // Pass both the sale product and original price
-    context.go('/sale/products/${product.id}', extra: {
-      'product': saleProduct,
-      'originalPrice': '£${price.toStringAsFixed(2)}',
-    });
-  },
+      child: InkWell(
+        onTap: () {
+          // Create a product with the sale price
+          final saleProduct = Product(
+            id: product.id,
+            title: product.title,
+            price: '£${discounted.toStringAsFixed(2)}',
+            imageUrl: product.imageUrl,
+          );
+          // Pass both the sale product and original price
+          context.go('/sale/products/${product.id}', extra: {
+            'product': saleProduct,
+            'originalPrice': '£${price.toStringAsFixed(2)}',
+          });
+        },
         child: Stack(
           children: [
             Padding(
@@ -130,7 +130,11 @@ class _SaleTile extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     product.title,
-                    style: const TextStyle(fontSize: 14, color: Colors.black),
+                    style: const TextStyle(
+                      fontSize: 14, 
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
                     maxLines: 2,
                   ),
                   const SizedBox(height: 6),
@@ -141,14 +145,19 @@ class _SaleTile extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 13,
                           color: Colors.grey,
-                          decoration: TextDecoration.lineThrough,
+                          decoration: TextDecoration.none,
                         ),
                       ),
                       const SizedBox(width: 8),
                       Text(
                         '£${discounted.toStringAsFixed(2)}',
                         key: Key('discountPrice_$index'),
-                        style: const TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 15, 
+                          color: Colors.black, 
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.none,
+                        ),
                       ),
                     ],
                   ),

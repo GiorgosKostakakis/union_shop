@@ -48,6 +48,7 @@ class Footer extends StatelessWidget {
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            decoration: TextDecoration.none,
           ),
         ),
         SizedBox(height: 12),
@@ -56,6 +57,7 @@ class Footer extends StatelessWidget {
           style: TextStyle(
             color: Colors.grey,
             fontSize: 14,
+            decoration: TextDecoration.none,
           ),
         ),
         SizedBox(height: 4),
@@ -64,6 +66,7 @@ class Footer extends StatelessWidget {
           style: TextStyle(
             color: Colors.black87,
             fontSize: 14,
+            decoration: TextDecoration.none,
           ),
         ),
         SizedBox(height: 12),
@@ -72,6 +75,7 @@ class Footer extends StatelessWidget {
           style: TextStyle(
             color: Colors.grey,
             fontSize: 14,
+            decoration: TextDecoration.none,
           ),
         ),
         SizedBox(height: 4),
@@ -80,6 +84,7 @@ class Footer extends StatelessWidget {
           style: TextStyle(
             color: Colors.black87,
             fontSize: 14,
+            decoration: TextDecoration.none,
           ),
         ),
         SizedBox(height: 12),
@@ -89,6 +94,7 @@ class Footer extends StatelessWidget {
             color: Colors.black87,
             fontSize: 14,
             fontWeight: FontWeight.w600,
+            decoration: TextDecoration.none,
           ),
         ),
       ],
@@ -105,6 +111,7 @@ class Footer extends StatelessWidget {
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            decoration: TextDecoration.none,
           ),
         ),
         const SizedBox(height: 12),
@@ -120,6 +127,7 @@ class Footer extends StatelessWidget {
             style: TextStyle(
               color: Color(0xFF4d2963),
               fontSize: 14,
+              decoration: TextDecoration.none,
             ),
           ),
         ),
@@ -135,6 +143,7 @@ class Footer extends StatelessWidget {
             style: TextStyle(
               color: Color(0xFF4d2963),
               fontSize: 14,
+              decoration: TextDecoration.none,
             ),
           ),
         ),
@@ -152,6 +161,7 @@ class Footer extends StatelessWidget {
             color: Colors.black,
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            decoration: TextDecoration.none,
           ),
         ),
       ],
