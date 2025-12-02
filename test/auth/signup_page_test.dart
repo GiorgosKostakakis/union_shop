@@ -20,7 +20,6 @@ void main() {
 
     testWidgets('has all required fields', (tester) async {
       setupLargeViewport(tester);
-      setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
       );
@@ -30,7 +29,6 @@ void main() {
     });
 
     testWidgets('displays Sign Up title', (tester) async {
-      setupLargeViewport(tester);
       setupLargeViewport(tester);
       await tester.pumpWidget(
         const MaterialApp(home: SignupPage()),
@@ -87,6 +85,7 @@ void main() {
       final fields = find.byType(TextFormField);
       await tester.enterText(fields.first, 'A');
       
+      await tester.ensureVisible(find.text('Sign Up'));
       await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
@@ -103,6 +102,7 @@ void main() {
       await tester.enterText(fields.at(0), 'John Doe');
       await tester.enterText(fields.at(1), 'invalidemail');
       
+      await tester.ensureVisible(find.text('Sign Up'));
       await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
@@ -120,6 +120,7 @@ void main() {
       await tester.enterText(fields.at(1), 'john@example.com');
       await tester.enterText(fields.at(2), '12345');
       
+      await tester.ensureVisible(find.text('Sign Up'));
       await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
@@ -138,6 +139,7 @@ void main() {
       await tester.enterText(fields.at(2), 'password123');
       await tester.enterText(fields.at(3), 'password456');
       
+      await tester.ensureVisible(find.text('Sign Up'));
       await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
@@ -230,6 +232,7 @@ void main() {
       await tester.enterText(fields.at(2), 'password123');
       await tester.enterText(fields.at(3), 'password123');
 
+      await tester.ensureVisible(find.text('Sign Up'));
       await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
@@ -251,6 +254,7 @@ void main() {
       await tester.enterText(fields.at(1), 'existing@example.com');
       await tester.enterText(fields.at(2), 'password123');
       await tester.enterText(fields.at(3), 'password123');
+      await tester.ensureVisible(find.text('Sign Up'));
       await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
@@ -266,6 +270,7 @@ void main() {
       await tester.enterText(fields.at(1), 'existing@example.com');
       await tester.enterText(fields.at(2), 'password123');
       await tester.enterText(fields.at(3), 'password123');
+      await tester.ensureVisible(find.text('Sign Up'));
       await tester.tap(find.text('Sign Up'));
       await tester.pumpAndSettle();
 
