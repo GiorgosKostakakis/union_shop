@@ -505,6 +505,14 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Courier New'), findsWidgets);
+      
+      // Enter text to trigger preview rendering with Courier New font
+      final textField = find.byType(TextField).first;
+      await tester.enterText(textField, 'Test Courier');
+      await tester.pumpAndSettle();
+      
+      // Preview should show the text (both in preview and input field)
+      expect(find.text('Test Courier'), findsWidgets);
     });
 
     testWidgets('can change font to Georgia', (tester) async {
