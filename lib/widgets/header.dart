@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/models/cart.dart';
 import 'package:union_shop/services/auth_provider.dart' as auth_provider;
+import 'dart:html' as html;
 
 class Header extends StatefulWidget {
   final VoidCallback? onLogoTap;
@@ -139,24 +140,12 @@ class _HeaderState extends State<Header> {
                       icon: const Icon(Icons.arrow_back, size: 20),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                      onPressed: () {
-                        if (router.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/');
-                        }
-                      },
+                      onPressed: () => html.window.history.back(),
                       tooltip: 'Go back',
                     ),
                     const SizedBox(width: 8),
                     TextButton(
-                      onPressed: () {
-                        if (router.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/');
-                        }
-                      },
+                      onPressed: () => html.window.history.back(),
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         minimumSize: const Size(0, 32),
