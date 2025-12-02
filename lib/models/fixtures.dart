@@ -188,6 +188,12 @@ final List<Collection> collections = [
     imageUrl: 'assets/tshirt.png',
     products: [products[1], products[5], products[2], products[7]],
   ),
+  Collection(
+    id: 'accessories',
+    title: 'Accessories',
+    imageUrl: 'assets/cap.png',
+    products: [products[3], products[9], products[10], products[11]],
+  ),
 ];
 
 // Sale fixtures: reference existing products and include numeric price and discount
