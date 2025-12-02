@@ -1,6 +1,7 @@
 import 'package:union_shop/models/order.dart' as app_order;
 import 'package:union_shop/models/cart_item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer' as developer;
 
 /// Service to manage order history using Firestore
 class OrderService {
@@ -9,7 +10,7 @@ class OrderService {
   factory OrderService() => _instance;
   OrderService._internal();
 
-  // Firestore instance (can be null for testing)
+  // Firestore instance (lazily initialized)
   FirebaseFirestore? _firestore;
   
   // Flag to enable/disable Firestore (for testing)
@@ -21,12 +22,19 @@ class OrderService {
   /// Disable Firestore for testing
   void disableFirestore() {
     _useFirestore = false;
+    _firestore = null;
   }
   
   /// Enable Firestore for production
   void enableFirestore() {
     _useFirestore = true;
     _firestore = FirebaseFirestore.instance;
+  }
+  
+  /// Get or initialize Firestore instance
+  FirebaseFirestore _getFirestore() {
+    _firestore ??= FirebaseFirestore.instance;
+    return _firestore!;
   }
 
   /// Save a new order for a user
@@ -46,13 +54,15 @@ class OrderService {
     // Save to Firestore if enabled
     if (_useFirestore) {
       try {
-        _firestore ??= FirebaseFirestore.instance;
-        await _firestore!
+        developer.log('Saving order ${order.id} for user $userId to Firestore');
+        await _getFirestore()
             .collection('orders')
             .doc(order.id)
             .set(order.toJson());
+        developer.log('Order ${order.id} saved successfully');
       } catch (e) {
-        // Silently fail for Firestore errors in testing
+        developer.log('Error saving order to Firestore: $e', error: e);
+        // Still add to cache even if Firestore fails
       }
     } else {
       // Simulate network delay for tests
@@ -73,20 +83,16 @@ class OrderService {
       return _ordersByUser[userId] ?? [];
     }
 
-    // Check local cache first
-    if (_ordersByUser.containsKey(userId) && _ordersByUser[userId]!.isNotEmpty) {
-      return _ordersByUser[userId]!;
-    }
-
-    // Fetch from Firestore
+    // Always fetch from Firestore to get latest data
     try {
-      _firestore ??= FirebaseFirestore.instance;
-      final querySnapshot = await _firestore!
+      developer.log('Fetching orders for user $userId from Firestore');
+      final querySnapshot = await _getFirestore()
           .collection('orders')
           .where('userId', isEqualTo: userId)
           .orderBy('timestamp', descending: true)
           .get();
 
+      developer.log('Found ${querySnapshot.docs.length} orders for user $userId');
       final orders = querySnapshot.docs
           .map((doc) => app_order.Order.fromJson(doc.data()))
           .toList();
@@ -95,6 +101,7 @@ class OrderService {
       _ordersByUser[userId] = orders;
       return orders;
     } catch (e) {
+      developer.log('Error fetching orders from Firestore: $e', error: e);
       // Return cached data or empty list if Firestore fails
       return _ordersByUser[userId] ?? [];
     }
