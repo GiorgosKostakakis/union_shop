@@ -34,65 +34,71 @@ class _HeaderState extends State<Header> {
   void _showNavigationDrawer(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.home, color: Color(0xFF4d2963)),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.info, color: Color(0xFF4d2963)),
-              title: const Text('About Us'),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/about');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.grid_view, color: Color(0xFF4d2963)),
-              title: const Text('Collections'),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/collections');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.local_offer, color: Color(0xFF4d2963)),
-              title: const Text('Sales'),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/sale');
-              },
-            ),
-            ExpansionTile(
-              leading: const Icon(Icons.print, color: Color(0xFF4d2963)),
-              title: const Text('Print Shack'),
-              children: [
-                ListTile(
-                  title: const Text('Personalisation'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    context.go('/personalisation');
-                  },
-                ),
-                ListTile(
-                  title: const Text('About Print Shack'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    context.go('/print-shack-about');
-                  },
-                ),
-              ],
-            ),
-          ],
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.home, color: Color(0xFF4d2963)),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.pop(context);
+                  context.go('/');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.info, color: Color(0xFF4d2963)),
+                title: const Text('About Us'),
+                onTap: () {
+                  Navigator.pop(context);
+                  context.go('/about');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.grid_view, color: Color(0xFF4d2963)),
+                title: const Text('Collections'),
+                onTap: () {
+                  Navigator.pop(context);
+                  context.go('/collections');
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.local_offer, color: Color(0xFF4d2963)),
+                title: const Text('Sales'),
+                onTap: () {
+                  Navigator.pop(context);
+                  context.go('/sale');
+                },
+              ),
+              ExpansionTile(
+                leading: const Icon(Icons.print, color: Color(0xFF4d2963)),
+                title: const Text('Print Shack'),
+                tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+                childrenPadding: const EdgeInsets.only(left: 16),
+                children: [
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 32),
+                    title: const Text('Personalisation'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      context.go('/personalisation');
+                    },
+                  ),
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 32),
+                    title: const Text('About Print Shack'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      context.go('/print-shack-about');
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -182,7 +188,7 @@ class _HeaderState extends State<Header> {
               ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: isNarrow ? 4 : 10),
                 child: Row(
                   children: [
                     // Left: logo
@@ -190,7 +196,7 @@ class _HeaderState extends State<Header> {
                       onTap: widget.onLogoTap ?? () => context.go('/'),
                       child: Image.asset(
                         'assets/logo.png',
-                        height: 40,
+                        height: isNarrow ? 32 : 40,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -303,8 +309,8 @@ class _HeaderState extends State<Header> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.search, size: 18, color: Color(0xFF4d2963)),
-                        padding: const EdgeInsets.all(8),
-                        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                        padding: EdgeInsets.all(isNarrow ? 4 : 8),
+                        constraints: BoxConstraints(minWidth: isNarrow ? 28 : 32, minHeight: isNarrow ? 28 : 32),
                         onPressed: () => context.go('/search'),
                       ),
                       IconButton(
@@ -315,8 +321,8 @@ class _HeaderState extends State<Header> {
                           size: 18,
                           color: const Color(0xFF4d2963),
                         ),
-                        padding: const EdgeInsets.all(8),
-                        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                        padding: EdgeInsets.all(isNarrow ? 4 : 8),
+                        constraints: BoxConstraints(minWidth: isNarrow ? 28 : 32, minHeight: isNarrow ? 28 : 32),
                         onPressed: () {
                           if (auth_provider.AuthProvider.instance.currentUser != null) {
                             context.go('/dashboard');
@@ -331,8 +337,8 @@ class _HeaderState extends State<Header> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.shopping_bag_outlined, size: 18, color: Color(0xFF4d2963)),
-                            padding: const EdgeInsets.all(8),
-                            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                            padding: EdgeInsets.all(isNarrow ? 4 : 8),
+                            constraints: BoxConstraints(minWidth: isNarrow ? 28 : 32, minHeight: isNarrow ? 28 : 32),
                             onPressed: () => context.go('/cart'),
                           ),
                           if (cartItemCount > 0)
@@ -365,8 +371,8 @@ class _HeaderState extends State<Header> {
                       if (isNarrow)
                         IconButton(
                           icon: const Icon(Icons.menu, size: 18, color: Color(0xFF4d2963)),
-                          padding: const EdgeInsets.all(8),
-                          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                          padding: EdgeInsets.all(isNarrow ? 4 : 8),
+                          constraints: BoxConstraints(minWidth: isNarrow ? 28 : 32, minHeight: isNarrow ? 28 : 32),
                           onPressed: () => _showNavigationDrawer(context),
                         ),
                     ],
