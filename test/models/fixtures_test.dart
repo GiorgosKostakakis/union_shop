@@ -41,7 +41,7 @@ void main() {
     });
 
     test('collections list contains all collections', () {
-      expect(collections, hasLength(6));
+      expect(collections, hasLength(7));
       expect(collections[0].id, equals('clothing'));
       expect(collections[0].title, equals('Clothing'));
     });
