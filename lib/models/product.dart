@@ -4,6 +4,8 @@ class Product {
   final String price;
   final String imageUrl;
   final String description;
+  final List<String>? availableSizes;
+  final List<String>? availableColors;
 
   const Product({
     required this.id,
@@ -11,5 +13,7 @@ class Product {
     required this.price,
     required this.imageUrl,
     this.description = '',
+    this.availableSizes,
+    this.availableColors,
   });
 }
