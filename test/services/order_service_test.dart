@@ -9,6 +9,7 @@ void main() {
 
     setUp(() {
       orderService = OrderService();
+      orderService.disableFirestore(); // Disable Firestore for testing
       orderService.clearAllOrders();
     });
 
@@ -41,7 +42,7 @@ void main() {
         total: 20.00,
       );
 
-      final orders = orderService.getOrdersForUser('user-123');
+      final orders = await orderService.getOrdersForUser('user-123');
       
       expect(orders.length, equals(1));
       expect(orders[0].userId, equals('user-123'));
@@ -65,7 +66,7 @@ void main() {
         total: 30.00,
       );
 
-      final orders = orderService.getOrdersForUser('user-123');
+      final orders = await orderService.getOrdersForUser('user-123');
       
       expect(orders.length, equals(2));
       expect(orders[0].id, isNot(equals(orders[1].id)));
@@ -80,7 +81,7 @@ void main() {
         total: 20.00,
       );
 
-      final orders = orderService.getOrdersForUser('user-123');
+      final orders = await orderService.getOrdersForUser('user-123');
       
       // List.from creates shallow copy, so CartItems are still mutable references
       // This is acceptable for this use case as orders are snapshots at time of purchase
@@ -88,8 +89,8 @@ void main() {
       expect(orders[0].items[0].product.id, equals('prod-1'));
     });
 
-    test('getOrdersForUser returns empty list for new user', () {
-      final orders = orderService.getOrdersForUser('new-user');
+    test('getOrdersForUser returns empty list for new user', () async {
+      final orders = await orderService.getOrdersForUser('new-user');
       
       expect(orders, isEmpty);
     });
@@ -113,15 +114,15 @@ void main() {
         total: 15.00,
       );
 
-      final ordersUser123 = orderService.getOrdersForUser('user-123');
-      final ordersUser456 = orderService.getOrdersForUser('user-456');
+      final ordersUser123 = await orderService.getOrdersForUser('user-123');
+      final ordersUser456 = await orderService.getOrdersForUser('user-456');
       
       expect(ordersUser123.length, equals(2));
       expect(ordersUser456.length, equals(1));
     });
 
-    test('getOrderCount returns 0 for new user', () {
-      final count = orderService.getOrderCount('new-user');
+    test('getOrderCount returns 0 for new user', () async {
+      final count = await orderService.getOrderCount('new-user');
       
       expect(count, equals(0));
     });
@@ -139,7 +140,7 @@ void main() {
         total: 30.00,
       );
 
-      final count = orderService.getOrderCount('user-123');
+      final count = await orderService.getOrderCount('user-123');
       
       expect(count, equals(2));
     });
@@ -159,8 +160,8 @@ void main() {
 
       orderService.clearAllOrders();
 
-      expect(orderService.getOrderCount('user-123'), equals(0));
-      expect(orderService.getOrderCount('user-456'), equals(0));
+      expect(await orderService.getOrderCount('user-123'), equals(0));
+      expect(await orderService.getOrderCount('user-456'), equals(0));
     });
 
     test('saveOrder adds to existing user orders', () async {
@@ -176,7 +177,7 @@ void main() {
         total: 30.00,
       );
 
-      final orders = orderService.getOrdersForUser('user-123');
+      final orders = await orderService.getOrdersForUser('user-123');
       
       expect(orders.length, equals(2));
       expect(orders[0].total, equals(20.00));
