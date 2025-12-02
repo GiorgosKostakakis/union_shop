@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/print_shack_about_page.dart';
+import 'package:union_shop/views/personalisation_page.dart';
 import '../test_helpers.dart';
 
 void main() {
@@ -75,6 +77,47 @@ void main() {
 
       expect(find.text('START PERSONALISING'), findsOneWidget);
       expect(find.byType(ElevatedButton), findsOneWidget);
+    });
+
+    testWidgets('tapping START PERSONALISING button navigates to personalisation page', (tester) async {
+      final router = GoRouter(
+        initialLocation: '/print-shack-about',
+        routes: [
+          GoRoute(
+            path: '/print-shack-about',
+            builder: (context, state) => const PrintShackAboutPage(),
+          ),
+          GoRoute(
+            path: '/personalisation',
+            builder: (context, state) => const PersonalisationPage(),
+          ),
+        ],
+      );
+      
+      await tester.pumpWidget(
+        MaterialApp.router(
+          routerConfig: router,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Scroll down to find the button
+      await tester.dragUntilVisible(
+        find.text('START PERSONALISING'),
+        find.byType(SingleChildScrollView),
+        const Offset(0, -100),
+      );
+      await tester.pumpAndSettle();
+
+      // Find and tap the button
+      final button = find.text('START PERSONALISING');
+      expect(button, findsOneWidget);
+      
+      await tester.tap(button);
+      await tester.pumpAndSettle();
+
+      // Should navigate to personalisation page
+      expect(find.text('Print Shack - Text Personalisation'), findsOneWidget);
     });
 
     testWidgets('displays check icons for features', (tester) async {
