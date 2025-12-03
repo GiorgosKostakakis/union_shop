@@ -37,6 +37,7 @@ const List<Product> products = [
     price: '£20.00',
     imageUrl: 'assets/cap.png',
     description: 'Stylish college cap with embroidered university logo. Adjustable fit.',
+    availableColors: ['Black', 'Navy', 'White', 'Grey'],
   ),
   Product(
     id: 'product-e',
@@ -44,6 +45,7 @@ const List<Product> products = [
     price: '£8.50',
     imageUrl: 'assets/backpack.png',
     description: 'Durable student backpack with multiple compartments for books and laptop.',
+    availableColors: ['Black', 'Navy', 'Grey', 'Red'],
   ),
   Product(
     id: 'product-f',
@@ -87,6 +89,7 @@ const List<Product> products = [
     price: '£12.00',
     imageUrl: 'assets/scarf.png',
     description: 'Warm knitted scarf in university colors. Perfect accessory for cold weather.',
+    availableColors: ['Navy', 'Grey', 'Black', 'Red'],
   ),
   Product(
     id: 'product-k',
@@ -94,6 +97,7 @@ const List<Product> products = [
     price: '£8.00',
     imageUrl: 'assets/water_bottle.png',
     description: 'Reusable water bottle with university logo. BPA-free, 500ml capacity.',
+    availableColors: ['Black', 'White', 'Blue', 'Red'],
   ),
   Product(
     id: 'product-l',
@@ -101,6 +105,7 @@ const List<Product> products = [
     price: '£6.50',
     imageUrl: 'assets/mug.png',
     description: 'Ceramic mug featuring university branding. Dishwasher and microwave safe.',
+    availableColors: ['White', 'Black', 'Navy', 'Red'],
   ),
   Product(
     id: 'product-m',
@@ -108,6 +113,7 @@ const List<Product> products = [
     price: '£15.00',
     imageUrl: 'assets/laptop_sleeve.png',
     description: 'Protective laptop sleeve with university logo. Fits up to 15-inch laptops.',
+    availableColors: ['Black', 'Grey', 'Navy'],
   ),
   Product(
     id: 'product-n',
@@ -124,6 +130,7 @@ const List<Product> products = [
     price: '£15.00',
     imageUrl: 'assets/cap.png',
     description: 'Classic graduation cap (mortarboard) with tassel. Complete your ceremony attire.',
+    availableColors: ['Black'],
   ),
   Product(
     id: 'product-p',
@@ -131,6 +138,7 @@ const List<Product> products = [
     price: '£5.00',
     imageUrl: 'assets/university_pencil_set.png',
     description: 'Set of three ballpoint pens with university branding. Smooth writing.',
+    availableColors: ['Black', 'Blue', 'Red'],
   ),
   Product(
     id: 'product-q',
@@ -138,6 +146,7 @@ const List<Product> products = [
     price: '£10.00',
     imageUrl: 'assets/notebook_bundle.png',
     description: 'Bundle of three A5 notebooks with university logo. Ruled pages, perfect for notes.',
+    availableColors: ['Black', 'Navy', 'Grey'],
   ),
   Product(
     id: 'product-r',
