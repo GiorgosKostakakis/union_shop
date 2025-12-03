@@ -132,7 +132,8 @@ class _SearchPageState extends State<SearchPage> {
                         final product = _searchResults[index];
                         return GestureDetector(
                           onTap: () {
-                            context.go('/product/${product.id}');
+                            final slug = productToSlug(product);
+                            context.go('/product/$slug');
                           },
                           child: Card(
                             elevation: 2,
