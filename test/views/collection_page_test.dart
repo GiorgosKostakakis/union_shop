@@ -227,8 +227,8 @@ void main() {
       await tester.tap(dropdown);
       await tester.pumpAndSettle();
 
-      final nameOption = find.text('Name');
-      await tester.ensureVisible(nameOption);
+      // Find and tap the Name (A-Z) option
+      final nameOption = find.text('Name (A-Z)').last;
       await tester.tap(nameOption);
       await tester.pumpAndSettle();
 
