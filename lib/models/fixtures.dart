@@ -215,10 +215,27 @@ final List<Map<String, dynamic>> saleItems = [
   },
 ];
 
+// Helper function to create URL slug from product title
+String productToSlug(Product product) {
+  return product.title
+      .toLowerCase()
+      .replaceAll(RegExp(r'[^a-z0-9\s-]'), '') // Remove special characters
+      .replaceAll(RegExp(r'\s+'), '-')          // Replace spaces with hyphens
+      .replaceAll(RegExp(r'-+'), '-')           // Replace multiple hyphens with single
+      .trim();
+}
+
 // Helper lookups for routing and deep links
 Product? productById(String id) {
   for (final p in products) {
     if (p.id == id) return p;
+  }
+  return null;
+}
+
+Product? productBySlug(String slug) {
+  for (final p in products) {
+    if (productToSlug(p) == slug) return p;
   }
   return null;
 }
