@@ -96,8 +96,9 @@ class _SaleTile extends StatelessWidget {
             price: '£${discounted.toStringAsFixed(2)}',
             imageUrl: product.imageUrl,
           );
+          final slug = productToSlug(product);
           // Pass both the sale product and original price
-          context.go('/sale/products/${product.id}', extra: {
+          context.go('/sale/products/$slug', extra: {
             'product': saleProduct,
             'originalPrice': '£${price.toStringAsFixed(2)}',
           });
