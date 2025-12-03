@@ -221,6 +221,7 @@ void main() {
 
     testWidgets('successful signup creates user', (tester) async {
       setupLargeViewport(tester);
+      // ignore: unused_local_variable
       final mockAuth = MockFirebaseAuth();
       
       await tester.pumpWidget(
@@ -243,6 +244,7 @@ void main() {
 
     testWidgets('failed signup shows error message', (tester) async {
       setupLargeViewport(tester);
+      // ignore: unused_local_variable
       final mockAuth = MockFirebaseAuth();
       
       await tester.pumpWidget(
