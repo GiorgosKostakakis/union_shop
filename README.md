@@ -463,83 +463,193 @@ dependencies:
 
 ## 🔌 External Services
 
-### 1. Firebase Authentication
+This application integrates **three separate third-party cloud services** to provide a full-featured e-commerce experience:
+
+### 1. Firebase Authentication 🔐
 
 **Purpose**: User authentication and account management
 
-**Features**:
+**Type**: Third-party authentication service (Google Cloud)
+
+**Features Implemented**:
 - Email/password authentication
-- Google Sign-In integration
-- Password reset via email
+- Google Sign-In OAuth integration
+- Password reset functionality via email
 - User profile management (display name, photo URL)
-- Account deletion
+- Secure account deletion
+- Real-time authentication state tracking
 
-**Implementation**:
-- Service wrapper: `lib/services/auth_service.dart`
-- UI components: `lib/auth/login_page.dart`, `lib/auth/signup_page.dart`
-- State management: `lib/services/auth_provider.dart`
+**Integration Details**:
+- **Service Layer**: `lib/services/auth_service.dart` - Wrapper around Firebase Auth SDK
+- **UI Components**: `lib/auth/login_page.dart`, `lib/auth/signup_page.dart`
+- **State Management**: `lib/services/auth_provider.dart` - Global authentication state
+- **Protected Routes**: Dashboard and personalisation pages require authentication
 
-**Usage Example**:
+**Configuration**:
+```yaml
+# pubspec.yaml dependencies
+firebase_auth: ^5.3.3
+google_sign_in: ^6.2.2
+```
+
+**Code Example**:
 ```dart
 // Sign in with email
 await authService.signInWithEmail('user@example.com', 'password');
 
-// Sign in with Google
+// Sign in with Google (OAuth)
 await authService.signInWithGoogle();
 
 // Check authentication state
 final user = authService.currentUser;
+if (user != null) {
+  print('User logged in: ${user.email}');
+}
 ```
 
-### 2. Cloud Firestore
+**Live Demo**: Visit the application and create an account or sign in with Google to see authentication in action.
 
-**Purpose**: NoSQL database for storing orders and user data
+---
 
-**Features**:
-- Real-time order synchronization
-- User-specific order history
-- Scalable document-based storage
-- Offline persistence
+### 2. Cloud Firestore 💾
 
-**Implementation**:
-- Service wrapper: `lib/services/order_service.dart`
-- Data models: `lib/models/order.dart`
+**Purpose**: NoSQL cloud database for persistent data storage
 
-**Database Structure**:
+**Type**: Third-party database service (Google Cloud)
+
+**Features Implemented**:
+- Real-time order synchronization across devices
+- User-specific order history storage
+- Scalable document-based data model
+- Automatic offline persistence
+- Query and filter capabilities
+
+**Integration Details**:
+- **Service Layer**: `lib/services/order_service.dart` - Database operations wrapper
+- **Data Models**: `lib/models/order.dart` - Type-safe order structure
+- **Collections Used**: `orders` collection with user-scoped documents
+
+**Database Schema**:
 ```
-orders/
-  └── {orderId}/
-      ├── userId: string
-      ├── items: array
-      ├── totalPrice: number
-      ├── createdAt: timestamp
-      └── status: string
+Firestore Database
+└── orders/ (collection)
+    └── {orderId}/ (document)
+        ├── userId: string          // Links order to user
+        ├── items: array            // Cart items with details
+        ├── totalPrice: number      // Order total
+        ├── createdAt: timestamp    // Order date
+        └── status: string          // Order status
 ```
 
-**Usage Example**:
+**Configuration**:
+```yaml
+# pubspec.yaml dependencies
+cloud_firestore: ^5.5.0
+```
+
+**Code Example**:
 ```dart
-// Save an order
+// Save an order to Firestore
 await orderService.saveOrder(userId, cart);
 
-// Retrieve user orders
+// Retrieve user's order history
 final orders = await orderService.getOrdersForUser(userId);
 
-// Listen to order changes (real-time)
+// Real-time order updates
 orderService.getOrdersStream(userId).listen((orders) {
-  // Update UI with new orders
+  setState(() => userOrders = orders);
 });
 ```
 
-### 3. Google Sign-In
+**Live Demo**: Sign in to the application, place an order, and view your order history in the Dashboard to see Firestore in action.
 
-**Purpose**: OAuth authentication for quick user onboarding
+---
 
-**Features**:
-- One-tap sign-in
-- Automatic account creation
-- Profile information import (name, email, photo)
+### 3. Google Sign-In (OAuth 2.0) 🔑
 
-**Implementation**: Integrated within `AuthService` with fallback handling
+**Purpose**: OAuth authentication provider for seamless user onboarding
+
+**Type**: Third-party OAuth service (Google)
+
+**Features Implemented**:
+- One-tap sign-in with Google account
+- Automatic account creation and linking
+- Profile information import (name, email, profile photo)
+- Cross-platform support (web, mobile)
+
+**Integration Details**:
+- **Service Integration**: Embedded within `AuthService` class
+- **Authentication Flow**: OAuth 2.0 with Firebase Auth integration
+- **User Experience**: Single button click for complete authentication
+
+**Configuration**:
+```yaml
+# pubspec.yaml dependencies
+google_sign_in: ^6.2.2
+google_sign_in_web: ^0.12.4+2
+```
+
+**Code Example**:
+```dart
+// Initiate Google Sign-In flow
+Future<UserCredential?> signInWithGoogle() async {
+  // Trigger Google OAuth flow
+  final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  
+  // Obtain authentication credentials
+  final GoogleSignInAuthentication googleAuth = 
+      await googleUser!.authentication;
+  
+  // Create Firebase credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+  
+  // Sign in to Firebase with Google credentials
+  return await _auth.signInWithCredential(credential);
+}
+```
+
+**Live Demo**: Visit the login page and click "Sign in with Google" to experience OAuth authentication.
+
+---
+
+### External Services Summary
+
+| Service | Provider | Purpose | Status |
+|---------|----------|---------|--------|
+| **Firebase Authentication** | Google Cloud | User auth, OAuth | ✅ Integrated |
+| **Cloud Firestore** | Google Cloud | Database, order storage | ✅ Integrated |
+| **Google Sign-In** | Google | OAuth provider | ✅ Integrated |
+
+**Total External Services**: 3 separate third-party cloud services
+
+**Key Integration Benefits**:
+- 🔒 **Security**: Industry-standard authentication and data encryption
+- ⚡ **Performance**: Real-time data synchronization and caching
+- 📱 **Cross-platform**: Services work seamlessly across web and mobile
+- 🌐 **Scalability**: Cloud infrastructure handles traffic automatically
+- 💾 **Persistence**: Data survives app restarts and device changes
+
+**Deployment**:
+The application is configured for deployment to **Firebase Hosting** (additional external service):
+- Web deployment ready with `firebase.json` configuration
+- Automatic HTTPS and CDN distribution
+- Global edge network for fast load times
+
+To deploy:
+```bash
+# Build web version
+flutter build web
+
+# Deploy to Firebase Hosting
+firebase deploy --only hosting
+```
+
+**Live Link**: *[If deployed, add your Firebase Hosting URL here, e.g., https://union-3c208.web.app]*
+
+---
 
 ## 🧪 Testing
 
