@@ -147,10 +147,11 @@ class _CollectionPageState extends State<CollectionPage> {
                         return GestureDetector(
                           onTap: () {
                               // Navigate to the nested collection/product path with context.go to update URL
+                              final slug = productToSlug(p);
                               if (widget.collection != null) {
-                                context.go('/collections/${widget.collection!.id}/products/${p.id}', extra: p);
+                                context.go('/collections/${widget.collection!.id}/products/$slug', extra: p);
                               } else {
-                                context.go('/product/${p.id}', extra: p);
+                                context.go('/product/$slug', extra: p);
                               }
                           },
                           child: Card(
