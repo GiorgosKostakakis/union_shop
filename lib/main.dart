@@ -84,11 +84,11 @@ class UnionShopApp extends StatelessWidget {
           builder: (context, state) => const ProductPage(),
         ),
         GoRoute(
-          path: '/product/:productId',
+          path: '/product/:productSlug',
           builder: (context, state) {
-            final pid = state.pathParameters['productId'];
-            if (pid != null) {
-              final p = productById(pid);
+            final slug = state.pathParameters['productSlug'];
+            if (slug != null) {
+              final p = productBySlug(slug);
               if (p != null) return ProductPage(product: p);
             }
             return const ProductPage();
@@ -114,11 +114,11 @@ class UnionShopApp extends StatelessWidget {
           },
         ),
         GoRoute(
-          path: '/collections/:collectionId/products/:productId',
+          path: '/collections/:collectionId/products/:productSlug',
           builder: (context, state) {
-            final pid = state.pathParameters['productId'];
-            if (pid != null) {
-              final p = productById(pid);
+            final slug = state.pathParameters['productSlug'];
+            if (slug != null) {
+              final p = productBySlug(slug);
               if (p != null) return ProductPage(product: p);
             }
             return const ProductPage();
@@ -129,7 +129,7 @@ class UnionShopApp extends StatelessWidget {
           builder: (context, state) => const SalePage(),
         ),
         GoRoute(
-          path: '/sale/products/:productId',
+          path: '/sale/products/:productSlug',
           builder: (context, state) {
             // Check if we have sale data passed via extra
             final extraData = state.extra;
@@ -148,9 +148,9 @@ class UnionShopApp extends StatelessWidget {
             }
             
             // Fallback to regular product lookup
-            final pid = state.pathParameters['productId'];
-            if (pid != null) {
-              final p = productById(pid);
+            final slug = state.pathParameters['productSlug'];
+            if (slug != null) {
+              final p = productBySlug(slug);
               if (p != null) return ProductPage(product: p);
             }
             return const ProductPage();
@@ -367,8 +367,12 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Use GoRouter navigation with product ID for deep routing
-        context.go('/product/$productId');
+        // Use GoRouter navigation with product slug for deep routing
+        final product = productById(productId);
+        if (product != null) {
+          final slug = productToSlug(product);
+          context.go('/product/$slug');
+        }
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
