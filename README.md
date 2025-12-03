@@ -27,7 +27,6 @@ A fully-featured e-commerce application built with Flutter, inspired by the Univ
 - **Google Sign-In** integration for quick access
 - **User Dashboard** displaying order history and account information
 - Secure logout and session management
-- Password reset functionality
 
 ### 🛍️ Shopping Experience
 - **Homepage** with featured products and hero sections
