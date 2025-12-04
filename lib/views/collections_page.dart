@@ -95,6 +95,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                   // Use column layout on narrow screens
                   if (constraints.maxWidth < 600) {
                     return Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         // Search Field
                         TextField(
@@ -155,6 +156,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
 
                   // Use row layout on wider screens
                   return Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       // Search Field
                       Expanded(

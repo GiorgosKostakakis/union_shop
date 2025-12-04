@@ -647,7 +647,31 @@ flutter build web
 firebase deploy --only hosting
 ```
 
-**Live Link**: *[If deployed, add your Firebase Hosting URL here, e.g., https://union-3c208.web.app]*
+---
+
+### 🌐 Live Application Links
+
+**Live Application URL**: https://union-3c208.web.app  
+**Alternative URL**: https://union-3c208.firebaseapp.com
+
+**Firebase Console**: https://console.firebase.google.com/project/union-3c208  
+**Firestore Database**: https://console.firebase.google.com/project/union-3c208/firestore  
+**Authentication Dashboard**: https://console.firebase.google.com/project/union-3c208/authentication
+
+**How to Access**:
+1. Visit the live URL: https://union-3c208.web.app
+2. Create an account or sign in with Google
+3. Browse products and collections
+4. Add items to cart and place orders
+5. View your order history in the Dashboard
+
+**External Services in Action**:
+- **Firebase Auth**: Sign up/login functionality at `/login` and `/signup`
+- **Google Sign-In**: "Sign in with Google" button on login page
+- **Cloud Firestore**: Order history visible in Dashboard after placing orders
+- **Firebase Hosting**: Entire application served from Firebase CDN globally
+
+---
 
 ---
 
