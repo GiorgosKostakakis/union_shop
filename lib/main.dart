@@ -271,7 +271,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'BROWSE COLLECTION',
+                            'BROWSE CLOTHING',
                             style: TextStyle(fontSize: 14, letterSpacing: 1),
                           ),
                         ),
