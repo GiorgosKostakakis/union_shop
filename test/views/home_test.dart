@@ -18,7 +18,7 @@ void main() {
       );
       expect(find.text('Discover Our Collection'), findsOneWidget);
       expect(find.text('PRODUCTS SECTION'), findsOneWidget);
-      expect(find.text('BROWSE COLLECTION'), findsOneWidget);
+      expect(find.text('BROWSE CLOTHING'), findsOneWidget);
     });
 
     testWidgets('should display product cards', (tester) async {
