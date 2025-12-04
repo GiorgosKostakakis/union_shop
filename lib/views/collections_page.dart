@@ -14,14 +14,17 @@ class CollectionsPage extends StatefulWidget {
 
 class _CollectionsPageState extends State<CollectionsPage> {
   String _searchQuery = '';
-  String _sortOption = 'Name'; // 'Name', 'Product Count High', 'Product Count Low'
+  String _sortOption =
+      'Name'; // 'Name', 'Product Count High', 'Product Count Low'
   int _currentPage = 1;
   final int _itemsPerPage = 6;
 
   List<Collection> _getFilteredAndSortedCollections() {
     // Filter by search query
     var filtered = collections.where((collection) {
-      return collection.title.toLowerCase().contains(_searchQuery.toLowerCase());
+      return collection.title
+          .toLowerCase()
+          .contains(_searchQuery.toLowerCase());
     }).toList();
 
     // Sort based on selected option
@@ -43,11 +46,11 @@ class _CollectionsPageState extends State<CollectionsPage> {
   List<Collection> _getPaginatedCollections(List<Collection> collections) {
     final startIndex = (_currentPage - 1) * _itemsPerPage;
     final endIndex = startIndex + _itemsPerPage;
-    
+
     if (startIndex >= collections.length) {
       return [];
     }
-    
+
     return collections.sublist(
       startIndex,
       endIndex > collections.length ? collections.length : endIndex,
@@ -128,7 +131,8 @@ class _CollectionsPageState extends State<CollectionsPage> {
                             ),
                           ),
                           items: const [
-                            DropdownMenuItem(value: 'Name', child: Text('Name (A-Z)')),
+                            DropdownMenuItem(
+                                value: 'Name', child: Text('Name (A-Z)')),
                             DropdownMenuItem(
                                 value: 'Product Count High',
                                 child: Text('Most')),
@@ -192,7 +196,8 @@ class _CollectionsPageState extends State<CollectionsPage> {
                             ),
                           ),
                           items: const [
-                            DropdownMenuItem(value: 'Name', child: Text('Name (A-Z)')),
+                            DropdownMenuItem(
+                                value: 'Name', child: Text('Name (A-Z)')),
                             DropdownMenuItem(
                                 value: 'Product Count High',
                                 child: Text('Most')),
@@ -295,8 +300,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                   child: Image.asset(
                                     col.imageUrl,
                                     fit: BoxFit.contain,
-                                    errorBuilder:
-                                        (context, error, stackTrace) {
+                                    errorBuilder: (context, error, stackTrace) {
                                       return Container(
                                         color: Colors.grey[300],
                                         child: Center(
@@ -345,7 +349,8 @@ class _CollectionsPageState extends State<CollectionsPage> {
             // Pagination Controls
             if (totalPages > 1)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -362,15 +367,16 @@ class _CollectionsPageState extends State<CollectionsPage> {
                       tooltip: 'Previous page',
                     ),
                     const SizedBox(width: 16),
-                    
+
                     // Page numbers
                     ...List.generate(totalPages, (index) {
                       final pageNum = index + 1;
-                      
+
                       // Show first page, last page, current page, and pages around current
                       if (pageNum == 1 ||
                           pageNum == totalPages ||
-                          (pageNum >= _currentPage - 1 && pageNum <= _currentPage + 1)) {
+                          (pageNum >= _currentPage - 1 &&
+                              pageNum <= _currentPage + 1)) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: pageNum == _currentPage
@@ -402,7 +408,8 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                     width: 40,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey[300]!),
+                                      border:
+                                          Border.all(color: Colors.grey[300]!),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Center(
@@ -416,7 +423,8 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                   ),
                                 ),
                         );
-                      } else if (pageNum == _currentPage - 2 || pageNum == _currentPage + 2) {
+                      } else if (pageNum == _currentPage - 2 ||
+                          pageNum == _currentPage + 2) {
                         // Show ellipsis
                         return const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 4),
@@ -425,7 +433,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                       }
                       return const SizedBox.shrink();
                     }),
-                    
+
                     const SizedBox(width: 16),
                     // Next button
                     IconButton(
