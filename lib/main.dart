@@ -56,8 +56,8 @@ class UnionShopApp extends StatelessWidget {
       initialLocation: '/',
       redirect: (context, state) {
         final user = auth_provider.AuthProvider.instance.currentUser;
-        final isAuthRoute = state.matchedLocation == '/login' || 
-                           state.matchedLocation == '/signup';
+        final isAuthRoute = state.matchedLocation == '/login' ||
+            state.matchedLocation == '/signup';
         final isDashboard = state.matchedLocation == '/dashboard';
 
         // If user is not logged in and trying to access dashboard, redirect to login
@@ -73,15 +73,12 @@ class UnionShopApp extends StatelessWidget {
         // No redirect needed
         return null;
       },
-      refreshListenable: GoRouterRefreshStream(auth_provider.AuthProvider.instance.authStateChanges()),
+      refreshListenable: GoRouterRefreshStream(
+          auth_provider.AuthProvider.instance.authStateChanges()),
       routes: <RouteBase>[
         GoRoute(
           path: '/',
           builder: (context, state) => const HomeScreen(),
-        ),
-        GoRoute(
-          path: '/product',
-          builder: (context, state) => const ProductPage(),
         ),
         GoRoute(
           path: '/product/:productSlug',
@@ -146,7 +143,7 @@ class UnionShopApp extends StatelessWidget {
               // Backward compatibility for simple Product extra
               return ProductPage(product: extraData);
             }
-            
+
             // Fallback to regular product lookup
             final slug = state.pathParameters['productSlug'];
             if (slug != null) {
@@ -363,7 +360,7 @@ class ProductCard extends StatelessWidget {
     required this.imageUrl,
   });
 
-      @override
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -377,37 +374,37 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-            Expanded(
-              child: Image.asset(
-                imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[300],
-                    child: const Center(
-                      child: Icon(Icons.image_not_supported, color: Colors.grey),
-                    ),
-                  );
-                },
+          Expanded(
+            child: Image.asset(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Center(
+                    child: Icon(Icons.image_not_supported, color: Colors.grey),
+                  ),
+                );
+              },
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 4),
+              Text(
+                title,
+                style: const TextStyle(fontSize: 14, color: Colors.black),
+                maxLines: 2,
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 4),
-                Text(
-                  title,
-                  style: const TextStyle(fontSize: 14, color: Colors.black),
-                  maxLines: 2,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  price,
-                  style: const TextStyle(fontSize: 13, color: Colors.grey),
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(height: 4),
+              Text(
+                price,
+                style: const TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
