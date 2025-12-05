@@ -182,7 +182,7 @@ void main() {
         const MaterialApp(home: CollectionsPage()),
       );
 
-      expect(find.byType(SingleChildScrollView), findsOneWidget);
+      expect(find.byType(SingleChildScrollView), findsWidgets);
     });
 
     testWidgets('clears search results when query is cleared', (tester) async {

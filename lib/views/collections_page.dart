@@ -89,13 +89,14 @@ class _CollectionsPageState extends State<CollectionsPage> {
 
             // Search and Sort Controls
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   // Use column layout on narrow screens
                   if (constraints.maxWidth < 600) {
                     return Column(
                       mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         // Search Field
                         TextField(
@@ -225,7 +226,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
 
             // Results count and pagination info
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -275,181 +276,197 @@ class _CollectionsPageState extends State<CollectionsPage> {
                     ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 48),
-                    child: GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount:
-                          MediaQuery.of(context).size.width > 800 ? 3 : 1,
-                      crossAxisSpacing: 24,
-                      mainAxisSpacing: 24,
-                      childAspectRatio: 1.2,
-                      children: paginatedCollections.map((Collection col) {
-                        return GestureDetector(
-                          onTap: () {
-                            // Navigate to collection by id using go_router with context.go to update URL
-                            context.go('/collections/${col.id}', extra: col);
-                          },
-                          child: Card(
-                            elevation: 2,
-                            clipBehavior: Clip.antiAlias,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 150,
-                                  width: double.infinity,
-                                  child: Image.asset(
-                                    col.imageUrl,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: Colors.grey[300],
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.image,
-                                            size: 64,
-                                            color: Colors.grey[400],
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        int crossAxisCount = 1;
+                        if (constraints.maxWidth > 1200) {
+                          crossAxisCount = 3;
+                        } else if (constraints.maxWidth > 600) {
+                          crossAxisCount = 2;
+                        }
+
+                        return GridView.count(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 1.2,
+                          children: paginatedCollections.map((Collection col) {
+                            return GestureDetector(
+                              onTap: () {
+                                // Navigate to collection by id using go_router with context.go to update URL
+                                context.go('/collections/${col.id}',
+                                    extra: col);
+                              },
+                              child: Card(
+                                elevation: 2,
+                                clipBehavior: Clip.antiAlias,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 150,
+                                      width: double.infinity,
+                                      child: Image.asset(
+                                        col.imageUrl,
+                                        fit: BoxFit.contain,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Container(
+                                            color: Colors.grey[300],
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.image,
+                                                size: 64,
+                                                color: Colors.grey[400],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            col.title,
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        col.title,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            '${col.products.length} product${col.products.length != 1 ? 's' : ''}',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        '${col.products.length} product${col.products.length != 1 ? 's' : ''}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.grey[600],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          }).toList(),
                         );
-                      }).toList(),
-                    )),
+                      },
+                    ),
+                  ),
             const SizedBox(height: 24),
 
             // Pagination Controls
             if (totalPages > 1)
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Previous button
-                    IconButton(
-                      onPressed: _currentPage > 1
-                          ? () {
-                              setState(() {
-                                _currentPage--;
-                              });
-                            }
-                          : null,
-                      icon: const Icon(Icons.chevron_left),
-                      tooltip: 'Previous page',
-                    ),
-                    const SizedBox(width: 16),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Previous button
+                      IconButton(
+                        onPressed: _currentPage > 1
+                            ? () {
+                                setState(() {
+                                  _currentPage--;
+                                });
+                              }
+                            : null,
+                        icon: const Icon(Icons.chevron_left),
+                        tooltip: 'Previous page',
+                      ),
+                      const SizedBox(width: 16),
 
-                    // Page numbers
-                    ...List.generate(totalPages, (index) {
-                      final pageNum = index + 1;
+                      // Page numbers
+                      ...List.generate(totalPages, (index) {
+                        final pageNum = index + 1;
 
-                      // Show first page, last page, current page, and pages around current
-                      if (pageNum == 1 ||
-                          pageNum == totalPages ||
-                          (pageNum >= _currentPage - 1 &&
-                              pageNum <= _currentPage + 1)) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: pageNum == _currentPage
-                              ? Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF4d2963),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '$pageNum',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      _currentPage = pageNum;
-                                    });
-                                  },
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Container(
+                        // Show first page, last page, current page, and pages around current
+                        if (pageNum == 1 ||
+                            pageNum == totalPages ||
+                            (pageNum >= _currentPage - 1 &&
+                                pageNum <= _currentPage + 1)) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: pageNum == _currentPage
+                                ? Container(
                                     width: 40,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Colors.grey[300]!),
+                                      color: const Color(0xFF4d2963),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Center(
                                       child: Text(
                                         '$pageNum',
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _currentPage = pageNum;
+                                      });
+                                    },
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.grey[300]!),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '$pageNum',
+                                          style: TextStyle(
+                                            color: Colors.grey[700],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                        );
-                      } else if (pageNum == _currentPage - 2 ||
-                          pageNum == _currentPage + 2) {
-                        // Show ellipsis
-                        return const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          child: Text('...'),
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    }),
+                          );
+                        } else if (pageNum == _currentPage - 2 ||
+                            pageNum == _currentPage + 2) {
+                          // Show ellipsis
+                          return const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 4),
+                            child: Text('...'),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      }),
 
-                    const SizedBox(width: 16),
-                    // Next button
-                    IconButton(
-                      onPressed: _currentPage < totalPages
-                          ? () {
-                              setState(() {
-                                _currentPage++;
-                              });
-                            }
-                          : null,
-                      icon: const Icon(Icons.chevron_right),
-                      tooltip: 'Next page',
-                    ),
-                  ],
+                      const SizedBox(width: 16),
+                      // Next button
+                      IconButton(
+                        onPressed: _currentPage < totalPages
+                            ? () {
+                                setState(() {
+                                  _currentPage++;
+                                });
+                              }
+                            : null,
+                        icon: const Icon(Icons.chevron_right),
+                        tooltip: 'Next page',
+                      ),
+                    ],
+                  ),
                 ),
               ),
             const SizedBox(height: 16),
