@@ -95,6 +95,9 @@ class _SaleTile extends StatelessWidget {
             title: product.title,
             price: '£${discounted.toStringAsFixed(2)}',
             imageUrl: product.imageUrl,
+            description: product.description,
+            availableSizes: product.availableSizes,
+            availableColors: product.availableColors,
           );
           final slug = productToSlug(product);
           // Pass both the sale product and original price
