@@ -306,12 +306,11 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      height: 150,
-                                      width: double.infinity,
+                                    Expanded(
                                       child: Image.asset(
                                         col.imageUrl,
                                         fit: BoxFit.contain,
+                                        width: double.infinity,
                                         errorBuilder:
                                             (context, error, stackTrace) {
                                           return Container(
@@ -332,6 +331,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Text(
                                             col.title,
@@ -339,6 +339,8 @@ class _CollectionsPageState extends State<CollectionsPage> {
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                             ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                           const SizedBox(height: 4),
                                           Text(
